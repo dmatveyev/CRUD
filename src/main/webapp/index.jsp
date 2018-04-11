@@ -1,9 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Devcolibri.com</title>
-</head>
-<body>
-    <h1>Hello ${name}</h1>
-</body>
+  <body>
+  <br>
+  <h1>Вход в систему</h1>
+  <table>
+    <caption>Пользователи</caption>
+    <table>
+     <c:forEach var="person" items="${items}">
+     <tr>
+       <td>${person.name}</td>
+       <td>${person.age}</td>
+       <td>${person.height}</td>
+     </tr>
+     </c:forEach>
+   </table>
+    </tr>
+  </table>
+  </body>
 </html>
+

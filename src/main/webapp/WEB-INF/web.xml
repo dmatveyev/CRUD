@@ -5,12 +5,12 @@
          version="3.0">
 
     <servlet>
-        <servlet-name>UserServlet</servlet-name>
-        <servlet-class>UserServlet</servlet-class>
+        <servlet-name>servlets.UserServlet</servlet-name>
+        <servlet-class>servlets.UserServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>UserServlet</servlet-name>
+        <servlet-name>servlets.UserServlet</servlet-name>
         <url-pattern>/crud/</url-pattern>
     </servlet-mapping>
 
