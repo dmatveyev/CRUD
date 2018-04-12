@@ -67,6 +67,13 @@ public class UsersManager {
         return userDAO.getUsers();
     }
 
+    public void createUser(final String login, final String password) {
+        User user = new User();
+        user.setUserId(String.valueOf(Math.random()));
+        user.setLogin(login);
+        user.setPassword(password);
+        registerUser(user);
+    }
 }
 
 

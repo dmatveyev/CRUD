@@ -1,5 +1,8 @@
 package servlets;
 
+import database.User;
+import managers.UsersManager;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,11 +18,18 @@ public class CreateUserServlet  extends HttpServlet {
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        
+        PrintWriter out = resp.getWriter();
+        RequestDispatcher dispatcher = getServletContext()
+                .getRequestDispatcher("/WEB-INF/user.jsp");
+        dispatcher.forward(req, resp);
     }
 
     @Override
     protected void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String login = req.getParameter("login");
+        String password = req.getParameter("pd");
+        UsersManager usersManager = UsersManager.getInstance();
+        usersManager.createUser(login, password);
+        resp.sendRedirect("/CRUD/");
     }
 }
