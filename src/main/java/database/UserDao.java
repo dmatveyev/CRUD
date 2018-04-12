@@ -15,29 +15,21 @@ import java.util.logging.Logger;
 public class UserDao {
 
     private final DBService connectDB;
-    private final Properties sqlQueries;
+
     private final Logger logger;
     List<User> users;
 
     public UserDao() {
         logger = Logger.getLogger("userdao");
         connectDB = new DBService();
-        sqlQueries = new Properties();
-        try {
-            sqlQueries.loadFromXML(ClassLoader.getSystemResourceAsStream("sql_queries.xml"));
-        } catch (final InvalidPropertiesFormatException e) {
-            e.getCause();
-            logger.log(Level.WARNING, e.getMessage(), e);
-        } catch (final IOException e) {
-            logger.log(Level.WARNING, e.getMessage(), e);
-        }
+
     }
 
 
     public User get(final String id) {
         final User user = new User();
         try (Connection conn = connectDB.getConnection();
-             PreparedStatement st = conn.prepareStatement(sqlQueries.getProperty("getUserById"))) {
+             PreparedStatement st = conn.prepareStatement("select * from users where id = ?")) {
             st.setString(1, id);
             try (ResultSet res = st.executeQuery()) {
                 res.next();
@@ -57,7 +49,7 @@ public class UserDao {
     public List<User> getUsers() {
         users = new ArrayList<>();
         try (Connection conn = connectDB.getConnection();
-             PreparedStatement st = conn.prepareStatement(sqlQueries.getProperty("getUsers"))) {
+             PreparedStatement st = conn.prepareStatement("select * from users")) {
             try (ResultSet res = st.executeQuery()) {
                 while (res.next()) {
                     User user = new User();
@@ -80,7 +72,7 @@ public class UserDao {
     public String getUserId(final String login, final String password) {
         String userId = null;
         try (Connection conn = connectDB.getConnection();
-             PreparedStatement st = conn.prepareStatement(sqlQueries.getProperty("getUserId"))) {
+             PreparedStatement st = conn.prepareStatement("select * from users where login = ? and password = ?")) {
             st.setString(1, login);
             st.setString(2, password);
             try (ResultSet res = st.executeQuery()) {
@@ -95,7 +87,7 @@ public class UserDao {
     }
     public void insert(final User t) {
         try (Connection conn = connectDB.getConnection();
-             PreparedStatement statement = conn.prepareStatement(sqlQueries.getProperty("insertUser"))
+             PreparedStatement statement = conn.prepareStatement("insert into users (id,login, password) values (?,?,?)")
         ) {
             statement.setString(1, t.getUserId());
             statement.setString(2, t.getLogin());
@@ -115,7 +107,7 @@ public class UserDao {
 
     public void delete(final String userId) {
         try (Connection conn = connectDB.getConnection();
-             PreparedStatement st = conn.prepareStatement(sqlQueries.getProperty("deleteUser"))) {
+             PreparedStatement st = conn.prepareStatement("delete from users where id = ?")) {
             st.setString(1, userId);
             st.executeUpdate();
         } catch (final SQLException e) {

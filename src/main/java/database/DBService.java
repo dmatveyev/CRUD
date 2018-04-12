@@ -14,21 +14,16 @@ import java.util.logging.Logger;
 
 public class DBService {
 
-    private final Properties properties;
+    private Properties properties;
     private Logger logger;
 
     public DBService() {
         logger = Logger.getLogger("DBService");
-        properties = new Properties();
-        try {
-            properties.load(ClassLoader.getSystemResourceAsStream("general.properties"));
-        } catch (final IOException e) {
-            logger.log(Level.WARNING, e.getMessage(), e);
-        }
     }
 
+
     public Connection getConnection() throws SQLException {
-        final String driver = properties.getProperty("dbdriver");
+        final String driver ="sqlserver";
         if (driver.equals("sqlserver"))
             return getSQLServerConnection();
         if (driver.equals("h2"))
@@ -39,9 +34,9 @@ public class DBService {
 
     private Connection getSQLServerConnection() {
         final SQLServerDataSource dataSource = new SQLServerDataSource();
-        final String url = properties.getProperty("jdbc.url");
-        final String name = properties.getProperty("jdbc.username");
-        final String pass = properties.getProperty("jdbc.password");
+        final String url = "jdbc:sqlserver://localhost:1433;databaseName=dendb";
+        final String name = "sa";
+        final String pass = "magenta";
         dataSource.setURL(url);
         dataSource.setUser(name);
         dataSource.setPassword(pass);
