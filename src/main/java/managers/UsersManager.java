@@ -74,6 +74,10 @@ public class UsersManager {
         user.setPassword(password);
         registerUser(user);
     }
+
+    public void updateUser(User user) {
+        userDAO.update(user);
+    }
 }
 
 

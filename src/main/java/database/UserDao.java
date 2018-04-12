@@ -100,7 +100,15 @@ public class UserDao {
 
 
     public void update(final User t) {
-        // TODO: 12.04.2018 Подумать над методами обновления параметров пользователя.
+        try (Connection conn = connectDB.getConnection();
+        PreparedStatement statement = conn.prepareStatement("update users set login = ?, password = ? where id = ? ")) {
+            statement.setString(1, t.getLogin());
+            statement.setString(2, t.getPassword());
+            statement.setString(3, t.getUserId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
