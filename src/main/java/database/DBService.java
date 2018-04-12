@@ -1,5 +1,7 @@
 package database;
 
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import org.h2.jdbcx.JdbcDataSource;
 
 import java.io.IOException;
@@ -26,11 +28,28 @@ public class DBService {
     }
 
     public Connection getConnection() throws SQLException {
-
-        // TODO: 12.04.2018 Переписать с использованием пула коннектов tomcat
         final String driver = properties.getProperty("dbdriver");
+        if (driver.equals("sqlserver"))
+            return getSQLServerConnection();
         if (driver.equals("h2"))
             return getH2Connection();
+        return null;
+    }
+
+
+    private Connection getSQLServerConnection() {
+        final SQLServerDataSource dataSource = new SQLServerDataSource();
+        final String url = properties.getProperty("jdbc.url");
+        final String name = properties.getProperty("jdbc.username");
+        final String pass = properties.getProperty("jdbc.password");
+        dataSource.setURL(url);
+        dataSource.setUser(name);
+        dataSource.setPassword(pass);
+        try {
+            return dataSource.getConnection();
+        } catch (final SQLServerException e) {
+            logger.log(Level.WARNING, e.getMessage(), e);
+        }
         return null;
     }
 

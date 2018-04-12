@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +17,7 @@ public class UserDao {
     private final DBService connectDB;
     private final Properties sqlQueries;
     private final Logger logger;
+    List<User> users;
 
     public UserDao() {
         logger = Logger.getLogger("userdao");
@@ -49,6 +52,28 @@ public class UserDao {
             logger.log(Level.WARNING, e.getMessage(), e);
         }
         return user;
+    }
+
+    public List<User> getUsers() {
+        users = new ArrayList<>();
+        try (Connection conn = connectDB.getConnection();
+             PreparedStatement st = conn.prepareStatement(sqlQueries.getProperty("getUsers"))) {
+            try (ResultSet res = st.executeQuery()) {
+                while (res.next()) {
+                    User user = new User();
+                    user.setUserId(res.getString(1));
+                    user.setLogin(res.getString(2));
+                    user.setPassword( res.getString(3));
+                    users.add(user);
+                }
+            } catch (final SQLException e) {
+                logger.log(Level.WARNING, e.getMessage(), e);
+            }
+
+        } catch (final SQLException e) {
+            logger.log(Level.WARNING, e.getMessage(), e);
+        }
+        return users;
     }
 
 

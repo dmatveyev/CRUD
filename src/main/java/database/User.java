@@ -3,17 +3,15 @@ package database;
 import java.util.Objects;
 
 
-public class User {
+public class User  {
     // TODO: 12.04.2018 Подумать над параметрами пользователя.
-    private String userId;
-    private String login;
-    private String password;
+    public String userId;
+    public String login;
+    public String password;
 
     public User() {
-        this.userId = null;
-        this.login = null;
-        this.password = null;
     }
+    
 
     public String getUserId() {
         return userId;
@@ -27,13 +25,12 @@ public class User {
         return login;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-
     public void setLogin(final String login) {
         this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(final String password) {

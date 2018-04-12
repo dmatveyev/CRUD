@@ -6,4 +6,5 @@
     <entry key="getUserId">select * from users where login = ? and password = ?</entry>
     <entry key="insertUser">insert into users (id,login, password) values (?,?,?)</entry>
     <entry key="deleteUser">delete from users where id = ?</entry>
+    <entry key="getUsers">select * from users</entry>
 </properties>

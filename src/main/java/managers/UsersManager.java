@@ -2,6 +2,7 @@ package managers;
 import database.User;
 import database.UserDao;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Управляет регистрацией и авторизацией пользователей.
@@ -62,7 +63,10 @@ public class UsersManager {
         return null;
     }
 
-    // TODO: 12.04.2018 Написать метод регистрации нового пользователя.
+    public List<User> getUsers(){
+        return userDAO.getUsers();
+    }
+
 }
 
 
