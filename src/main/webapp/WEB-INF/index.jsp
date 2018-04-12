@@ -2,10 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
   <body>
-  <h1>Вход в систему</h1>
+  <h1>Пользователи</h1>
   <a href="./create-user">Create User</a>
   <table border="1">
-    <caption>Пользователи</caption>
     <tr>
         <td>id</td>
         <td>login</td>

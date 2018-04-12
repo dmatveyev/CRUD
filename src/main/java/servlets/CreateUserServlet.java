@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-@WebServlet(urlPatterns = "/create-user",name = "createUserServlet")
-public class CreateUserServlet  extends HttpServlet {
+@WebServlet(urlPatterns = "/create-user", name = "createUserServlet")
+public class CreateUserServlet extends HttpServlet {
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");

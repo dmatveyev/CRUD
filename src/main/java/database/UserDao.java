@@ -1,14 +1,12 @@
 package database;
 
-import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.InvalidPropertiesFormatException;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,14 +15,11 @@ public class UserDao {
     private final DBService connectDB;
 
     private final Logger logger;
-    List<User> users;
 
     public UserDao() {
         logger = Logger.getLogger("userdao");
         connectDB = new DBService();
-
     }
-
 
     public User get(final String id) {
         final User user = new User();
@@ -47,7 +42,7 @@ public class UserDao {
     }
 
     public List<User> getUsers() {
-        users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         try (Connection conn = connectDB.getConnection();
              PreparedStatement st = conn.prepareStatement("select * from users")) {
             try (ResultSet res = st.executeQuery()) {
@@ -55,7 +50,7 @@ public class UserDao {
                     User user = new User();
                     user.setUserId(res.getString(1));
                     user.setLogin(res.getString(2));
-                    user.setPassword( res.getString(3));
+                    user.setPassword(res.getString(3));
                     users.add(user);
                 }
             } catch (final SQLException e) {
@@ -85,6 +80,7 @@ public class UserDao {
         }
         return userId;
     }
+
     public void insert(final User t) {
         try (Connection conn = connectDB.getConnection();
              PreparedStatement statement = conn.prepareStatement("insert into users (id,login, password) values (?,?,?)")
@@ -101,7 +97,7 @@ public class UserDao {
 
     public void update(final User t) {
         try (Connection conn = connectDB.getConnection();
-        PreparedStatement statement = conn.prepareStatement("update users set login = ?, password = ? where id = ? ")) {
+             PreparedStatement statement = conn.prepareStatement("update users set login = ?, password = ? where id = ? ")) {
             statement.setString(1, t.getLogin());
             statement.setString(2, t.getPassword());
             statement.setString(3, t.getUserId());
@@ -110,7 +106,6 @@ public class UserDao {
             e.printStackTrace();
         }
     }
-
 
 
     public void delete(final String userId) {

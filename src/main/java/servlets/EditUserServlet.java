@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-
-@WebServlet(urlPatterns = "/edit-user",name = "EditUserServlet")
-public class EditUserServlet  extends HttpServlet {
+@WebServlet(urlPatterns = "/edit-user", name = "EditUserServlet")
+public class EditUserServlet extends HttpServlet {
     private User user;
+
     public EditUserServlet() {
         user = new User();
 
