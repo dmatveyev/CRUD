@@ -1,11 +1,8 @@
 package services;
 
-import model.User;
 import dao.*;
-import utils.DaoFactories;
-import utils.HibernateDaoFactory;
-import utils.JDBCDaoFactory;
-import utils.UserDaoFactory;
+import model.User;
+import utils.*;
 
 import java.io.*;
 import java.util.List;
@@ -22,7 +19,7 @@ public class UsersService {
 
     private final String propertiesPath = "D:\\apache-tomcat-8.0.48\\webapps\\f.properties";
     private static UsersService usersService;
-    private final UserDAO userDAO;
+    private UserDAO userDAO;
 
 
     private UsersService() {

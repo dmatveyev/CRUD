@@ -3,7 +3,6 @@ package dao;
 import utils.DBHelper;
 import model.User;
 import org.hibernate.*;
-
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDAO {

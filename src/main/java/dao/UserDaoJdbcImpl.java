@@ -1,6 +1,5 @@
 package dao;
 
-
 import utils.DBHelper;
 import model.User;
 

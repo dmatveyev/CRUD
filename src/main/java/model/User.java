@@ -21,6 +21,9 @@ public class User implements Serializable {
     @Column(name = "password")
     public String password;
 
+    @Column(name = "role")
+    public String role;
+
     public User() {
     }
     
@@ -47,6 +50,14 @@ public class User implements Serializable {
 
     public void setPassword(final String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override

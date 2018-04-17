@@ -1,7 +1,6 @@
 package utils;
 
-import dao.UserDAO;
-import dao.UserDaoHibernateImpl;
+import dao.*;
 
 public class HibernateDaoFactory extends UserDaoFactory {
     @Override

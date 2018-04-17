@@ -1,7 +1,7 @@
 package utils;
 
-import dao.UserDAO;
 
+import dao.*;
 /**
  * Created by Денис on 17.04.2018.
  */
