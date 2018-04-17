@@ -24,7 +24,12 @@ public class EditUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
         user.setId(id);
+        user.setLogin(login);
+        user.setPassword(password);
+        req.setAttribute("user", user);
         resp.setContentType("text/html");
         RequestDispatcher dispatcher = getServletContext()
                 .getRequestDispatcher("/WEB-INF/edit.jsp");
