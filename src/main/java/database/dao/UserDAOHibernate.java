@@ -25,7 +25,7 @@ public class UserDAOHibernate implements UserDAO {
             session.save(user);
             transaction.commit();
             session.close();
-        }catch (HibernateException e ) {
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
 
@@ -43,7 +43,7 @@ public class UserDAOHibernate implements UserDAO {
             Session session = sessionFactory.openSession();
             user = (User) session.get(User.class, id);
             session.close();
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return user;
@@ -60,20 +60,20 @@ public class UserDAOHibernate implements UserDAO {
                     .executeUpdate();
             transaction.commit();
             session.close();
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public List<User> getUsers() {
-        List<User>  users= null;
+        List<User> users = null;
         try {
             Session session = sessionFactory.openSession();
             Query query = session.createQuery("from User");
             users = query.list();
             session.close();
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return users;
@@ -92,7 +92,7 @@ public class UserDAOHibernate implements UserDAO {
                     .executeUpdate();
             transaction.commit();
             session.close();
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
 

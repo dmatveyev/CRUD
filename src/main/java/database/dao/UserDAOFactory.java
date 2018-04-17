@@ -5,5 +5,5 @@ package database.dao;
  */
 public abstract class UserDAOFactory {
 
-   public abstract UserDAO createDao();
+    public abstract UserDAO createDao();
 }

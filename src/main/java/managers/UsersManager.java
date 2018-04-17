@@ -1,4 +1,5 @@
 package managers;
+
 import database.User;
 import database.dao.*;
 
@@ -20,12 +21,7 @@ public class UsersManager {
 
     private UsersManager() {
         Properties properties = new Properties();
-        properties.setProperty("DaoFactory",DaoFactories.jdbc.name());
-        /*try {
-            properties.store(new FileWriter("D:\\apache-tomcat-8.0.48\\webapps\\f.properties"),"");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        properties.setProperty("DaoFactory", DaoFactories.jdbc.name());
         try {
             properties.load(Files.newInputStream(Paths.get("D:\\apache-tomcat-8.0.48\\webapps\\f.properties")));
         } catch (IOException e) {
@@ -35,7 +31,7 @@ public class UsersManager {
         if (properties.getProperty("DaoFactory").equals(DaoFactories.hibernate.name())) {
             userDAOFactory = new HibernateDaoFactory();
         }
-        if(properties.getProperty("DaoFactory").equals(DaoFactories.jdbc.name())){
+        if (properties.getProperty("DaoFactory").equals(DaoFactories.jdbc.name())) {
             userDAOFactory = new JDBCDaoFactory();
         }
         userDAO = userDAOFactory.createDao();
@@ -51,22 +47,6 @@ public class UsersManager {
     String registerUser(final User user) {
         userDAO.insert(user);
         return user.getId();
-    }
-
-    /**
-     * Проверяет совпадение пользователя в списке зарегистрированных
-     *
-     * @param login    логин пользователя
-     * @param password пароль пользователя
-     * @return Id пользователя, если такой пользователь был найден,
-     * null если пользователь не найден
-     */
-    public String isRegistered(final String login, final String password) {
-        return userDAO.getUserId(login, password);
-    }
-
-    User getRegisteredUser(final String id) {
-        return userDAO.get(id);
     }
 
     public void deleteUser(final String id) {
@@ -86,7 +66,7 @@ public class UsersManager {
         return null;
     }
 
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userDAO.getUsers();
     }
 
