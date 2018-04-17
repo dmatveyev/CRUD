@@ -22,8 +22,8 @@ public class UsersManager {
 
     private UsersManager() {
         Properties properties = new Properties();
-        try {
-            properties.load(Files.newInputStream(Paths.get(propertiesPath)));
+        try (InputStream in = new FileInputStream(propertiesPath)){
+            properties.load(in);
         } catch (IOException e) {
             e.printStackTrace();
         }
