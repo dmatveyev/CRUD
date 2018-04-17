@@ -12,14 +12,23 @@ import java.util.logging.Level;
 
 public class DBHelper {
 
+    public static DBHelper dbHelper;
+
     private static final String hibernate_show_sql = "true";
     private static final String hibernate_hbm2ddl_auto = "update";
 
     private final SessionFactory sessionFactory;
 
-    public DBHelper() {
+    private DBHelper() {
         Configuration configuration = getMsSqlConfiguration();
         sessionFactory = createSessionFactory(configuration);
+    }
+
+    public static DBHelper getInstance() {
+        if (dbHelper == null) {
+            dbHelper = new DBHelper();
+        }
+        return dbHelper;
     }
 
     public Connection getConnection()  {

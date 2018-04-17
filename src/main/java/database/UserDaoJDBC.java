@@ -12,13 +12,13 @@ import java.util.logging.Logger;
 
 public class UserDaoJDBC implements UserDAO {
 
-    private final DBServiceJDBC connectDB;
+    private final DBHelper connectDB;
 
     private final Logger logger;
 
     public UserDaoJDBC() {
         logger = Logger.getLogger("userdao");
-        connectDB = new DBServiceJDBC();
+        connectDB = DBHelper.getInstance();
     }
 
     public User get(final String id) {

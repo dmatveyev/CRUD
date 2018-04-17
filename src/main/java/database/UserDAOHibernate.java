@@ -7,10 +7,10 @@ import java.util.List;
 public class UserDAOHibernate implements UserDAO {
 
     private SessionFactory sessionFactory;
-    private final DBServiceHibernate connectDB;
+    private final DBHelper connectDB;
 
     public UserDAOHibernate() {
-        connectDB = new DBServiceHibernate();
+        connectDB = DBHelper.getInstance();
         sessionFactory = connectDB.getSessionFactory();
 
     }
