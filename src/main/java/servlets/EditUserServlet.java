@@ -15,6 +15,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/edit-user", name = "EditUserServlet")
 public class EditUserServlet extends HttpServlet {
     private User user;
+    private UsersManager usersManager;
 
     public EditUserServlet() {
         user = new User();
@@ -24,11 +25,8 @@ public class EditUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
-        user.setId(id);
-        user.setLogin(login);
-        user.setPassword(password);
+        usersManager = UsersManager.getInstance();
+        user = usersManager.getUserById(id);
         req.setAttribute("user", user);
         resp.setContentType("text/html");
         RequestDispatcher dispatcher = getServletContext()
@@ -40,7 +38,7 @@ public class EditUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UsersManager usersManager = UsersManager.getInstance();
+        usersManager = UsersManager.getInstance();
 
         String login = req.getParameter("login");
         String password = req.getParameter("pd");

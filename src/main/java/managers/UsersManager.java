@@ -4,10 +4,12 @@ import database.User;
 import database.dao.*;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
+
+import static database.dao.DaoFactories.*;
+import static java.lang.String.valueOf;
+
 
 /**
  * Управляет регистрацией и авторизацией пользователей.
@@ -32,13 +34,19 @@ public class UsersManager {
     }
 
     private UserDaoFactory getDaoFactory(Properties properties) {
-        if (properties.getProperty("DaoFactory").equals(DaoFactories.hibernate.name())) {
-            return new HibernateDaoFactory();
+        UserDaoFactory userDaoFactory;
+        switch (DaoFactories.valueOf(properties.getProperty("DaoFactory"))) {
+            case hibernate:
+                userDaoFactory = new HibernateDaoFactory();
+                break;
+            case jdbc:
+                userDaoFactory = new JDBCDaoFactory();
+                break;
+            default:
+                userDaoFactory = new JDBCDaoFactory();
+                break;
         }
-        if (properties.getProperty("DaoFactory").equals(DaoFactories.jdbc.name())) {
-            return new JDBCDaoFactory();
-        }
-        return new JDBCDaoFactory();
+        return userDaoFactory;
     }
 
     public static UsersManager getInstance() {
@@ -63,7 +71,7 @@ public class UsersManager {
 
     public void createUser(final String login, final String password) {
         User user = new User();
-        user.setId(String.valueOf(Math.random()));
+        user.setId(valueOf(Math.random()));
         user.setLogin(login);
         user.setPassword(password);
         registerUser(user);
@@ -71,6 +79,10 @@ public class UsersManager {
 
     public void updateUser(User user) {
         userDAO.update(user);
+    }
+
+    public User getUserById(String id) {
+        return  userDAO.get(id);
     }
 }
 
