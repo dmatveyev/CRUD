@@ -15,6 +15,7 @@ import java.util.Properties;
  */
 public class UsersManager {
 
+    private final String propertiesPath = "D:\\apache-tomcat-8.0.48\\webapps\\f.properties";
     private static UsersManager usersManager;
     private final UserDAO userDAO;
 
@@ -22,18 +23,22 @@ public class UsersManager {
     private UsersManager() {
         Properties properties = new Properties();
         try {
-            properties.load(Files.newInputStream(Paths.get("D:\\apache-tomcat-8.0.48\\webapps\\f.properties")));
+            properties.load(Files.newInputStream(Paths.get(propertiesPath)));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        UserDaoFactory userDaoFactory = null;
+        UserDaoFactory userDaoFactory = getDaoFactory(properties);
+        userDAO = userDaoFactory.createDao();
+    }
+
+    private UserDaoFactory getDaoFactory(Properties properties) {
         if (properties.getProperty("DaoFactory").equals(DaoFactories.hibernate.name())) {
-            userDaoFactory = new HibernateDaoFactory();
+            return new HibernateDaoFactory();
         }
         if (properties.getProperty("DaoFactory").equals(DaoFactories.jdbc.name())) {
-            userDaoFactory = new JDBCDaoFactory();
+            return new JDBCDaoFactory();
         }
-        userDAO = userDaoFactory.createDao();
+        return null;
     }
 
     public static UsersManager getInstance() {
@@ -50,19 +55,6 @@ public class UsersManager {
 
     public void deleteUser(final String id) {
         userDAO.delete(id);
-    }
-
-    /**
-     * Проверяет введенные данные и авторизует пользователя.
-     *
-     * @param login    Предполагаемый логин пользователя
-     * @param password предполагаемый пароль пользователя.
-     * @return Зарегистрированный или новый пользователь
-     * @throws IOException Пробоасывается в случае, если есть активная сессия пользователя.
-     */
-    public User authorize(final String login, final String password) throws IOException {
-        // TODO: 12.04.2018 Написать метод авторизации
-        return null;
     }
 
     public List<User> getUsers() {
