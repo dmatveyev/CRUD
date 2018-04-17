@@ -38,7 +38,7 @@ public class UsersManager {
         if (properties.getProperty("DaoFactory").equals(DaoFactories.jdbc.name())) {
             return new JDBCDaoFactory();
         }
-        return null;
+        return new JDBCDaoFactory();
     }
 
     public static UsersManager getInstance() {
