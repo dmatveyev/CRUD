@@ -14,11 +14,11 @@
     </tr>
     <c:forEach var="user" items="${users}">
       <tr>
-        <td><c:out value="${user.userId}" /></td>
+        <td><c:out value="${user.id}" /></td>
         <td><c:out value="${user.login}" /></td>
         <td><c:out value="${user.password}" /></td>
-         <td><a href="./edit-user?id=${user.userId}">edit</a></td>
-        <td><a href="./delete-user?id=${user.userId}">delete</a></td>
+         <td><a href="./edit-user?id=${user.id}">edit</a></td>
+        <td><a href="./delete-user?id=${user.id}">delete</a></td>
       </tr>
     </c:forEach>
   </table>

@@ -1,24 +1,36 @@
 package database;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Objects;
 
-
-public class User  {
+@Entity
+@Table(name = "users")
+public class User implements Serializable {
     // TODO: 12.04.2018 Подумать над параметрами пользователя.
-    public String userId;
+    @Id
+    @Column(name ="id")
+    public String id;
+
+    @Column(name ="login")
     public String login;
+
+    @Column(name = "password")
     public String password;
 
     public User() {
     }
     
 
-    public String getUserId() {
-        return userId;
+    public String getId() {
+        return id;
     }
 
-    public void setUserId(final String userId) {
-        this.userId = userId;
+    public void setId(final String id) {
+        this.id = id;
     }
 
     public String getLogin() {

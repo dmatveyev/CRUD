@@ -10,15 +10,15 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UserDao {
+public class UserDaoJDBC implements UserDAOinter {
 
-    private final DBService connectDB;
+    private final DBServiceJDBC connectDB;
 
     private final Logger logger;
 
-    public UserDao() {
+    public UserDaoJDBC() {
         logger = Logger.getLogger("userdao");
-        connectDB = new DBService();
+        connectDB = new DBServiceJDBC();
     }
 
     public User get(final String id) {
@@ -28,7 +28,7 @@ public class UserDao {
             st.setString(1, id);
             try (ResultSet res = st.executeQuery()) {
                 res.next();
-                user.setUserId(res.getString(1));
+                user.setId(res.getString(1));
                 user.setLogin(res.getString(2));
                 user.setPassword(res.getString(3));
             } catch (final SQLException e) {
@@ -48,7 +48,7 @@ public class UserDao {
             try (ResultSet res = st.executeQuery()) {
                 while (res.next()) {
                     User user = new User();
-                    user.setUserId(res.getString(1));
+                    user.setId(res.getString(1));
                     user.setLogin(res.getString(2));
                     user.setPassword(res.getString(3));
                     users.add(user);
@@ -85,7 +85,7 @@ public class UserDao {
         try (Connection conn = connectDB.getConnection();
              PreparedStatement statement = conn.prepareStatement("insert into users (id,login, password) values (?,?,?)")
         ) {
-            statement.setString(1, t.getUserId());
+            statement.setString(1, t.getId());
             statement.setString(2, t.getLogin());
             statement.setString(3, t.getPassword());
             statement.executeUpdate();
@@ -100,7 +100,7 @@ public class UserDao {
              PreparedStatement statement = conn.prepareStatement("update users set login = ?, password = ? where id = ? ")) {
             statement.setString(1, t.getLogin());
             statement.setString(2, t.getPassword());
-            statement.setString(3, t.getUserId());
+            statement.setString(3, t.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

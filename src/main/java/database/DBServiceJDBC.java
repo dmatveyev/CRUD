@@ -5,6 +5,8 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import org.h2.jdbcx.JdbcDataSource;
 
 
+
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,13 +14,13 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DBService {
+public class DBServiceJDBC {
 
 
     private Logger logger;
 
-    public DBService() {
-        logger = Logger.getLogger("DBService");
+    public DBServiceJDBC() {
+        logger = Logger.getLogger("DBServiceJDBC");
     }
 
 

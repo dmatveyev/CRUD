@@ -1,6 +1,8 @@
 package managers;
 import database.User;
-import database.UserDao;
+import database.UserDAOinter;
+import database.UserDAOHibernate;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -11,11 +13,11 @@ import java.util.List;
 public class UsersManager {
 
     private static UsersManager usersManager;
-    private final UserDao userDAO;
+    private final UserDAOinter userDAOinter;
 
 
     private UsersManager() {
-        userDAO = new UserDao();
+        userDAOinter = new UserDAOHibernate();
     }
 
     public static UsersManager getInstance() {
@@ -26,8 +28,8 @@ public class UsersManager {
     }
 
     String registerUser(final User user) {
-        userDAO.insert(user);
-        return user.getUserId();
+        userDAOinter.insert(user);
+        return user.getId();
     }
 
     /**
@@ -39,15 +41,15 @@ public class UsersManager {
      * null если пользователь не найден
      */
     public String isRegistered(final String login, final String password) {
-        return userDAO.getUserId(login, password);
+        return userDAOinter.getUserId(login, password);
     }
 
     User getRegisteredUser(final String id) {
-        return userDAO.get(id);
+        return userDAOinter.get(id);
     }
 
     public void deleteUser(final String id) {
-        userDAO.delete(id);
+        userDAOinter.delete(id);
     }
 
     /**
@@ -64,19 +66,19 @@ public class UsersManager {
     }
 
     public List<User> getUsers(){
-        return userDAO.getUsers();
+        return userDAOinter.getUsers();
     }
 
     public void createUser(final String login, final String password) {
         User user = new User();
-        user.setUserId(String.valueOf(Math.random()));
+        user.setId(String.valueOf(Math.random()));
         user.setLogin(login);
         user.setPassword(password);
         registerUser(user);
     }
 
     public void updateUser(User user) {
-        userDAO.update(user);
+        userDAOinter.update(user);
     }
 }
 
