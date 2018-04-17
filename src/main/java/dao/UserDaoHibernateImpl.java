@@ -1,7 +1,7 @@
-package database.dao;
+package dao;
 
-import database.DBHelper;
-import database.User;
+import utils.DBHelper;
+import model.User;
 import org.hibernate.*;
 
 import java.util.List;

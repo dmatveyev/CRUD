@@ -1,6 +1,6 @@
-package servlets;
+package controllers;
 
-import managers.UsersManager;
+import services.UsersService;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,9 +12,9 @@ import java.io.IOException;
 public class DeleteUserServlet extends HttpServlet {
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws IOException {
-        UsersManager usersManager = UsersManager.getInstance();
+        UsersService usersService = UsersService.getInstance();
         String id = req.getParameter("id");
-        usersManager.deleteUser(id);
+        usersService.deleteUser(id);
         resp.sendRedirect("/CRUD/");
     }
 }

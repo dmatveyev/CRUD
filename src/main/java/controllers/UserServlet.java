@@ -1,7 +1,7 @@
-package servlets;
+package controllers;
 
-import database.User;
-import managers.UsersManager;
+import model.User;
+import services.UsersService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,12 +14,12 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/", name = "UserServlet")
 public class UserServlet extends HttpServlet {
-    private UsersManager usersManager;
+    private UsersService usersService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        usersManager = UsersManager.getInstance();
-        List<User> users = usersManager.getUsers();
+        usersService = UsersService.getInstance();
+        List<User> users = usersService.getUsers();
         req.setAttribute("users", users);
         RequestDispatcher dispatcher = getServletContext()
                 .getRequestDispatcher("/WEB-INF/index.jsp");

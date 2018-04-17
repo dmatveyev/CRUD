@@ -1,7 +1,7 @@
-package servlets;
+package controllers;
 
-import database.User;
-import managers.UsersManager;
+import model.User;
+import services.UsersService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/edit-user", name = "EditUserServlet")
 public class EditUserServlet extends HttpServlet {
     private User user;
-    private UsersManager usersManager;
+    private UsersService usersService;
 
     public EditUserServlet() {
         user = new User();
@@ -25,8 +25,8 @@ public class EditUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        usersManager = UsersManager.getInstance();
-        user = usersManager.getUserById(id);
+        usersService = UsersService.getInstance();
+        user = usersService.getUserById(id);
         req.setAttribute("user", user);
         resp.setContentType("text/html");
         RequestDispatcher dispatcher = getServletContext()
@@ -38,7 +38,7 @@ public class EditUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        usersManager = UsersManager.getInstance();
+        usersService = UsersService.getInstance();
 
         String login = req.getParameter("login");
         String password = req.getParameter("pd");
@@ -46,7 +46,7 @@ public class EditUserServlet extends HttpServlet {
         user.setLogin(login);
         user.setPassword(password);
 
-        usersManager.updateUser(user);
+        usersService.updateUser(user);
         resp.sendRedirect("/CRUD/");
     }
 }

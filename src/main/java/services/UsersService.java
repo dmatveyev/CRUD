@@ -1,13 +1,16 @@
-package managers;
+package services;
 
-import database.User;
-import database.dao.*;
+import model.User;
+import dao.*;
+import utils.DaoFactories;
+import utils.HibernateDaoFactory;
+import utils.JDBCDaoFactory;
+import utils.UserDaoFactory;
 
 import java.io.*;
 import java.util.List;
 import java.util.Properties;
 
-import static database.dao.DaoFactories.*;
 import static java.lang.String.valueOf;
 
 
@@ -15,14 +18,14 @@ import static java.lang.String.valueOf;
  * Управляет регистрацией и авторизацией пользователей.
  * Синглтон
  */
-public class UsersManager {
+public class UsersService {
 
     private final String propertiesPath = "D:\\apache-tomcat-8.0.48\\webapps\\f.properties";
-    private static UsersManager usersManager;
+    private static UsersService usersService;
     private final UserDAO userDAO;
 
 
-    private UsersManager() {
+    private UsersService() {
         Properties properties = new Properties();
         try (InputStream in = new FileInputStream(propertiesPath)){
             properties.load(in);
@@ -49,11 +52,11 @@ public class UsersManager {
         return userDaoFactory;
     }
 
-    public static UsersManager getInstance() {
-        if (usersManager == null) {
-            usersManager = new UsersManager();
+    public static UsersService getInstance() {
+        if (usersService == null) {
+            usersService = new UsersService();
         }
-        return usersManager;
+        return usersService;
     }
 
     private String registerUser(final User user) {

@@ -1,4 +1,4 @@
-package database.dao;
+package utils;
 
 public enum DaoFactories {
     hibernate,

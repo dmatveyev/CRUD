@@ -1,4 +1,7 @@
-package database.dao;
+package utils;
+
+import dao.UserDAO;
+import dao.UserDaoJdbcImpl;
 
 public class JDBCDaoFactory extends UserDaoFactory {
     @Override

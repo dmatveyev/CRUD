@@ -1,7 +1,7 @@
-package servlets;
+package controllers;
 
 
-import managers.UsersManager;
+import services.UsersService;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,8 +26,8 @@ public class CreateUserServlet extends HttpServlet {
     protected void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("pd");
-        UsersManager usersManager = UsersManager.getInstance();
-        usersManager.createUser(login, password);
+        UsersService usersService = UsersService.getInstance();
+        usersService.createUser(login, password);
         resp.sendRedirect("/CRUD/");
     }
 }
