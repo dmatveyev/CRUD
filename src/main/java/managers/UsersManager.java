@@ -21,20 +21,19 @@ public class UsersManager {
 
     private UsersManager() {
         Properties properties = new Properties();
-        properties.setProperty("DaoFactory", DaoFactories.jdbc.name());
         try {
             properties.load(Files.newInputStream(Paths.get("D:\\apache-tomcat-8.0.48\\webapps\\f.properties")));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        UserDAOFactory userDAOFactory = null;
+        UserDaoFactory userDaoFactory = null;
         if (properties.getProperty("DaoFactory").equals(DaoFactories.hibernate.name())) {
-            userDAOFactory = new HibernateDaoFactory();
+            userDaoFactory = new HibernateDaoFactory();
         }
         if (properties.getProperty("DaoFactory").equals(DaoFactories.jdbc.name())) {
-            userDAOFactory = new JDBCDaoFactory();
+            userDaoFactory = new JDBCDaoFactory();
         }
-        userDAO = userDAOFactory.createDao();
+        userDAO = userDaoFactory.createDao();
     }
 
     public static UsersManager getInstance() {

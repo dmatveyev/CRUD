@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UserDaoJDBC implements UserDAO {
+public class UserDaoJdbcImpl implements UserDAO {
 
     private final DBHelper connectDB;
 
     private final Logger logger;
 
-    public UserDaoJDBC() {
+    public UserDaoJdbcImpl() {
         logger = Logger.getLogger("userdao");
         connectDB = DBHelper.getInstance();
     }

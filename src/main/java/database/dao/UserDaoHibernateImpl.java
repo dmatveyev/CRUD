@@ -6,12 +6,12 @@ import org.hibernate.*;
 
 import java.util.List;
 
-public class UserDAOHibernate implements UserDAO {
+public class UserDaoHibernateImpl implements UserDAO {
 
     private SessionFactory sessionFactory;
     private final DBHelper connectDB;
 
-    public UserDAOHibernate() {
+    public UserDaoHibernateImpl() {
         connectDB = DBHelper.getInstance();
         sessionFactory = connectDB.getSessionFactory();
 

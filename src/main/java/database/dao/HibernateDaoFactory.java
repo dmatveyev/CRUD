@@ -1,8 +1,8 @@
 package database.dao;
 
-public class HibernateDaoFactory extends UserDAOFactory {
+public class HibernateDaoFactory extends UserDaoFactory {
     @Override
     public UserDAO createDao() {
-        return new UserDAOHibernate();
+        return new UserDaoHibernateImpl();
     }
 }

@@ -3,7 +3,7 @@ package database.dao;
 /**
  * Created by Денис on 17.04.2018.
  */
-public abstract class UserDAOFactory {
+public abstract class UserDaoFactory {
 
     public abstract UserDAO createDao();
 }
