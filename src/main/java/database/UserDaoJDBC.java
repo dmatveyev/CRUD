@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UserDaoJDBC implements UserDAOinter {
+public class UserDaoJDBC implements UserDAO {
 
     private final DBServiceJDBC connectDB;
 

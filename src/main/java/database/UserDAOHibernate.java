@@ -4,7 +4,7 @@ import org.hibernate.*;
 
 import java.util.List;
 
-public class UserDAOHibernate implements UserDAOinter {
+public class UserDAOHibernate implements UserDAO {
 
     private SessionFactory sessionFactory;
     private final DBServiceHibernate connectDB;

@@ -1,6 +1,6 @@
 package managers;
 import database.User;
-import database.UserDAOinter;
+import database.UserDAO;
 import database.UserDAOHibernate;
 
 import java.io.IOException;
@@ -13,11 +13,11 @@ import java.util.List;
 public class UsersManager {
 
     private static UsersManager usersManager;
-    private final UserDAOinter userDAOinter;
+    private final UserDAO userDAO;
 
 
     private UsersManager() {
-        userDAOinter = new UserDAOHibernate();
+        userDAO = new UserDAOHibernate();
     }
 
     public static UsersManager getInstance() {
@@ -28,7 +28,7 @@ public class UsersManager {
     }
 
     String registerUser(final User user) {
-        userDAOinter.insert(user);
+        userDAO.insert(user);
         return user.getId();
     }
 
@@ -41,15 +41,15 @@ public class UsersManager {
      * null если пользователь не найден
      */
     public String isRegistered(final String login, final String password) {
-        return userDAOinter.getUserId(login, password);
+        return userDAO.getUserId(login, password);
     }
 
     User getRegisteredUser(final String id) {
-        return userDAOinter.get(id);
+        return userDAO.get(id);
     }
 
     public void deleteUser(final String id) {
-        userDAOinter.delete(id);
+        userDAO.delete(id);
     }
 
     /**
@@ -66,7 +66,7 @@ public class UsersManager {
     }
 
     public List<User> getUsers(){
-        return userDAOinter.getUsers();
+        return userDAO.getUsers();
     }
 
     public void createUser(final String login, final String password) {
@@ -78,7 +78,7 @@ public class UsersManager {
     }
 
     public void updateUser(User user) {
-        userDAOinter.update(user);
+        userDAO.update(user);
     }
 }
 

@@ -2,7 +2,7 @@ package database;
 
 import java.util.List;
 //interface
-public interface UserDAOinter {
+public interface UserDAO {
     void insert(User user);
 
     String getUserId(String login, String password);
