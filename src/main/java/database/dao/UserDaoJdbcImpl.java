@@ -25,15 +25,13 @@ public class UserDaoJdbcImpl implements UserDAO {
     }
 
     public User get(final String id) {
-        final User user = new User();
+        User user = null;
         try (Connection conn = connectDB.getConnection();
              PreparedStatement st = conn.prepareStatement("select * from users where id = ?")) {
             st.setString(1, id);
             try (ResultSet res = st.executeQuery()) {
                 res.next();
-                user.setId(res.getString(1));
-                user.setLogin(res.getString(2));
-                user.setPassword(res.getString(3));
+                user = createUser(res);
             } catch (final SQLException e) {
                 logger.log(Level.WARNING, e.getMessage(), e);
             }
@@ -50,10 +48,7 @@ public class UserDaoJdbcImpl implements UserDAO {
              PreparedStatement st = conn.prepareStatement("select * from users")) {
             try (ResultSet res = st.executeQuery()) {
                 while (res.next()) {
-                    User user = new User();
-                    user.setId(res.getString(1));
-                    user.setLogin(res.getString(2));
-                    user.setPassword(res.getString(3));
+                    User user = createUser(res);
                     users.add(user);
                 }
             } catch (final SQLException e) {
@@ -64,6 +59,14 @@ public class UserDaoJdbcImpl implements UserDAO {
             logger.log(Level.WARNING, e.getMessage(), e);
         }
         return users;
+    }
+
+    private User createUser(ResultSet res) throws SQLException {
+        User user = new User();
+        user.setId(res.getString(1));
+        user.setLogin(res.getString(2));
+        user.setPassword(res.getString(3));
+        return user;
     }
 
 

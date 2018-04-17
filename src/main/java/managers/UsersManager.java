@@ -48,7 +48,7 @@ public class UsersManager {
         return usersManager;
     }
 
-    String registerUser(final User user) {
+    private String registerUser(final User user) {
         userDAO.insert(user);
         return user.getId();
     }
