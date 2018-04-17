@@ -16,19 +16,18 @@ import java.util.Properties;
 public class UsersManager {
 
     private final String propertiesPath = "D:\\apache-tomcat-8.0.48\\webapps\\f.properties";
-    private static UsersManager usersManager;
-    private final UserDAO userDAO;
+    private UserDaoFactory userDaoFactory;
 
 
-    private UsersManager() {
+    public UsersManager(UserDaoFactory userDaoFactory) {
+        this.userDaoFactory = userDaoFactory;
         Properties properties = new Properties();
         try (InputStream in = new FileInputStream(propertiesPath)){
             properties.load(in);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        UserDaoFactory userDaoFactory = getDaoFactory(properties);
-        userDAO = userDaoFactory.createDao();
+
     }
 
     private UserDaoFactory getDaoFactory(Properties properties) {
@@ -41,23 +40,20 @@ public class UsersManager {
         return new JDBCDaoFactory();
     }
 
-    public static UsersManager getInstance() {
-        if (usersManager == null) {
-            usersManager = new UsersManager();
-        }
-        return usersManager;
-    }
 
     private String registerUser(final User user) {
+        UserDAO userDAO = userDaoFactory.createDao();
         userDAO.insert(user);
         return user.getId();
     }
 
     public void deleteUser(final String id) {
+        UserDAO userDAO = userDaoFactory.createDao();
         userDAO.delete(id);
     }
 
     public List<User> getUsers() {
+        UserDAO userDAO = userDaoFactory.createDao();
         return userDAO.getUsers();
     }
 
@@ -70,6 +66,7 @@ public class UsersManager {
     }
 
     public void updateUser(User user) {
+        UserDAO userDAO = userDaoFactory.createDao();
         userDAO.update(user);
     }
 }

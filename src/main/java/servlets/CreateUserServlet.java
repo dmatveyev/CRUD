@@ -1,6 +1,7 @@
 package servlets;
 
 
+import database.dao.HibernateDaoFactory;
 import managers.UsersManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,7 +27,7 @@ public class CreateUserServlet extends HttpServlet {
     protected void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("pd");
-        UsersManager usersManager = UsersManager.getInstance();
+        UsersManager usersManager = new UsersManager(new HibernateDaoFactory());
         usersManager.createUser(login, password);
         resp.sendRedirect("/CRUD/");
     }

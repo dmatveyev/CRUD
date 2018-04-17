@@ -1,6 +1,7 @@
 package servlets;
 
 import database.User;
+import database.dao.HibernateDaoFactory;
 import managers.UsersManager;
 
 import javax.servlet.RequestDispatcher;
@@ -40,7 +41,7 @@ public class EditUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UsersManager usersManager = UsersManager.getInstance();
+        UsersManager usersManager = new UsersManager(new HibernateDaoFactory());
 
         String login = req.getParameter("login");
         String password = req.getParameter("pd");

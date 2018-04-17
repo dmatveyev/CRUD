@@ -1,6 +1,7 @@
 package servlets;
 
 import database.User;
+import database.dao.HibernateDaoFactory;
 import managers.UsersManager;
 
 import javax.servlet.RequestDispatcher;
@@ -18,7 +19,7 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        usersManager = UsersManager.getInstance();
+        usersManager = new UsersManager(new HibernateDaoFactory());
         List<User> users = usersManager.getUsers();
         req.setAttribute("users", users);
         RequestDispatcher dispatcher = getServletContext()
