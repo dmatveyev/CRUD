@@ -21,7 +21,7 @@ public class User implements Serializable {
     @Column(name = "password")
     public String password;
 
-    @Column(name = "role")
+    @Column(name = "userRoles")
     public String role;
 
     public User() {

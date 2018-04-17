@@ -94,10 +94,11 @@ public class UserDaoHibernateImpl implements UserDAO {
             Session session = getSession();
             Transaction transaction = getTransaction(session);
             Query query =
-                    session.createQuery("UPDATE User SET login = :login, password = :password where id = :id ");
+                    session.createQuery("UPDATE User SET login = :login, password = :password, role=:role where id = :id ");
             query.setParameter("login", user.getLogin())
                     .setParameter("password", user.getPassword())
                     .setParameter("id", user.getId())
+                    .setParameter("role", user.getRole())
                     .executeUpdate();
             transaction.commit();
             session.close();
@@ -105,5 +106,21 @@ public class UserDaoHibernateImpl implements UserDAO {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public User getUserByLogin(String login, String password) {
+        User user = null;
+        try {
+            Session session = getSession();
+            Query query = session.createQuery("from User where login =:login and password = :password");
+            query.setParameter("login", login);
+            query.setParameter("password", password);
+            user = (User) query.list().get(0);
+            session.close();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

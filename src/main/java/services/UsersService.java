@@ -56,7 +56,7 @@ public class UsersService {
         return usersService;
     }
 
-    private String registerUser(final User user) {
+    public String registerUser(final User user) {
         userDAO.insert(user);
         return user.getId();
     }
@@ -69,12 +69,14 @@ public class UsersService {
         return userDAO.getUsers();
     }
 
-    public void createUser(final String login, final String password) {
+    public User createUser(final String login, final String password) {
         User user = new User();
         user.setId(valueOf(Math.random()));
         user.setLogin(login);
         user.setPassword(password);
+        user.setRole("user");
         registerUser(user);
+        return user;
     }
 
     public void updateUser(User user) {
@@ -83,6 +85,9 @@ public class UsersService {
 
     public User getUserById(String id) {
         return  userDAO.get(id);
+    }
+    public User getUserByLogin(String login, String password) {
+        return  userDAO.getUserByLogin(login, password);
     }
 }
 

@@ -112,6 +112,27 @@ public class UserDaoJdbcImpl implements UserDAO {
         }
     }
 
+    @Override
+    public User getUserByLogin(String login, String password) {
+        User user = null;
+        try (Connection conn = connectDB.getConnection();
+             PreparedStatement st = conn.prepareStatement("select * from users where login = ? and password = ?")) {
+            st.setString(1, login);
+            st.setString(2, password);
+            try (ResultSet res = st.executeQuery()) {
+                if (res.next()) {
+                    user.setId(res.getString(1));
+                    user.setLogin(res.getString(2));
+                    user.setPassword(res.getString(3));
+                    user.setRole(res.getString(4));
+                }
+            }
+        } catch (final SQLException e) {
+            logger.log(Level.WARNING, e.getMessage(), e);
+        }
+        return user;
+    }
+
 
     public void delete(final String userId) {
         try (Connection conn = connectDB.getConnection();

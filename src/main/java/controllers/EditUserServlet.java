@@ -42,11 +42,13 @@ public class EditUserServlet extends HttpServlet {
 
         String login = req.getParameter("login");
         String password = req.getParameter("pd");
+        String role = req.getParameter("role");
 
         user.setLogin(login);
         user.setPassword(password);
+        user.setRole(role);
 
         usersService.updateUser(user);
-        resp.sendRedirect("/CRUD/");
+        resp.sendRedirect("/CRUD/admin");
     }
 }

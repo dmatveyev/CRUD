@@ -9,6 +9,7 @@
         <td>id</td>
         <td>login</td>
         <td>password</td>
+        <td>role</td>
         <td></td>
         <td></td>
     </tr>
@@ -17,6 +18,7 @@
         <td><c:out value="${user.id}" /></td>
         <td><c:out value="${user.login}" /></td>
         <td><c:out value="${user.password}" /></td>
+        <td><c:out value="${user.role}" /></td>
          <td><a href="./edit-user?id=${user.id}">edit</a></td>
         <td><a href="./delete-user?id=${user.id}">delete</a></td>
       </tr>

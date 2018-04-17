@@ -10,6 +10,8 @@
     <input name="login" type="text" size="25" maxlength="30" value="${user.login}" /> <br />
     Password: <br />
     <input name="pd" type="password" size="25" maxlength="30" value="${user.password}" /> <br />
+    Role: <br />
+    <input name="role" type="text" size="25" maxlength="30" value="${user.role}" /> <br />
     <input type="submit" name="enter" value="Send" />
 </form>
 </body>

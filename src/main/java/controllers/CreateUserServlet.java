@@ -18,7 +18,7 @@ public class CreateUserServlet extends HttpServlet {
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         RequestDispatcher dispatcher = getServletContext()
-                .getRequestDispatcher("/WEB-INF/user.jsp");
+                .getRequestDispatcher("/WEB-INF/createUser.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -28,6 +28,6 @@ public class CreateUserServlet extends HttpServlet {
         String password = req.getParameter("pd");
         UsersService usersService = UsersService.getInstance();
         usersService.createUser(login, password);
-        resp.sendRedirect("/CRUD/");
+        resp.sendRedirect("/CRUD/admin");
     }
 }
