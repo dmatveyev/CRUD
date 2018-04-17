@@ -116,7 +116,9 @@ public class UserDaoHibernateImpl implements UserDAO {
             Query query = session.createQuery("from User where login =:login and password = :password");
             query.setParameter("login", login);
             query.setParameter("password", password);
-            user = (User) query.list().get(0);
+            if(query.list().size() != 0) {
+                user = (User) query.list().get(0);
+            }
             session.close();
         } catch (HibernateException e) {
             e.printStackTrace();

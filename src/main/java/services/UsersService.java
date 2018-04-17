@@ -86,6 +86,7 @@ public class UsersService {
     public User getUserById(String id) {
         return  userDAO.get(id);
     }
+
     public User getUserByLogin(String login, String password) {
         return  userDAO.getUserByLogin(login, password);
     }

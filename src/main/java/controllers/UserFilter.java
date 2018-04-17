@@ -76,11 +76,20 @@ public class UserFilter implements Filter {
         if(req.getMethod().equalsIgnoreCase("POST")){
             usersService = UsersService.getInstance();
             User user = usersService.getUserByLogin(req.getParameter("login"), req.getParameter("pd"));
-            switch (user.getRole()) {
-                case("user"): resp.sendRedirect("/CRUD/user");break;
-                case("admin"):  resp.sendRedirect("/CRUD/admin?id="+user.getId());
-                    break;
-                default: resp.sendRedirect("/CRUD/greetings"); break;
+            if (user != null) {
+                switch (user.getRole()) {
+                    case ("user"):
+                        resp.sendRedirect("/CRUD/user");
+                        break;
+                    case ("admin"):
+                        resp.sendRedirect("/CRUD/admin?id=" + user.getId());
+                        break;
+                    default:
+                        resp.sendRedirect("/CRUD/greetings");
+                        break;
+                }
+            } else {
+                resp.sendRedirect("/CRUD/login");
             }
         }
     }
