@@ -1,10 +1,12 @@
 package managers;
 import database.User;
-import database.UserDAO;
-import database.UserDAOHibernate;
+import database.dao.*;
 
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Управляет регистрацией и авторизацией пользователей.
@@ -17,7 +19,26 @@ public class UsersManager {
 
 
     private UsersManager() {
-        userDAO = new UserDAOHibernate();
+        Properties properties = new Properties();
+        properties.setProperty("DaoFactory",DaoFactories.jdbc.name());
+        /*try {
+            properties.store(new FileWriter("D:\\apache-tomcat-8.0.48\\webapps\\f.properties"),"");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        try {
+            properties.load(Files.newInputStream(Paths.get("D:\\apache-tomcat-8.0.48\\webapps\\f.properties")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        UserDAOFactory userDAOFactory = null;
+        if (properties.getProperty("DaoFactory").equals(DaoFactories.hibernate.name())) {
+            userDAOFactory = new HibernateDaoFactory();
+        }
+        if(properties.getProperty("DaoFactory").equals(DaoFactories.jdbc.name())){
+            userDAOFactory = new JDBCDaoFactory();
+        }
+        userDAO = userDAOFactory.createDao();
     }
 
     public static UsersManager getInstance() {

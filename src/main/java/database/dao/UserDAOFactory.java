@@ -1,4 +1,4 @@
-package database;
+package database.dao;
 
 /**
  * Created by Денис on 17.04.2018.

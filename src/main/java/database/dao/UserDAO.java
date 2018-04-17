@@ -1,4 +1,6 @@
-package database;
+package database.dao;
+
+import database.User;
 
 import java.util.List;
 //interface
