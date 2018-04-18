@@ -40,7 +40,7 @@ public class UserDaoHibernateImpl implements UserDAO {
     }
 
     @Override
-    public User get(String id) {
+    public User get(long id) {
         User user = null;
         try {
             Session session = getSession();

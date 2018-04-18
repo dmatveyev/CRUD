@@ -1,9 +1,6 @@
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,26 +10,31 @@ public class User implements Serializable {
     // TODO: 12.04.2018 Подумать над параметрами пользователя.
     @Id
     @Column(name ="id")
-    public String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id = 0;
 
     @Column(name ="login")
-    public String login;
+    private String login;
 
     @Column(name = "password")
-    public String password;
+    private String password;
 
     @Column(name = "userRoles")
-    public String role;
+    private String role;
+
+    @OneToOne (cascade=CascadeType.ALL)
+    @JoinColumn (name="userId")
+    private UserSession userSession;
 
     public User() {
     }
     
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(final String id) {
+    public void setId(final long id) {
         this.id = id;
     }
 

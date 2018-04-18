@@ -8,7 +8,7 @@ public interface UserDAO {
 
     String getUserId(String login, String password);
 
-    User get(String id);
+    User get(long id);
 
     void delete(String id);
 

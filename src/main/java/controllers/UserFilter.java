@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebFilter (value = "/SimpleServletFilter",servletNames = {"LoginServlet","AdminServlet"})
+@WebFilter (value = "/SimpleServletFilter",servletNames = {"UserServlet","AdminServlet"})
 public class UserFilter implements Filter {
 
     private UsersService usersService;
@@ -52,8 +52,8 @@ public class UserFilter implements Filter {
     }
 
     private void CheckUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
-        if (id != null) {
+        long id = Long.parseLong(req.getParameter("id"));
+        if (id != 0) {
             User user = usersService.getUserById(id);
             if (user != null) {
                 if (user.getRole().equals("admin")) {

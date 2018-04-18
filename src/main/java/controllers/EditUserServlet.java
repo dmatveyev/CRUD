@@ -24,7 +24,7 @@ public class EditUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
+        long id = Long.parseLong(req.getParameter("id"));
         usersService = UsersService.getInstance();
         user = usersService.getUserById(id);
         req.setAttribute("user", user);

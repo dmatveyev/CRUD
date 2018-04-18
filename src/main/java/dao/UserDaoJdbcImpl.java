@@ -23,11 +23,11 @@ public class UserDaoJdbcImpl implements UserDAO {
         connectDB = DBHelper.getInstance();
     }
 
-    public User get(final String id) {
+    public User get(final long id) {
         User user = null;
         try (Connection conn = connectDB.getConnection();
              PreparedStatement st = conn.prepareStatement("select * from users where id = ?")) {
-            st.setString(1, id);
+            st.setLong(1, id);
             try (ResultSet res = st.executeQuery()) {
                 res.next();
                 user = createUser(res);
@@ -62,7 +62,7 @@ public class UserDaoJdbcImpl implements UserDAO {
 
     private User createUser(ResultSet res) throws SQLException {
         User user = new User();
-        user.setId(res.getString(1));
+        user.setId(res.getLong(1));
         user.setLogin(res.getString(2));
         user.setPassword(res.getString(3));
         return user;
@@ -90,7 +90,7 @@ public class UserDaoJdbcImpl implements UserDAO {
         try (Connection conn = connectDB.getConnection();
              PreparedStatement statement = conn.prepareStatement("insert into users (id,login, password) values (?,?,?)")
         ) {
-            statement.setString(1, t.getId());
+            statement.setLong(1, t.getId());
             statement.setString(2, t.getLogin());
             statement.setString(3, t.getPassword());
             statement.executeUpdate();
@@ -105,7 +105,7 @@ public class UserDaoJdbcImpl implements UserDAO {
              PreparedStatement statement = conn.prepareStatement("update users set login = ?, password = ? where id = ? ")) {
             statement.setString(1, t.getLogin());
             statement.setString(2, t.getPassword());
-            statement.setString(3, t.getId());
+            statement.setLong(3, t.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,7 +121,7 @@ public class UserDaoJdbcImpl implements UserDAO {
             st.setString(2, password);
             try (ResultSet res = st.executeQuery()) {
                 if (res.next()) {
-                    user.setId(res.getString(1));
+                    user.setId(res.getLong(1));
                     user.setLogin(res.getString(2));
                     user.setPassword(res.getString(3));
                     user.setRole(res.getString(4));
