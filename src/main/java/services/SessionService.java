@@ -44,7 +44,7 @@ public class SessionService {
         sessionDAO.delete(userSession);
     }
 
-    public UserSession getUserIdByUuid(String uuid) {
+    public UserSession getSessionByUuid(String uuid) {
         return sessionDAO.getUserId(uuid);
     }
 }

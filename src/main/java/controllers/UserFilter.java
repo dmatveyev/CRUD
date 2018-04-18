@@ -58,17 +58,23 @@ public class UserFilter implements Filter {
 
     private void CheckUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String uuid = req.getParameter("uuid");
-        UserSession session = sessionService.getUserIdByUuid(uuid);
-            User user = usersService.getUserById(session.getUserId());
-            if (user != null) {
-                if (user.getRole().equals("admin")) {
-                    doAdminServlet(req, resp);
-                }else {
-                    doUserServlet(req, resp);
+        if (uuid !=null) {
+            UserSession session = sessionService.getSessionByUuid(uuid);
+            if (session != null) {
+                User user = usersService.getUserById(session.getUserId());
+                if (user != null) {
+                    if (user.getRole().equals("admin")) {
+                        doAdminServlet(req, resp);
+                    } else {
+                        doUserServlet(req, resp);
+                    }
+                } else {
+                    resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 }
-            }else {
+            } else
                 resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            }
+        } else
+            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
 
 
