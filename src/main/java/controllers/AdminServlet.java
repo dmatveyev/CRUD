@@ -20,11 +20,11 @@ public class AdminServlet extends HttpServlet {
 
     }
 
-/*    @Override
+  @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = getServletContext()
                 .getRequestDispatcher("/WEB-INF/index.jsp");
         dispatcher.forward(req, resp);
 
-    }*/
+    }
 }

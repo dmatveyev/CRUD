@@ -24,6 +24,7 @@
       </tr>
     </c:forEach>
   </table>
+    <a href="./admin?uuid=${uuid}&logout=true">Logout</a>
   </body>
 </html>
 

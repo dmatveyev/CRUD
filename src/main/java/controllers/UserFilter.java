@@ -39,14 +39,21 @@ public class UserFilter implements Filter {
 
     private void doAdminServlet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(req.getMethod().equalsIgnoreCase("GET")) {
-            usersService = UsersService.getInstance();
-            List<User> users = usersService.getUsers();
-            req.setAttribute("users", users);
-            req.setAttribute("uuid",req.getParameter("uuid"));
-            RequestDispatcher dispatcher = req.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/index.jsp");
-            dispatcher.forward(req, resp);
+            String uuid = req.getParameter("uuid");
+            if (req.getParameter("logout")!= null){
+                sessionService.delete(sessionService.getSessionByUuid(uuid));
+                resp.sendRedirect("/CRUD/login");
+            }else {
+                usersService = UsersService.getInstance();
+                List<User> users = usersService.getUsers();
+                req.setAttribute("users", users);
+                req.setAttribute("uuid", uuid);
+                RequestDispatcher dispatcher = req.getServletContext()
+                        .getRequestDispatcher("/WEB-INF/index.jsp");
+                dispatcher.forward(req, resp);
+            }
         }
+
     }
 
     private void doUserServlet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
