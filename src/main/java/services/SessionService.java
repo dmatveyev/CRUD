@@ -27,9 +27,7 @@ public class SessionService {
     public void createSession (User user) {
         UserSession session = new UserSession();
         session.setUserId(user.getId());
-        session.setUser(user);
         session.setUuid(UUID.randomUUID().toString());
-        user.setUserSession(session);
         insert(session);
 
     }
@@ -40,7 +38,7 @@ public class SessionService {
     void insert (UserSession userSession) {
         sessionDAO.insert(userSession);
     }
-    void delete(UserSession userSession){
+    public void delete(UserSession userSession){
         sessionDAO.delete(userSession);
     }
 

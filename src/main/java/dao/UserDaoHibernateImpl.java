@@ -56,13 +56,11 @@ public class UserDaoHibernateImpl implements UserDAO {
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(User user) {
         try {
             Session session = getSession();
             Transaction transaction = getTransaction(session);
-            session.createQuery("DELETE from User WHERE id = :id")
-                    .setParameter("id", id)
-                    .executeUpdate();
+            session.delete(user);
             transaction.commit();
             session.close();
         } catch (HibernateException e) {

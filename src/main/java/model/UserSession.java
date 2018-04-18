@@ -19,8 +19,9 @@ public class UserSession implements Serializable {
     @Column(name= "uuid")
     private String uuid;
 
-    @OneToOne (cascade=CascadeType.ALL)
-    @JoinColumn (name="userId",insertable = false,updatable = false)
+
+
+    @OneToOne (mappedBy = "userSession")
     private User user;
 
     public UserSession() {}

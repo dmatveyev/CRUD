@@ -22,7 +22,8 @@ public class User implements Serializable {
     @Column(name = "userRoles")
     private String role;
 
-    @OneToOne (mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn (name="id",insertable = false,updatable = false)
     private UserSession userSession;
 
     public User() {

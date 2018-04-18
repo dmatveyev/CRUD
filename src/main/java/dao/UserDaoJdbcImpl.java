@@ -41,6 +41,11 @@ public class UserDaoJdbcImpl implements UserDAO {
         return user;
     }
 
+    @Override
+    public void delete(User user) {
+
+    }
+
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
         try (Connection conn = connectDB.getConnection();

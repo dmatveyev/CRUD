@@ -48,7 +48,11 @@ public class SessionDAOHibernateImpl implements SessionDAO {
 
     @Override
     public void delete(UserSession userSession) {
-
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(userSession);
+        transaction.commit();
+        session.close();
     }
 
     @Override

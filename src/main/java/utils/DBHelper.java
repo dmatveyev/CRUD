@@ -71,7 +71,7 @@ public class DBHelper {
 
 
 
-    private static SessionFactory createSessionFactory(Configuration configuration) {
+    private SessionFactory createSessionFactory(Configuration configuration) {
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
         builder.applySettings(configuration.getProperties());
         ServiceRegistry serviceRegistry = builder.build();

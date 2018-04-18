@@ -61,8 +61,8 @@ public class UsersService {
         return user.getId();
     }
 
-    public void deleteUser(final long id) {
-        userDAO.delete(id);
+    public void deleteUser(User user) {
+        userDAO.delete(user);
     }
 
     public List<User> getUsers() {
