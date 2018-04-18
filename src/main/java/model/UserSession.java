@@ -13,16 +13,25 @@ public class UserSession implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name= "userId")
+    @Column(name= "userId" )
     private long userId;
 
     @Column(name= "uuid")
     private String uuid;
 
-    @OneToOne(mappedBy="id")
+    @OneToOne (cascade=CascadeType.ALL)
+    @JoinColumn (name="userId",insertable = false,updatable = false)
     private User user;
 
     public UserSession() {}
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public long getId() {
         return id;

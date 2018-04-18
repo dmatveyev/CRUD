@@ -1,6 +1,8 @@
 package controllers;
 
 import model.User;
+import model.UserSession;
+import services.SessionService;
 import services.UsersService;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +16,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/login", name = "LoginServlet")
 public class LoginServlet extends HttpServlet {
     private UsersService usersService;
+    private SessionService sessionService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,14 +28,17 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         usersService = UsersService.getInstance();
+        sessionService = SessionService.getInstanse();
         User user = usersService.getUserByLogin(req.getParameter("login"), req.getParameter("pd"));
+        sessionService.createSession(user);
+        UserSession userSession = sessionService.get(user.getId());
         if (user != null) {
             switch (user.getRole()) {
                 case ("user"):
-                    resp.sendRedirect("/CRUD/user");
+                    resp.sendRedirect("/CRUD/user?uuid="+userSession.getUuid());
                     break;
                 case ("admin"):
-                    resp.sendRedirect("/CRUD/admin?id=" + user.getId());
+                    resp.sendRedirect("/CRUD/admin?uuid="+userSession.getUuid());
                     break;
                 default:
                     resp.sendRedirect("/CRUD/greetings");

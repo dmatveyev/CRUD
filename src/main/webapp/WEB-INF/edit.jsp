@@ -5,7 +5,7 @@
     <title>User Form</title>
 </head>
 <body>
-<form name="f2" method="post" action="edit-user">
+<form name="f2" method="post" action="edit-user?uuid=${uuid}">
     Login: <br />
     <input name="login" type="text" size="25" maxlength="30" value="${user.login}" /> <br />
     Password: <br />

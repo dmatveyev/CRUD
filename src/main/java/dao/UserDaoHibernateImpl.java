@@ -56,7 +56,7 @@ public class UserDaoHibernateImpl implements UserDAO {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(long id) {
         try {
             Session session = getSession();
             Transaction transaction = getTransaction(session);

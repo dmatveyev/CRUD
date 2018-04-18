@@ -11,7 +11,7 @@ public class User implements Serializable {
     @Id
     @Column(name ="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id = 0;
+    private long id;
 
     @Column(name ="login")
     private String login;
@@ -22,13 +22,19 @@ public class User implements Serializable {
     @Column(name = "userRoles")
     private String role;
 
-    @OneToOne (cascade=CascadeType.ALL)
-    @JoinColumn (name="userId")
+    @OneToOne (mappedBy = "user")
     private UserSession userSession;
 
     public User() {
     }
-    
+
+    public UserSession getUserSession() {
+        return userSession;
+    }
+
+    public void setUserSession(UserSession userSession) {
+        this.userSession = userSession;
+    }
 
     public long getId() {
         return id;

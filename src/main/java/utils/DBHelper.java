@@ -3,6 +3,7 @@ package utils;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import model.User;
+import model.UserSession;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -57,6 +58,7 @@ public class DBHelper {
     private Configuration getMsSqlConfiguration() {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(User.class);
+        configuration.addAnnotatedClass(UserSession.class);
         configuration.setProperty("hibernate.dialect", properties.getProperty("hibernate.dialect"));
         configuration.setProperty("hibernate.connection.driver_class", properties.getProperty("hibernate.connection.driver_class"));
         configuration.setProperty("hibernate.connection.url", properties.getProperty("url"));

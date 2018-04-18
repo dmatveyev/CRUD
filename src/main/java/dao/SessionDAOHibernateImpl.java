@@ -1,11 +1,7 @@
 package dao;
 
-import model.User;
 import model.UserSession;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import utils.DBHelper;
 
 public class SessionDAOHibernateImpl implements SessionDAO {
@@ -23,12 +19,15 @@ public class SessionDAOHibernateImpl implements SessionDAO {
     public UserSession get(long userId) {
         UserSession userSession = null;
         try {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        userSession = (UserSession) session.get(UserSession.class,userId);
-        transaction.commit();
-        session.close();
-        }catch (HibernateException e) {
+            Session session = sessionFactory.openSession();
+            Query query = session.createQuery("from UserSession where userId =:userId");
+            query.setParameter("userId", userId);
+
+            if(query.list().size() != 0) {
+                userSession = (UserSession) query.list().get(0);
+            }
+            session.close();
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return userSession;
@@ -39,7 +38,7 @@ public class SessionDAOHibernateImpl implements SessionDAO {
         try {
             Session session = sessionFactory.openSession();
             Transaction transaction = session.beginTransaction();
-            session.saveOrUpdate(userSession);
+            session.save(userSession);
             transaction.commit();
             session.close();
         }catch (HibernateException e) {
@@ -50,5 +49,23 @@ public class SessionDAOHibernateImpl implements SessionDAO {
     @Override
     public void delete(UserSession userSession) {
 
+    }
+
+    @Override
+    public UserSession getUserId(String uuid) {
+        UserSession userSession = null;
+        try {
+            Session session = sessionFactory.openSession();
+            Query query = session.createQuery("from UserSession where uuid =:uuid");
+            query.setParameter("uuid", uuid);
+
+            if(query.list().size() != 0) {
+                userSession = (UserSession) query.list().get(0);
+            }
+            session.close();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return userSession;
     }
 }

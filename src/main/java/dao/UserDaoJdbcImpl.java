@@ -134,10 +134,10 @@ public class UserDaoJdbcImpl implements UserDAO {
     }
 
 
-    public void delete(final String userId) {
+    public void delete(final long userId) {
         try (Connection conn = connectDB.getConnection();
              PreparedStatement st = conn.prepareStatement("delete from users where id = ?")) {
-            st.setString(1, userId);
+            st.setLong(1, userId);
             st.executeUpdate();
         } catch (final SQLException e) {
             logger.log(Level.WARNING, e.getMessage(), e);

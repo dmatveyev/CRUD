@@ -16,6 +16,7 @@ import java.io.IOException;
 public class EditUserServlet extends HttpServlet {
     private User user;
     private UsersService usersService;
+    private String uuid;
 
     public EditUserServlet() {
         user = new User();
@@ -24,10 +25,12 @@ public class EditUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long id = Long.parseLong(req.getParameter("id"));
+
         usersService = UsersService.getInstance();
-        user = usersService.getUserById(id);
+        user = usersService.getUserById(Long.parseLong(req.getParameter("user")));
         req.setAttribute("user", user);
+        uuid =  req.getParameter("uuid");
+        req.setAttribute("uuid",uuid);
         resp.setContentType("text/html");
         RequestDispatcher dispatcher = getServletContext()
                 .getRequestDispatcher("/WEB-INF/edit.jsp");
@@ -49,6 +52,6 @@ public class EditUserServlet extends HttpServlet {
         user.setRole(role);
 
         usersService.updateUser(user);
-        resp.sendRedirect("/CRUD/admin");
+        resp.sendRedirect("/CRUD/admin?uuid="+uuid);
     }
 }

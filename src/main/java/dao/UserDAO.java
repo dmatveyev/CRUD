@@ -10,7 +10,7 @@ public interface UserDAO {
 
     User get(long id);
 
-    void delete(String id);
+    void delete(long id);
 
     List<User> getUsers();
 
