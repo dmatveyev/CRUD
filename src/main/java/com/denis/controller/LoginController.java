@@ -1,43 +1,41 @@
 package com.denis.controller;
 
+
 import com.denis.model.User;
 import com.denis.model.UserSession;
 import com.denis.service.SessionService;
-import com.denis.service.SessionServiceImpl;
 import com.denis.service.UsersService;
-import com.denis.service.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/*@WebServlet(urlPatterns = "/login", name = "LoginServlet")*/
-@Component
-public class LoginServlet extends HttpServlet {
+@Controller
+@RequestMapping("/login")
+public class LoginController {
+
     private UsersService usersService;
     private SessionService sessionService;
 
     @Autowired
-    public LoginServlet(UsersService usersService, SessionService sessionService) {
+    public LoginController(UsersService usersService, SessionService sessionService) {
         this.usersService = usersService;
         this.sessionService = sessionService;
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req
-                .getRequestDispatcher("/WEB-INF/login.jsp");
-        dispatcher.forward(req, resp);
+    @RequestMapping(method = RequestMethod.GET)
+    public String doGet(ModelMap model) {
+        model.addAttribute("message", "Spring 3 MVC - Hello World");
+        return "login";
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @RequestMapping (params = {"login", "pd"}, method = RequestMethod.POST)
+    public void doPost(ModelMap model, HttpServletRequest req, HttpServletResponse resp) throws IOException {
         User user = usersService.getUserByLogin(req.getParameter("login"), req.getParameter("pd"));
         sessionService.createSession(user);
         UserSession userSession = sessionService.get(user.getId());

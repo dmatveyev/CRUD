@@ -1,3 +1,4 @@
+/*
 package com.denis.controller;
 
 import com.denis.model.User;
@@ -101,3 +102,4 @@ public class UserFilter implements Filter {
         config = null;
     }
 }
+*/
