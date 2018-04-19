@@ -3,7 +3,9 @@ package controller;
 import model.User;
 import model.UserSession;
 import service.SessionService;
+import service.SessionServiceImpl;
 import service.UsersService;
+import service.UsersServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -22,8 +24,8 @@ public class UserFilter implements Filter {
     private boolean active = false;
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        usersService = UsersService.getInstance();
-        sessionService = SessionService.getInstanse();
+        usersService = UsersServiceImpl.getInstance();
+        sessionService = SessionServiceImpl.getInstanse();
         this.config = filterConfig;
         String act = config.getInitParameter("active");
         if (act != null)
@@ -44,7 +46,7 @@ public class UserFilter implements Filter {
                 sessionService.delete(sessionService.getSessionByUuid(uuid));
                 resp.sendRedirect("/CRUD/login");
             }else {
-                usersService = UsersService.getInstance();
+                usersService = UsersServiceImpl.getInstance();
                 List<User> users = usersService.getUsers();
                 req.setAttribute("users", users);
                 req.setAttribute("uuid", uuid);

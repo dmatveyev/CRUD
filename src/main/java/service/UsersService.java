@@ -1,94 +1,36 @@
 package service;
 
-import dao.*;
 import model.User;
-import util.*;
+import util.DaoFactories;
+import util.HibernateDaoFactory;
+import util.JDBCDaoFactory;
+import util.UserDaoFactory;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 
-import static java.lang.String.valueOf;
+public interface UsersService {
 
 
-/**
- * Управляет регистрацией и авторизацией пользователей.
- * Синглтон
- */
-public class UsersService {
 
-    private final String propertiesPath = "D:\\apache-tomcat-8.0.48\\webapps\\f.properties";
-    private static UsersService usersService;
-    private UserDAO userDAO;
+    UserDaoFactory getDaoFactory(Properties properties);
 
 
-    private UsersService() {
-        Properties properties = new Properties();
-        try (InputStream in = new FileInputStream(propertiesPath)){
-            properties.load(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        UserDaoFactory userDaoFactory = getDaoFactory(properties);
-        userDAO = userDaoFactory.createDao();
-    }
 
-    private UserDaoFactory getDaoFactory(Properties properties) {
-        UserDaoFactory userDaoFactory;
-        switch (DaoFactories.valueOf(properties.getProperty("DaoFactory"))) {
-            case hibernate:
-                userDaoFactory = new HibernateDaoFactory();
-                break;
-            case jdbc:
-                userDaoFactory = new JDBCDaoFactory();
-                break;
-            default:
-                userDaoFactory = new JDBCDaoFactory();
-                break;
-        }
-        return userDaoFactory;
-    }
+    long registerUser(final User user);
 
-    public static UsersService getInstance() {
-        if (usersService == null) {
-            usersService = new UsersService();
-        }
-        return usersService;
-    }
+    void deleteUser(User user);
 
-    public long registerUser(final User user) {
-        userDAO.insert(user);
-        return user.getId();
-    }
+    List<User> getUsers();
 
-    public void deleteUser(User user) {
-        userDAO.delete(user);
-    }
+    User createUser(final String login, final String password);
 
-    public List<User> getUsers() {
-        return userDAO.getUsers();
-    }
+    void updateUser(User user);
 
-    public User createUser(final String login, final String password) {
-        User user = new User();
-        user.setLogin(login);
-        user.setPassword(password);
-        user.setRole("user");
-        registerUser(user);
-        return user;
-    }
+    User getUserById(long id);
 
-    public void updateUser(User user) {
-        userDAO.update(user);
-    }
-
-    public User getUserById(long id) {
-        return  userDAO.get(id);
-    }
-
-    public User getUserByLogin(String login, String password) {
-        return  userDAO.getUserByLogin(login, password);
-    }
+    User getUserByLogin(String login, String password);
 }
-
-

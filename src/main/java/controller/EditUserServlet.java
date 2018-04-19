@@ -2,6 +2,7 @@ package controller;
 
 import model.User;
 import service.UsersService;
+import service.UsersServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,13 +21,12 @@ public class EditUserServlet extends HttpServlet {
 
     public EditUserServlet() {
         user = new User();
+        usersService = UsersServiceImpl.getInstance();
 
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        usersService = UsersService.getInstance();
         user = usersService.getUserById(Long.parseLong(req.getParameter("user")));
         req.setAttribute("user", user);
         uuid =  req.getParameter("uuid");
@@ -41,7 +41,6 @@ public class EditUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        usersService = UsersService.getInstance();
 
         String login = req.getParameter("login");
         String password = req.getParameter("pd");

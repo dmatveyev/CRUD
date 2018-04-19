@@ -2,6 +2,7 @@ package controller;
 
 import model.User;
 import service.UsersService;
+import service.UsersServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,7 +26,7 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("pd");
-        UsersService usersService = UsersService.getInstance();
+        UsersService usersService = UsersServiceImpl.getInstance();
         User user = usersService.createUser(login, password);
         req.setAttribute("user", user);
         resp.sendRedirect("/CRUD/login");

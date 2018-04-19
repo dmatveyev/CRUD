@@ -2,21 +2,19 @@ package util;
 
 import model.User;
 import model.UserSession;
-import service.SessionService;
-import service.UsersService;
-
-
+import service.SessionServiceImpl;
+import service.UsersServiceImpl;
 
 
 public class UUIDGenerator {
     public static final void main(String[] args) {
-        UsersService usersService = UsersService.getInstance();
-        SessionService sessionService = SessionService.getInstanse();
-        User user = usersService.getUserByLogin("den","1");
+        UsersServiceImpl usersServiceImpl = UsersServiceImpl.getInstance();
+        SessionServiceImpl sessionService = SessionServiceImpl.getInstanse();
+        User user = usersServiceImpl.getUserByLogin("den","1");
         sessionService.createSession(user);
         UserSession userSession = sessionService.get(user.getId());
         System.out.println(userSession.getUuid());
         sessionService.delete(userSession);
-        //usersService.deleteUser(user);
+        //usersServiceImpl.deleteUser(user);
     }
 }

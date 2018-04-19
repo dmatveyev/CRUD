@@ -1,6 +1,7 @@
 package controller;
 
 import service.UsersService;
+import service.UsersServiceImpl;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +15,7 @@ public class DeleteUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws IOException {
-        UsersService usersService = UsersService.getInstance();
+        UsersService usersService = UsersServiceImpl.getInstance();
         String uuid =  req.getParameter("uuid");
         long id = Long.parseLong(req.getParameter("user"));
         usersService.deleteUser(usersService.getUserById(id));

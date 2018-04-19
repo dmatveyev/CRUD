@@ -3,7 +3,9 @@ package controller;
 import model.User;
 import model.UserSession;
 import service.SessionService;
+import service.SessionServiceImpl;
 import service.UsersService;
+import service.UsersServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,8 +29,8 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        usersService = UsersService.getInstance();
-        sessionService = SessionService.getInstanse();
+        usersService = UsersServiceImpl.getInstance();
+        sessionService = SessionServiceImpl.getInstanse();
         User user = usersService.getUserByLogin(req.getParameter("login"), req.getParameter("pd"));
         sessionService.createSession(user);
         UserSession userSession = sessionService.get(user.getId());
