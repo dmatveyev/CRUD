@@ -1,4 +1,4 @@
-package com.denis.controller;
+package com.denis.servlet;
 
 import com.denis.service.UsersService;
 import com.denis.service.UsersServiceImpl;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-@WebServlet(urlPatterns = "/delete-user", name = "DeleteUserServlet")
+/*@WebServlet(urlPatterns = "/delete-user", name = "DeleteUserServlet")*/
 public class DeleteUserServlet extends HttpServlet {
 
     private UsersService usersService;

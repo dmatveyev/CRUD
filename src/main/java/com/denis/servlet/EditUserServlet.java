@@ -1,6 +1,6 @@
-package com.denis.controller;
+package com.denis.servlet;
 
-
+import com.denis.model.User;
 import com.denis.service.UsersService;
 import com.denis.service.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,32 +15,45 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(urlPatterns = "/create-user", name = "createUserServlet")
+/*@WebServlet(urlPatterns = "/edit-user", name = "EditUserServlet")*/
 @Component
-public class CreateUserServlet extends HttpServlet {
-    private final UsersService usersService;
+public class EditUserServlet extends HttpServlet {
+
+    private UsersService usersService;
     private String uuid;
 
     @Autowired
-    public CreateUserServlet(UsersService usersService) {
+    public EditUserServlet(UsersService usersService) {
         this.usersService = usersService;
     }
 
     @Override
-    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = usersService.getUserById(Long.parseLong(req.getParameter("user")));
+        req.setAttribute("user", user);
         uuid = req.getParameter("uuid");
         req.setAttribute("uuid", uuid);
+        resp.setContentType("text/html");
         RequestDispatcher dispatcher = getServletContext()
-                .getRequestDispatcher("/WEB-INF/createUser.jsp");
+                .getRequestDispatcher("/WEB-INF/edit.jsp");
         dispatcher.forward(req, resp);
+
+
     }
 
     @Override
-    protected void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String login = req.getParameter("login");
         String password = req.getParameter("pd");
-        usersService.createUser(login, password);
+        String role = req.getParameter("role");
+
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword(password);
+        user.setRole(role);
+
+        usersService.updateUser(user);
         resp.sendRedirect("/CRUD/admin?uuid=" + uuid);
     }
 }

@@ -1,4 +1,4 @@
-package com.denis.controller;
+package com.denis.servlet;
 
 import org.springframework.stereotype.Component;
 
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/admin", name = "AdminServlet")
+/*@WebServlet(urlPatterns = "/user", name = "UserServlet")*/
 @Component
-public class AdminServlet extends HttpServlet {
-
+public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        RequestDispatcher dispatcher = getServletContext()
+                .getRequestDispatcher("/WEB-INF/user.jsp");
+        dispatcher.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = getServletContext()
-                .getRequestDispatcher("/WEB-INF/index.jsp");
+                .getRequestDispatcher("/WEB-INF/user.jsp");
         dispatcher.forward(req, resp);
-
     }
 }

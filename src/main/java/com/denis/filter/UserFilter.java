@@ -1,5 +1,4 @@
-/*
-package com.denis.controller;
+package com.denis.filter;
 
 import com.denis.model.User;
 import com.denis.model.UserSession;
@@ -18,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebFilter(value = "/SimpleServletFilter", servletNames = {"UserServlet", "AdminServlet"})
+/*@WebFilter(value = "/SimpleServletFilter", servletNames = {"UserServlet", "AdminServlet"})*/
 @Component
 public class UserFilter implements Filter {
 
@@ -102,4 +101,3 @@ public class UserFilter implements Filter {
         config = null;
     }
 }
-*/

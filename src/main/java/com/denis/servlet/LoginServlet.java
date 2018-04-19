@@ -1,4 +1,4 @@
-package com.denis.controller;
+package com.denis.servlet;
 
 import com.denis.model.User;
 import com.denis.model.UserSession;

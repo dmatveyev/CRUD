@@ -1,4 +1,4 @@
-package com.denis.controller;
+package com.denis.servlet;
 
 import com.denis.model.User;
 import com.denis.service.UsersService;
@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/registration", name = "RegistrationServlet")
+
+/*@WebServlet(urlPatterns = "/registration", name = "RegistrationServlet")*/
 @Component
 public class RegistrationServlet extends HttpServlet {
 
