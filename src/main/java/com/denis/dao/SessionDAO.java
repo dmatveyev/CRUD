@@ -1,7 +1,7 @@
-package dao;
+package com.denis.dao;
 
 
-import model.UserSession;
+import com.denis.model.UserSession;
 
 public interface SessionDAO {
     UserSession get (long userId);

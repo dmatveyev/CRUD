@@ -1,9 +1,7 @@
-package util;
+package com.denis.util;
 
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-import model.User;
-import model.UserSession;
+import com.denis.model.User;
+import com.denis.model.UserSession;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -12,7 +10,6 @@ import org.hibernate.service.ServiceRegistry;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
 import java.util.Properties;
 
 
@@ -42,18 +39,6 @@ public class DBHelper {
         return dbHelper;
     }
 
-    public Connection getConnection()  {
-        final SQLServerDataSource dataSource = new SQLServerDataSource();
-        dataSource.setURL(properties.getProperty("url"));
-        dataSource.setUser(properties.getProperty("username"));
-        dataSource.setPassword(properties.getProperty("password"));
-        try {
-            return dataSource.getConnection();
-        } catch (final SQLServerException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     private Configuration getMsSqlConfiguration() {
         Configuration configuration = new Configuration();

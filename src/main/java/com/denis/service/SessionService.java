@@ -1,7 +1,7 @@
-package service;
+package com.denis.service;
 
-import model.User;
-import model.UserSession;
+import com.denis.model.User;
+import com.denis.model.UserSession;
 
 public interface SessionService {
 

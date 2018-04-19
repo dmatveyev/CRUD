@@ -1,8 +1,10 @@
-package service;
+package com.denis.service;
 
-import dao.*;
-import model.User;
-import util.*;
+import com.denis.dao.UserDAO;
+import com.denis.model.User;
+import com.denis.util.DaoFactories;
+import com.denis.util.HibernateDaoFactory;
+import com.denis.util.UserDaoFactory;
 
 import java.io.*;
 import java.util.List;
@@ -34,18 +36,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     public UserDaoFactory getDaoFactory(Properties properties) {
-        UserDaoFactory userDaoFactory;
-        switch (DaoFactories.valueOf(properties.getProperty("DaoFactory"))) {
-            case hibernate:
-                userDaoFactory = new HibernateDaoFactory();
-                break;
-            case jdbc:
-                userDaoFactory = new JDBCDaoFactory();
-                break;
-            default:
-                userDaoFactory = new JDBCDaoFactory();
-                break;
-        }
+        UserDaoFactory userDaoFactory = new HibernateDaoFactory();
         return userDaoFactory;
     }
 

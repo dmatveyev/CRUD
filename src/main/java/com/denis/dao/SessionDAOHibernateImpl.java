@@ -1,8 +1,8 @@
-package dao;
+package com.denis.dao;
 
-import model.UserSession;
+import com.denis.model.UserSession;
 import org.hibernate.*;
-import util.DBHelper;
+import com.denis.util.DBHelper;
 
 public class SessionDAOHibernateImpl implements SessionDAO {
     private SessionFactory sessionFactory;

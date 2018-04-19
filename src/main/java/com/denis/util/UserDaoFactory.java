@@ -1,7 +1,8 @@
-package util;
+package com.denis.util;
 
 
-import dao.*;
+import com.denis.dao.UserDAO;
+
 /**
  * Created by Денис on 17.04.2018.
  */

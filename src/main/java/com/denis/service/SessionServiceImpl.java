@@ -1,9 +1,9 @@
-package service;
+package com.denis.service;
 
-import dao.SessionDAO;
-import dao.SessionDAOHibernateImpl;
-import model.User;
-import model.UserSession;
+import com.denis.dao.SessionDAO;
+import com.denis.dao.SessionDAOHibernateImpl;
+import com.denis.model.User;
+import com.denis.model.UserSession;
 
 import java.util.UUID;
 

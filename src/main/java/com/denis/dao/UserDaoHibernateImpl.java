@@ -1,7 +1,7 @@
-package dao;
+package com.denis.dao;
 
-import util.DBHelper;
-import model.User;
+import com.denis.util.DBHelper;
+import com.denis.model.User;
 import org.hibernate.*;
 import java.util.List;
 

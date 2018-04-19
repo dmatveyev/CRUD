@@ -1,9 +1,9 @@
-package util;
+package com.denis.util;
 
-import model.User;
-import model.UserSession;
-import service.SessionServiceImpl;
-import service.UsersServiceImpl;
+import com.denis.model.User;
+import com.denis.model.UserSession;
+import com.denis.service.SessionServiceImpl;
+import com.denis.service.UsersServiceImpl;
 
 
 public class UUIDGenerator {

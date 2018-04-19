@@ -1,14 +1,8 @@
-package service;
+package com.denis.service;
 
-import model.User;
-import util.DaoFactories;
-import util.HibernateDaoFactory;
-import util.JDBCDaoFactory;
-import util.UserDaoFactory;
+import com.denis.model.User;
+import com.denis.util.UserDaoFactory;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 

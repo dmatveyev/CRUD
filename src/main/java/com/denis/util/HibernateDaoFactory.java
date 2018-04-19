@@ -1,6 +1,6 @@
-package util;
+package com.denis.util;
 
-import dao.*;
+import com.denis.dao.*;
 
 public class HibernateDaoFactory extends UserDaoFactory {
     @Override

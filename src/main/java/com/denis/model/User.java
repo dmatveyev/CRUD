@@ -1,4 +1,4 @@
-package model;
+package com.denis.model;
 
 import javax.persistence.*;
 import java.io.Serializable;

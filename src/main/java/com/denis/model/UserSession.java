@@ -1,4 +1,4 @@
-package model;
+package com.denis.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,8 +18,6 @@ public class UserSession implements Serializable {
 
     @Column(name= "uuid")
     private String uuid;
-
-
 
     @OneToOne (mappedBy = "userSession")
     private User user;

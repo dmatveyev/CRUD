@@ -1,8 +1,8 @@
-package controller;
+package com.denis.controller;
 
 
-import service.UsersService;
-import service.UsersServiceImpl;
+import com.denis.service.UsersService;
+import com.denis.service.UsersServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

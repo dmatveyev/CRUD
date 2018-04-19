@@ -1,6 +1,6 @@
-package dao;
+package com.denis.dao;
 
-import model.User;
+import com.denis.model.User;
 import java.util.List;
 
 public interface UserDAO {
