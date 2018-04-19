@@ -6,6 +6,8 @@ import com.denis.service.SessionService;
 import com.denis.service.SessionServiceImpl;
 import com.denis.service.UsersService;
 import com.denis.service.UsersServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,9 +18,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/login", name = "LoginServlet")
+@Component
 public class LoginServlet extends HttpServlet {
     private UsersService usersService;
     private SessionService sessionService;
+
+    @Autowired
+    public LoginServlet(UsersService usersService, SessionService sessionService) {
+        this.usersService = usersService;
+        this.sessionService = sessionService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,18 +38,16 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        usersService = UsersServiceImpl.getInstance();
-        sessionService = SessionServiceImpl.getInstanse();
         User user = usersService.getUserByLogin(req.getParameter("login"), req.getParameter("pd"));
         sessionService.createSession(user);
         UserSession userSession = sessionService.get(user.getId());
         if (user != null) {
             switch (user.getRole()) {
                 case ("user"):
-                    resp.sendRedirect("/CRUD/user?uuid="+userSession.getUuid());
+                    resp.sendRedirect("/CRUD/user?uuid=" + userSession.getUuid());
                     break;
                 case ("admin"):
-                    resp.sendRedirect("/CRUD/admin?uuid="+userSession.getUuid());
+                    resp.sendRedirect("/CRUD/admin?uuid=" + userSession.getUuid());
                     break;
                 default:
                     resp.sendRedirect("/CRUD/greetings");

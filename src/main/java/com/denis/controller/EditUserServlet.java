@@ -3,6 +3,8 @@ package com.denis.controller;
 import com.denis.model.User;
 import com.denis.service.UsersService;
 import com.denis.service.UsersServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,23 +16,23 @@ import java.io.IOException;
 
 
 @WebServlet(urlPatterns = "/edit-user", name = "EditUserServlet")
+@Component
 public class EditUserServlet extends HttpServlet {
-    private User user;
+
     private UsersService usersService;
     private String uuid;
 
-    public EditUserServlet() {
-        user = new User();
-        usersService = UsersServiceImpl.getInstance();
-
+    @Autowired
+    public EditUserServlet(UsersService usersService) {
+        this.usersService = usersService;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        user = usersService.getUserById(Long.parseLong(req.getParameter("user")));
+        User user = usersService.getUserById(Long.parseLong(req.getParameter("user")));
         req.setAttribute("user", user);
-        uuid =  req.getParameter("uuid");
-        req.setAttribute("uuid",uuid);
+        uuid = req.getParameter("uuid");
+        req.setAttribute("uuid", uuid);
         resp.setContentType("text/html");
         RequestDispatcher dispatcher = getServletContext()
                 .getRequestDispatcher("/WEB-INF/edit.jsp");
@@ -46,11 +48,12 @@ public class EditUserServlet extends HttpServlet {
         String password = req.getParameter("pd");
         String role = req.getParameter("role");
 
+        User user = new User();
         user.setLogin(login);
         user.setPassword(password);
         user.setRole(role);
 
         usersService.updateUser(user);
-        resp.sendRedirect("/CRUD/admin?uuid="+uuid);
+        resp.sendRedirect("/CRUD/admin?uuid=" + uuid);
     }
 }

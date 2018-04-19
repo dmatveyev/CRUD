@@ -1,19 +1,20 @@
 package com.denis.dao;
 
-import com.denis.util.DBHelper;
 import com.denis.model.User;
 import org.hibernate.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service("userDaoHibernateImpl")
 public class UserDaoHibernateImpl implements UserDAO {
 
     private SessionFactory sessionFactory;
-    private final DBHelper connectDB;
 
-    public UserDaoHibernateImpl() {
-        connectDB = DBHelper.getInstance();
-        sessionFactory = connectDB.getSessionFactory();
-
+    @Autowired
+    public UserDaoHibernateImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override

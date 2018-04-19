@@ -1,18 +1,11 @@
 package com.denis.service;
 
 import com.denis.model.User;
-import com.denis.util.UserDaoFactory;
 
 import java.util.List;
-import java.util.Properties;
+
 
 public interface UsersService {
-
-
-
-    UserDaoFactory getDaoFactory(Properties properties);
-
-
 
     long registerUser(final User user);
 

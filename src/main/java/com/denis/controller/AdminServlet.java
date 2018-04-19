@@ -1,5 +1,7 @@
 package com.denis.controller;
 
+import org.springframework.stereotype.Component;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/admin", name = "AdminServlet")
+@Component
 public class AdminServlet extends HttpServlet {
 
     @Override
@@ -16,7 +19,7 @@ public class AdminServlet extends HttpServlet {
 
     }
 
-  @Override
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = getServletContext()
                 .getRequestDispatcher("/WEB-INF/index.jsp");

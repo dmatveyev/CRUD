@@ -6,6 +6,8 @@ import com.denis.service.SessionService;
 import com.denis.service.SessionServiceImpl;
 import com.denis.service.UsersService;
 import com.denis.service.UsersServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -15,17 +17,23 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebFilter (value = "/SimpleServletFilter",servletNames = {"UserServlet","AdminServlet"})
+@WebFilter(value = "/SimpleServletFilter", servletNames = {"UserServlet", "AdminServlet"})
+@Component
 public class UserFilter implements Filter {
 
     private UsersService usersService;
     private SessionService sessionService;
     private FilterConfig config = null;
     private boolean active = false;
+
+    @Autowired
+    public UserFilter(UsersService usersService, SessionService sessionService) {
+        this.usersService = usersService;
+        this.sessionService = sessionService;
+    }
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        usersService = UsersServiceImpl.getInstance();
-        sessionService = SessionServiceImpl.getInstanse();
         this.config = filterConfig;
         String act = config.getInitParameter("active");
         if (act != null)
@@ -40,13 +48,12 @@ public class UserFilter implements Filter {
     }
 
     private void doAdminServlet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(req.getMethod().equalsIgnoreCase("GET")) {
+        if (req.getMethod().equalsIgnoreCase("GET")) {
             String uuid = req.getParameter("uuid");
-            if (req.getParameter("logout")!= null){
+            if (req.getParameter("logout") != null) {
                 sessionService.delete(sessionService.getSessionByUuid(uuid));
                 resp.sendRedirect("/CRUD/login");
-            }else {
-                usersService = UsersServiceImpl.getInstance();
+            } else {
                 List<User> users = usersService.getUsers();
                 req.setAttribute("users", users);
                 req.setAttribute("uuid", uuid);
@@ -59,7 +66,7 @@ public class UserFilter implements Filter {
     }
 
     private void doUserServlet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("uuid",req.getParameter("uuid"));
+        req.setAttribute("uuid", req.getParameter("uuid"));
         RequestDispatcher dispatcher = req.getServletContext()
                 .getRequestDispatcher("/WEB-INF/user.jsp");
         dispatcher.forward(req, resp);
@@ -67,7 +74,7 @@ public class UserFilter implements Filter {
 
     private void CheckUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String uuid = req.getParameter("uuid");
-        if (uuid !=null) {
+        if (uuid != null) {
             UserSession session = sessionService.getSessionByUuid(uuid);
             if (session != null) {
                 User user = usersService.getUserById(session.getUserId());
@@ -86,9 +93,7 @@ public class UserFilter implements Filter {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
 
-
     }
-
 
 
     @Override

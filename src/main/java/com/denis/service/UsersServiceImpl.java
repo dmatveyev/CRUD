@@ -2,9 +2,8 @@ package com.denis.service;
 
 import com.denis.dao.UserDAO;
 import com.denis.model.User;
-import com.denis.util.DaoFactories;
-import com.denis.util.HibernateDaoFactory;
-import com.denis.util.UserDaoFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.List;
@@ -17,34 +16,14 @@ import static java.lang.String.valueOf;
  * Управляет регистрацией и авторизацией пользователей.
  * Синглтон
  */
+@Component
 public class UsersServiceImpl implements UsersService {
 
-    private final String propertiesPath = "D:\\apache-tomcat-8.0.48\\webapps\\f.properties";
-    private static UsersServiceImpl usersServiceImpl;
     private UserDAO userDAO;
 
-
-    private UsersServiceImpl() {
-        Properties properties = new Properties();
-        try (InputStream in = new FileInputStream(propertiesPath)){
-            properties.load(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        UserDaoFactory userDaoFactory = getDaoFactory(properties);
-        userDAO = userDaoFactory.createDao();
-    }
-
-    public UserDaoFactory getDaoFactory(Properties properties) {
-        UserDaoFactory userDaoFactory = new HibernateDaoFactory();
-        return userDaoFactory;
-    }
-
-    public static UsersServiceImpl getInstance() {
-        if (usersServiceImpl == null) {
-            usersServiceImpl = new UsersServiceImpl();
-        }
-        return usersServiceImpl;
+    @Autowired
+    public UsersServiceImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     public long registerUser(final User user) {

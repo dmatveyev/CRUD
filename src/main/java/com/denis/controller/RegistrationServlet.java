@@ -3,6 +3,8 @@ package com.denis.controller;
 import com.denis.model.User;
 import com.denis.service.UsersService;
 import com.denis.service.UsersServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/registration", name = "RegistrationServlet")
+@Component
 public class RegistrationServlet extends HttpServlet {
+
+    private UsersService usersService;
+
+    @Autowired
+    public RegistrationServlet(UsersService usersService) {
+        this.usersService = usersService;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
@@ -26,7 +37,6 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("pd");
-        UsersService usersService = UsersServiceImpl.getInstance();
         User user = usersService.createUser(login, password);
         req.setAttribute("user", user);
         resp.sendRedirect("/CRUD/login");

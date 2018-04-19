@@ -2,16 +2,16 @@ package com.denis.dao;
 
 import com.denis.model.UserSession;
 import org.hibernate.*;
-import com.denis.util.DBHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SessionDAOHibernateImpl implements SessionDAO {
     private SessionFactory sessionFactory;
-    private final DBHelper connectDB;
 
-    public SessionDAOHibernateImpl() {
-        connectDB = DBHelper.getInstance();
-        sessionFactory = connectDB.getSessionFactory();
-
+    @Autowired
+    public SessionDAOHibernateImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
 

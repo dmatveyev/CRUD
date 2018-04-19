@@ -4,23 +4,18 @@ import com.denis.dao.SessionDAO;
 import com.denis.dao.SessionDAOHibernateImpl;
 import com.denis.model.User;
 import com.denis.model.UserSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+@Component
 public class SessionServiceImpl implements SessionService{
 
-    public static SessionServiceImpl sessionService;
     private SessionDAO sessionDAO;
-
-    private SessionServiceImpl() {
-        sessionDAO = new SessionDAOHibernateImpl();
-    }
-
-    public static SessionServiceImpl getInstanse(){
-        if (sessionService == null) {
-            sessionService = new SessionServiceImpl();
-        }
-        return sessionService;
+    @Autowired
+    public SessionServiceImpl(SessionDAO sessionDAO) {
+        this.sessionDAO = sessionDAO;
     }
 
     public void createSession (User user) {
@@ -28,7 +23,6 @@ public class SessionServiceImpl implements SessionService{
         session.setUserId(user.getId());
         session.setUuid(UUID.randomUUID().toString());
         insert(session);
-
     }
 
     public UserSession get (long userId) {
