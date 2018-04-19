@@ -1,8 +1,8 @@
-package services;
+package service;
 
 import dao.*;
 import model.User;
-import utils.*;
+import util.*;
 
 import java.io.*;
 import java.util.List;

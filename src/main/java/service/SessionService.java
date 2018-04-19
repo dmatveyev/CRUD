@@ -1,8 +1,7 @@
-package services;
+package service;
 
 import dao.SessionDAO;
 import dao.SessionDAOHibernateImpl;
-import dao.UserDAO;
 import model.User;
 import model.UserSession;
 

@@ -1,9 +1,9 @@
-package utils;
+package util;
 
 import model.User;
 import model.UserSession;
-import services.SessionService;
-import services.UsersService;
+import service.SessionService;
+import service.UsersService;
 
 
 

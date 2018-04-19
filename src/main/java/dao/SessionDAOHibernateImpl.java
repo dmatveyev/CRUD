@@ -2,7 +2,7 @@ package dao;
 
 import model.UserSession;
 import org.hibernate.*;
-import utils.DBHelper;
+import util.DBHelper;
 
 public class SessionDAOHibernateImpl implements SessionDAO {
     private SessionFactory sessionFactory;

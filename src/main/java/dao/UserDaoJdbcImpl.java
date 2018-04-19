@@ -1,6 +1,6 @@
 package dao;
 
-import utils.DBHelper;
+import util.DBHelper;
 import model.User;
 
 import java.sql.Connection;
