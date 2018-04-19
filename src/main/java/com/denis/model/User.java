@@ -22,7 +22,7 @@ public class User implements Serializable {
     @Column(name = "userRoles")
     private String role;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn (name="id",insertable = false,updatable = false)
     private UserSession userSession;
 
@@ -87,6 +87,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "[login:" + getLogin() + ", password: " + getPassword() + "]";
+        return "[id " + getId()+ " login: " + getLogin() + ", password: " + getPassword() + ", role "+ getRole()+ "]";
     }
 }

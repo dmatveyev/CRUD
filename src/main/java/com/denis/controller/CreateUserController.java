@@ -40,6 +40,4 @@ public class CreateUserController {
         resp.sendRedirect("/CRUD/admin?uuid=" + uuid);
         // TODO: 19.04.2018 Подумать с вариантом использования страниц 
     }
-
-
 }
