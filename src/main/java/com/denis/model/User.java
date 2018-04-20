@@ -1,12 +1,19 @@
 package com.denis.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
     // TODO: 12.04.2018 Подумать над параметрами пользователя.
     @Id
     @Column(name = "id")
@@ -22,9 +29,51 @@ public class User implements Serializable {
     @Column(name = "userRoles")
     private String role;
 
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled = true;
+
     public User() {
     }
 
+    public User(String username, String password, Set<GrantedAuthority> roles) {
+        this.login = username;
+        this.password = password;
+        this.role = roles.iterator().next().getAuthority();
+    }
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        grantedAuthorities.add(new SimpleGrantedAuthority(role));
+        return grantedAuthorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
 
     public long getId() {
         return id;
@@ -42,9 +91,6 @@ public class User implements Serializable {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
     public void setPassword(final String password) {
         this.password = password;

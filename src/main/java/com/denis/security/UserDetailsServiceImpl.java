@@ -37,7 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         log.info("loadUserByUsername(" + login + ");");
         User user = usersService.getUserByLogin(login);
 
-        String username = user.getLogin();
+        String username = user.getUsername();
         String password = user.getPassword();
         String role = user.getRole();
         // указываем роли для этого пользователя
@@ -48,7 +48,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         который позволит проверить введеный пользователем логин и пароль
         и уже потом аутентифицировать пользователя*/
         UserDetails userDetails =
-                new org.springframework.security.core.userdetails.User(username,
+                new User(username,
                         password,
                         roles);
         log.info("Created UserDetails with role: " + role);
