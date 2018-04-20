@@ -25,10 +25,6 @@ public class UserController {
         this.usersService = usersService;
     }
 
-    @Autowired
-    public UserController(SessionService sessionService) {
-        this.sessionService = sessionService;
-    }
 
     @RequestMapping(method = RequestMethod.GET)
     protected String doGet(HttpServletRequest req, HttpServletResponse resp)  {
