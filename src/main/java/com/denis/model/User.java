@@ -9,11 +9,11 @@ import java.util.Objects;
 public class User implements Serializable {
     // TODO: 12.04.2018 Подумать над параметрами пользователя.
     @Id
-    @Column(name ="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name ="login")
+    @Column(name = "login")
     private String login;
 
     @Column(name = "password")
@@ -22,20 +22,9 @@ public class User implements Serializable {
     @Column(name = "userRoles")
     private String role;
 
-    @OneToOne()
-    @JoinColumn (name="id",insertable = false,updatable = false)
-    private UserSession userSession;
-
     public User() {
     }
 
-    public UserSession getUserSession() {
-        return userSession;
-    }
-
-    public void setUserSession(UserSession userSession) {
-        this.userSession = userSession;
-    }
 
     public long getId() {
         return id;
@@ -87,6 +76,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "[id " + getId()+ " login: " + getLogin() + ", password: " + getPassword() + ", role "+ getRole()+ "]";
+        return "[id " + getId() + " login: " + getLogin() + ", password: " + getPassword() + ", role " + getRole() + "]";
     }
 }

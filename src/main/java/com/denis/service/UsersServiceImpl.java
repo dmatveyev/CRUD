@@ -2,8 +2,11 @@ package com.denis.service;
 
 import com.denis.dao.UserDAO;
 import com.denis.model.User;
+import com.denis.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,7 +17,8 @@ import static java.lang.String.valueOf;
  * Управляет регистрацией и авторизацией пользователей.
  * Синглтон
  */
-@Component
+@Service
+@Transactional
 public class UsersServiceImpl implements UsersService {
 
     private UserDAO userDAO;
@@ -41,7 +45,7 @@ public class UsersServiceImpl implements UsersService {
         User user = new User();
         user.setLogin(login);
         user.setPassword(password);
-        user.setRole("user");
+        user.setRole(UserRole.ROLE_USER.name());
         registerUser(user);
         return user;
     }

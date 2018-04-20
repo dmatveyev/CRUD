@@ -13,14 +13,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/edit-user")
 public class EditController {
 
     private UsersService usersService;
-    private String uuid;
     private User user;
+
+    private static final Logger log = Logger
+            .getLogger("EditController");
 
     @Autowired
     public EditController(UsersService usersService) {
@@ -31,8 +34,6 @@ public class EditController {
     protected String doGet(ModelMap modelMap, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         user = usersService.getUserById(Long.parseLong(req.getParameter("user")));
         modelMap.addAttribute("user", user);
-        uuid = req.getParameter("uuid");
-        modelMap.addAttribute("uuid", uuid);
         return "edit";
     }
 
@@ -44,9 +45,8 @@ public class EditController {
         user.setLogin(login);
         user.setPassword(password);
         user.setRole(role);
-        System.out.println("Edited user: " + user.toString());
-
+        log.info("Edited user: " + user.toString());
         usersService.updateUser(user);
-        resp.sendRedirect("/CRUD/admin?uuid=" + uuid);
+        resp.sendRedirect("/CRUD/admin");
     }
 }

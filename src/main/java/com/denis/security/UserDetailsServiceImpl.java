@@ -43,19 +43,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // указываем роли для этого пользователя
         Set<GrantedAuthority> roles = new HashSet<>();
 
-        switch (UserRole.valueOf(role)) {
-            case USER:
-                roles.add(new SimpleGrantedAuthority(UserRole.USER.name()));
-                log.info("role: " + role);
-                break;
-            case ADMIN:
-                roles.add(new SimpleGrantedAuthority(UserRole.ADMIN.name()));
-                log.info("role: " + role);
-                break;
-            default:
-                roles.add(new SimpleGrantedAuthority(UserRole.USER.name()));
+        roles.add(new SimpleGrantedAuthority(UserRole.valueOf(role).name()));
 
-        }
+
         // на основании полученныйх даных формируем объект UserDetails
         // который позволит проверить введеный пользователем логин и пароль
         // и уже потом аутентифицировать пользователя

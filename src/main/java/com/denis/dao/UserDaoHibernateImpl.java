@@ -3,11 +3,14 @@ package com.denis.dao;
 import com.denis.model.User;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service("userDaoHibernateImpl")
+@Repository("userDaoHibernateImpl")
+@Transactional
 public class UserDaoHibernateImpl implements UserDAO {
 
     private SessionFactory sessionFactory;
@@ -21,14 +24,11 @@ public class UserDaoHibernateImpl implements UserDAO {
     public void insert(User user) {
         try {
             Session session = getSession();
-            Transaction transaction = getTransaction(session);
             session.save(user);
-            transaction.commit();
             session.close();
         } catch (HibernateException e) {
             e.printStackTrace();
         }
-
     }
 
     private Session getSession() {
@@ -45,9 +45,7 @@ public class UserDaoHibernateImpl implements UserDAO {
         User user = null;
         try {
             Session session = getSession();
-            Transaction transaction = getTransaction(session);
             user = (User) session.get(User.class, id);
-            transaction.commit();
             session.close();
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -60,7 +58,7 @@ public class UserDaoHibernateImpl implements UserDAO {
     public void delete(User user) {
         try {
             Session session = getSession();
-            Transaction transaction = getTransaction(session);
+            Transaction transaction = session.beginTransaction();
             session.delete(user);
             transaction.commit();
             session.close();
@@ -69,9 +67,7 @@ public class UserDaoHibernateImpl implements UserDAO {
         }
     }
 
-    private Transaction getTransaction(Session session) {
-        return session.beginTransaction();
-    }
+
 
     @Override
     public List<User> getUsers() {
@@ -91,7 +87,7 @@ public class UserDaoHibernateImpl implements UserDAO {
     public void update(User user) {
         try {
             Session session = getSession();
-            Transaction transaction = getTransaction(session);
+            Transaction transaction = session.beginTransaction();
             session.update(user);
             transaction.commit();
             session.close();

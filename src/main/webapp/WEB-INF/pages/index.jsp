@@ -5,7 +5,7 @@
   <body>
 
   <h1>Пользователи</h1>
-  <a href="./create-user?uuid=${uuid}">Create User</a>
+  <a href="./create-user">Create User</a>
   <table border="1">
     <tr>
         <td>id</td>
@@ -21,12 +21,12 @@
         <td><c:out value="${user.login}" /></td>
         <td><c:out value="${user.password}" /></td>
         <td><c:out value="${user.role}" /></td>
-         <td><a href="./edit-user?uuid=${uuid}&user=${user.id}">edit</a></td>
-        <td><a href="./delete-user?uuid=${uuid}&user=${user.id}">delete</a></td>
+         <td><a href="./edit-user?user=${user.id}">edit</a></td>
+        <td><a href="./delete-user?user=${user.id}">delete</a></td>
       </tr>
     </c:forEach>
   </table>
-    <a href="./admin?uuid=${uuid}&logout=true">Logout</a>
+    <a href="./admin?logout=true">Logout</a>
 
   </body>
 </html>

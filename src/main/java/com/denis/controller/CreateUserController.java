@@ -26,9 +26,6 @@ public class CreateUserController {
 
     @RequestMapping(method = RequestMethod.GET)
     protected String doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        uuid = req.getParameter("uuid");
-        req.setAttribute("uuid", uuid);
         return "createUser";
     }
 
@@ -37,7 +34,7 @@ public class CreateUserController {
         String login = req.getParameter("login");
         String password = req.getParameter("pd");
         usersService.createUser(login, password);
-        resp.sendRedirect("/CRUD/admin?uuid=" + uuid);
+        resp.sendRedirect("/CRUD/admin");
         // TODO: 19.04.2018 Подумать с вариантом использования страниц 
     }
 }
