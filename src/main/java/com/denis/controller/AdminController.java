@@ -19,6 +19,7 @@ import java.util.List;
 public class AdminController {
 
     private UsersService usersService;
+
     @Autowired
     public AdminController(UsersService usersService) {
         this.usersService = usersService;
