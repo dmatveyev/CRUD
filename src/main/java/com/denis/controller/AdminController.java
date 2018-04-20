@@ -50,17 +50,17 @@ public class AdminController {
      * @return возвращает false если пользователь имеет необходимую роль
      */
     private boolean CheckUser(String uuid)  {
-        if (uuid != null) {
-            UserSession session = sessionService.getSessionByUuid(uuid);
-            if (session != null) {
-                User user = usersService.getUserById(session.getUserId());
-                if (user != null) {
-                    if (user.getRole().equals("admin")) {
-                       return false;
+            if (uuid != null) {
+                UserSession session = sessionService.getSessionByUuid(uuid);
+                if (session != null) {
+                    User user = usersService.getUserById(session.getUserId());
+                    if (user != null) {
+                        if (user.getRole().equals("admin")) {
+                            return false;
+                        }
                     }
                 }
             }
-        }
-        return true;
+            return true;
     }
 }

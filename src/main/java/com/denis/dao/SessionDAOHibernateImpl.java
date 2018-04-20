@@ -4,8 +4,9 @@ import com.denis.model.UserSession;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class SessionDAOHibernateImpl implements SessionDAO {
     private SessionFactory sessionFactory;
 

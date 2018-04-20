@@ -4,6 +4,7 @@ import com.denis.dao.UserDAO;
 import com.denis.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.util.List;
@@ -17,6 +18,7 @@ import static java.lang.String.valueOf;
  * Синглтон
  */
 @Component
+@Transactional
 public class UsersServiceImpl implements UsersService {
 
     private UserDAO userDAO;

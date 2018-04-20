@@ -3,11 +3,13 @@ package com.denis.dao;
 import com.denis.model.User;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service("userDaoHibernateImpl")
+@Repository
 public class UserDaoHibernateImpl implements UserDAO {
 
     private SessionFactory sessionFactory;
@@ -21,9 +23,7 @@ public class UserDaoHibernateImpl implements UserDAO {
     public void insert(User user) {
         try {
             Session session = getSession();
-            Transaction transaction = getTransaction(session);
             session.save(user);
-            transaction.commit();
             session.close();
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -109,7 +109,7 @@ public class UserDaoHibernateImpl implements UserDAO {
             Query query = session.createQuery("from User where login =:login and password = :password");
             query.setParameter("login", login);
             query.setParameter("password", password);
-            if(query.list().size() != 0) {
+            if (query.list().size() != 0) {
                 user = (User) query.list().get(0);
             }
             session.close();
