@@ -3,8 +3,6 @@ package com.denis.security;
 import com.denis.model.User;
 import com.denis.model.UserRole;
 import com.denis.service.UsersService;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,26 +31,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public UserDetails loadUserByUsername(String login)
             throws UsernameNotFoundException, DataAccessException {
-
         log.info("loadUserByUsername(" + login + ");");
         User user = usersService.getUserByLogin(login);
-
-        String username = user.getUsername();
-        String password = user.getPassword();
-        String role = user.getRole();
-        // указываем роли для этого пользователя
-        Set<GrantedAuthority> roles = new HashSet<>();
-
-        roles.add(new SimpleGrantedAuthority(UserRole.valueOf(role).name()));
-      /*  на основании полученныйх даных формируем объект UserDetails
-        который позволит проверить введеный пользователем логин и пароль
-        и уже потом аутентифицировать пользователя*/
-        UserDetails userDetails =
-                new User(username,
-                        password,
-                        roles);
-        log.info("Created UserDetails with role: " + role);
-
-        return userDetails;
+        log.info("Created User " + user.toString());
+        log.info("Created UserDetails with role: " + user.getRole());
+        return user;
     }
 }

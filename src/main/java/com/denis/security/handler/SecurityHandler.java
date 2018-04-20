@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.logging.Logger;
 
 @Service
@@ -44,9 +43,9 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
 
     private String determineTargetUrl(Authentication authentication) {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        if (authorities.contains(new SimpleGrantedAuthority(UserRole.ROLE_ADMIN.name()))){
+        if (authorities.contains(new SimpleGrantedAuthority(UserRole.ROLE_ADMIN.name()))) {
             return "/admin";
-        }else if(authorities.contains(new SimpleGrantedAuthority(UserRole.ROLE_ADMIN.name()))) {
+        } else if (authorities.contains(new SimpleGrantedAuthority(UserRole.ROLE_ADMIN.name()))) {
             return "/user";
         } else {
             throw new IllegalStateException();

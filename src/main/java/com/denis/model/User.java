@@ -1,5 +1,6 @@
 package com.denis.model;
 
+import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,8 +30,9 @@ public class User implements Serializable, UserDetails {
     @Column(name = "userRoles")
     private String role;
 
-    @Column(name = "enabled", nullable = false)
-    private boolean enabled = true;
+    @Column(name = "enabled")
+    @Type(type="boolean")
+    private boolean enabled;
 
     public User() {
     }
@@ -71,8 +73,9 @@ public class User implements Serializable, UserDetails {
         return true;
     }
 
+
     public boolean isEnabled() {
-        return enabled;
+        return this.enabled;
     }
 
     public long getId() {
@@ -122,6 +125,11 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public String toString() {
-        return "[id " + getId() + " login: " + getLogin() + ", password: " + getPassword() + ", role " + getRole() + "]";
+        return "[id " + getId() +
+                " login: " + getLogin() +
+                ", password: " + getPassword() +
+                ", role " + getRole() +
+                ", enabled: " + isEnabled()+
+                "]";
     }
 }

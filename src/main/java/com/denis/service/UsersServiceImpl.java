@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-
 @Service
 public class UsersServiceImpl implements UsersService {
 
@@ -20,19 +19,23 @@ public class UsersServiceImpl implements UsersService {
         this.userDAO = userDAO;
     }
 
+    @Override
     public long registerUser(final User user) {
         userDAO.insert(user);
         return user.getId();
     }
 
+    @Override
     public void deleteUser(User user) {
         userDAO.delete(user);
     }
 
+    @Override
     public List<User> getUsers() {
         return userDAO.getUsers();
     }
 
+    @Override
     public User createUser(final String login, final String password) {
         User user = new User();
         user.setLogin(login);
@@ -42,16 +45,14 @@ public class UsersServiceImpl implements UsersService {
         return user;
     }
 
+    @Override
     public void updateUser(User user) {
         userDAO.update(user);
     }
 
+    @Override
     public User getUserById(long id) {
-        return  userDAO.get(id);
-    }
-
-    public User getUserByLoginPassword(String login, String password) {
-        return  userDAO.getUserByLoginPassword(login, password);
+        return userDAO.get(id);
     }
 
     @Override
