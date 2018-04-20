@@ -32,7 +32,6 @@ public class AdminController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    @PreAuthorize("hasRole('ADMIN')")
     public String doGet(ModelMap mapModel, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String uuid = req.getParameter("uuid");
 /*        if (CheckUser(uuid)) {
@@ -61,7 +60,7 @@ public class AdminController {
             if (session != null) {
                 User user = usersService.getUserById(session.getUserId());
                 if (user != null) {
-                    if (user.getRole().equals("admin")) {
+                    if (user.getRole().equals("ADMIN")) {
                        return false;
                     }
                 }

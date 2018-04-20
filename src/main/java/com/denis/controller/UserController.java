@@ -28,7 +28,6 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    @PreAuthorize("hasRole('USER')")
     protected String doGet(HttpServletRequest req, HttpServletResponse resp)  {
 /*        String uuid = req.getParameter("uuid");
         if (CheckUser(uuid)) {
