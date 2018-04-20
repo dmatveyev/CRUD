@@ -44,11 +44,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<GrantedAuthority> roles = new HashSet<>();
 
         roles.add(new SimpleGrantedAuthority(UserRole.valueOf(role).name()));
-
-
-        // на основании полученныйх даных формируем объект UserDetails
-        // который позволит проверить введеный пользователем логин и пароль
-        // и уже потом аутентифицировать пользователя
+      /*  на основании полученныйх даных формируем объект UserDetails
+        который позволит проверить введеный пользователем логин и пароль
+        и уже потом аутентифицировать пользователя*/
         UserDetails userDetails =
                 new org.springframework.security.core.userdetails.User(username,
                         password,
