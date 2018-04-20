@@ -5,6 +5,7 @@ import com.denis.model.UserSession;
 import com.denis.service.SessionService;
 import com.denis.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +32,10 @@ public class AdminController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ADMIN')")
     public String doGet(ModelMap mapModel, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String uuid = req.getParameter("uuid");
-        if (CheckUser(uuid)) {
+/*        if (CheckUser(uuid)) {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return "forbidden";
         }else {
@@ -41,7 +43,11 @@ public class AdminController {
             mapModel.addAttribute("users", users);
             mapModel.addAttribute("uuid", uuid);
             return "index";
-        }
+        }*/
+        List<User> users = usersService.getUsers();
+        mapModel.addAttribute("users", users);
+        mapModel.addAttribute("uuid", uuid);
+        return "index";
     }
 
     /**

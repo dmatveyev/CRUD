@@ -5,13 +5,12 @@
            <title>User Form</title>
        </head>
        <body>
-       <form name="f1" method="post" action="login">
-           Login: <br />
-           <input name="login" type="text" size="25" maxlength="30" value="" /> <br />
-           Password: <br />
-           <input name="pd" type="password" size="25" maxlength="30" value="" /> <br />
-
-           <input type="submit" name="enter" value="Sign in" />
+       <form name='f2' action='/CRUD/security' method='POST'>
+        Login: <br />
+       	<input type='text' name='username' value=''></td>
+       	Password: <br />
+       	<input type='password' name='password' /></td>
+       	<input type="submit" name="enter" value="Sign in" />
        </form>
        </body>
        </html>

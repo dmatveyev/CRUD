@@ -5,9 +5,7 @@ import com.denis.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
 import java.util.List;
-import java.util.Properties;
 
 import static java.lang.String.valueOf;
 
@@ -56,8 +54,13 @@ public class UsersServiceImpl implements UsersService {
         return  userDAO.get(id);
     }
 
-    public User getUserByLogin(String login, String password) {
-        return  userDAO.getUserByLogin(login, password);
+    public User getUserByLoginPassword(String login, String password) {
+        return  userDAO.getUserByLoginPassword(login, password);
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        return userDAO.getUserByLogin(login);
     }
 }
 

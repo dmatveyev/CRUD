@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @ComponentScan(basePackages = { "com.denis" })
-@Import({OrmConfig.class, WebConfig.class})
+@Import({OrmConfig.class, WebConfig.class, SecurityConfig.class})
 public class AppConfig {
 
 }

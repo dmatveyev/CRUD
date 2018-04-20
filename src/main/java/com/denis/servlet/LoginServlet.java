@@ -3,15 +3,12 @@ package com.denis.servlet;
 import com.denis.model.User;
 import com.denis.model.UserSession;
 import com.denis.service.SessionService;
-import com.denis.service.SessionServiceImpl;
 import com.denis.service.UsersService;
-import com.denis.service.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = usersService.getUserByLogin(req.getParameter("login"), req.getParameter("pd"));
+        User user = usersService.getUserByLoginPassword(req.getParameter("login"), req.getParameter("pd"));
         sessionService.createSession(user);
         UserSession userSession = sessionService.get(user.getId());
         if (user != null) {

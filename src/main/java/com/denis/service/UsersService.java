@@ -19,5 +19,6 @@ public interface UsersService {
 
     User getUserById(long id);
 
-    User getUserByLogin(String login, String password);
+    User getUserByLoginPassword(String login, String password);
+    User getUserByLogin(String login);
 }

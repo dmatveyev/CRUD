@@ -1,7 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <html>
   <body>
+
   <h1>Пользователи</h1>
   <a href="./create-user?uuid=${uuid}">Create User</a>
   <table border="1">
@@ -25,6 +27,7 @@
     </c:forEach>
   </table>
     <a href="./admin?uuid=${uuid}&logout=true">Logout</a>
+
   </body>
 </html>
 

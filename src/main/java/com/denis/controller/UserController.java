@@ -5,6 +5,7 @@ import com.denis.model.UserSession;
 import com.denis.service.SessionService;
 import com.denis.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,26 +28,29 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.GET)
+    @PreAuthorize("hasRole('USER')")
     protected String doGet(HttpServletRequest req, HttpServletResponse resp)  {
-        String uuid = req.getParameter("uuid");
+/*        String uuid = req.getParameter("uuid");
         if (CheckUser(uuid)) {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return "forbidden";
         }else {
             return "user";
-        }
+        }*/
+        return "user";
 
     }
 
     @RequestMapping(method = RequestMethod.POST)
     protected String doPost(HttpServletRequest req, HttpServletResponse resp) {
-        String uuid = req.getParameter("uuid");
+/*        String uuid = req.getParameter("uuid");
         if (CheckUser(uuid)) {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return "forbidden";
         }else {
             return "user";
-        }
+        }*/
+        return "user";
     }
 
     /**
