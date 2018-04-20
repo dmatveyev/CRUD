@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository("userDaoHibernateImpl")
-@Transactional
 public class UserDaoHibernateImpl implements UserDAO {
 
     private SessionFactory sessionFactory;
@@ -21,6 +20,7 @@ public class UserDaoHibernateImpl implements UserDAO {
     }
 
     @Override
+    @Transactional
     public void insert(User user) {
         try {
             Session session = getSession();
