@@ -3,22 +3,20 @@ package com.denis.filter;
 import com.denis.model.User;
 import com.denis.model.UserSession;
 import com.denis.service.SessionService;
-import com.denis.service.SessionServiceImpl;
+
 import com.denis.service.UsersService;
-import com.denis.service.UsersServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
 
-/*@WebFilter(value = "/SimpleServletFilter", servletNames = {"UserServlet", "AdminServlet"})*/
-@Component
+//@WebFilter(urlPatterns = {"/admin","/user"}, value = "/SimpleServletFilter")
 public class UserFilter implements Filter {
 
     private UsersService usersService;

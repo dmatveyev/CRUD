@@ -1,6 +1,7 @@
 package com.denis.controller;
 
 import com.denis.model.User;
+import com.denis.model.UserSession;
 import com.denis.service.SessionService;
 import com.denis.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,34 @@ public class AdminController {
     @RequestMapping(method = RequestMethod.GET)
     public String doGet(ModelMap mapModel, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String uuid = req.getParameter("uuid");
-        List<User> users = usersService.getUsers();
-        mapModel.addAttribute("users", users);
-        mapModel.addAttribute("uuid", uuid);
-        return "index";
+        if (CheckUser(uuid)) {
+            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return "forbidden";
+        }else {
+            List<User> users = usersService.getUsers();
+            mapModel.addAttribute("users", users);
+            mapModel.addAttribute("uuid", uuid);
+            return "index";
+        }
+    }
+
+    /**
+     * Инвертированный метод
+     * @param uuid токен пользователя
+     * @return возвращает false если пользователь имеет необходимую роль
+     */
+    private boolean CheckUser(String uuid)  {
+        if (uuid != null) {
+            UserSession session = sessionService.getSessionByUuid(uuid);
+            if (session != null) {
+                User user = usersService.getUserById(session.getUserId());
+                if (user != null) {
+                    if (user.getRole().equals("admin")) {
+                       return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }
