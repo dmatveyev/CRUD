@@ -2,18 +2,13 @@ package com.denis.security.handler;
 
 import com.denis.model.UserRole;
 import com.denis.service.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -44,8 +39,10 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
     private String determineTargetUrl(Authentication authentication) {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         if (authorities.contains(new SimpleGrantedAuthority(UserRole.ROLE_ADMIN.name()))) {
+            log.info("Redirecting to /admin");
             return "/admin";
         } else if (authorities.contains(new SimpleGrantedAuthority(UserRole.ROLE_ADMIN.name()))) {
+            log.info("Redirecting to /user");
             return "/user";
         } else {
             throw new IllegalStateException();

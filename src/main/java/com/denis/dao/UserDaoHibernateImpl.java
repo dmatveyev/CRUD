@@ -4,7 +4,6 @@ import com.denis.model.User;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -36,11 +35,6 @@ public class UserDaoHibernateImpl implements UserDAO {
     }
 
     @Override
-    public String getUserId(String login, String password) {
-        return null;
-    }
-
-    @Override
     public User get(long id) {
         User user = null;
         try {
@@ -66,7 +60,6 @@ public class UserDaoHibernateImpl implements UserDAO {
             e.printStackTrace();
         }
     }
-
 
 
     @Override
@@ -98,31 +91,13 @@ public class UserDaoHibernateImpl implements UserDAO {
     }
 
     @Override
-    public User getUserByLoginPassword(String login, String password) {
-        User user = null;
-        try {
-            Session session = getSession();
-            Query query = session.createQuery("from User where login =:login and password = :password");
-            query.setParameter("login", login);
-            query.setParameter("password", password);
-            if(query.list().size() != 0) {
-                user = (User) query.list().get(0);
-            }
-            session.close();
-        } catch (HibernateException e) {
-            e.printStackTrace();
-        }
-        return user;
-    }
-
-    @Override
     public User getUserByLogin(String login) {
         User user = null;
         try {
             Session session = getSession();
             Query query = session.createQuery("from User where login =:login");
             query.setParameter("login", login);
-            if(query.list().size() != 0) {
+            if (query.list().size() != 0) {
                 user = (User) query.list().get(0);
             }
             session.close();

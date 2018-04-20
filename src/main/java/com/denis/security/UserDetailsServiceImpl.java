@@ -1,19 +1,14 @@
 package com.denis.security;
 
 import com.denis.model.User;
-import com.denis.model.UserRole;
 import com.denis.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 
 @Service

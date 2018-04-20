@@ -31,7 +31,7 @@ public class User implements Serializable, UserDetails {
     private String role;
 
     @Column(name = "enabled")
-    @Type(type="boolean")
+    @Type(type = "boolean")
     private boolean enabled;
 
     public User() {
@@ -129,7 +129,7 @@ public class User implements Serializable, UserDetails {
                 " login: " + getLogin() +
                 ", password: " + getPassword() +
                 ", role " + getRole() +
-                ", enabled: " + isEnabled()+
+                ", enabled: " + isEnabled() +
                 "]";
     }
 }
