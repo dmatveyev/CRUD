@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -37,7 +36,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     @Transactional
     public List<User> getUsers() {
-        return (List<User>) userRepository.findAll();
+        return  userRepository.findAll();
     }
 
     @Override
@@ -61,12 +60,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     @Transactional
     public User getUserById(long id) {
-        Optional<User> u = userRepository.findById(id);
-        User user = null;
-        if (u.isPresent()) {
-            user = u.get();
-        }
-        return user;
+        return userRepository.getOne(id);
 
     }
 
