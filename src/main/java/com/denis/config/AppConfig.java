@@ -6,6 +6,6 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan(basePackages = {"com.denis"})
-@Import({OrmConfig.class, WebConfig.class, SecurityConfig.class})
+@Import({OrmConfig.class, WebConfig.class, SecurityConfig.class, SpringDataConfig.class})
 public class AppConfig {
 }

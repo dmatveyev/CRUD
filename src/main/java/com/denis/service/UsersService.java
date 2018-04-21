@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UsersService {
 
-    long registerUser(final User user);
+    void registerUser(final User user);
 
     void deleteUser(User user);
 

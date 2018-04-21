@@ -3,6 +3,7 @@ package com.denis.service;
 import com.denis.dao.UserDAO;
 import com.denis.model.User;
 import com.denis.model.UserRole;
+import com.denis.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,26 +14,27 @@ import java.util.List;
 public class UsersServiceImpl implements UsersService {
 
     private UserDAO userDAO;
+    private UserRepository userRepository;
 
     @Autowired
-    public UsersServiceImpl(UserDAO userDAO) {
+    public UsersServiceImpl(UserDAO userDAO, UserRepository userRepository) {
         this.userDAO = userDAO;
+        this.userRepository = userRepository;
     }
 
     @Override
-    public long registerUser(final User user) {
-        userDAO.insert(user);
-        return user.getId();
+    public void registerUser(final User user) {
+        userRepository.save(user);
     }
 
     @Override
     public void deleteUser(User user) {
-        userDAO.delete(user);
+      userRepository.delete(user);
     }
 
     @Override
     public List<User> getUsers() {
-        return userDAO.getUsers();
+        return  userRepository.findAll();
     }
 
     @Override
@@ -47,17 +49,17 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public void updateUser(User user) {
-        userDAO.update(user);
+        userRepository.save(user);
     }
 
     @Override
     public User getUserById(long id) {
-        return userDAO.get(id);
+        return userRepository.findOne(id);
     }
 
     @Override
     public User getUserByLogin(String login) {
-        return userDAO.getUserByLogin(login);
+        return userRepository.findByLogin(login);
     }
 }
 
