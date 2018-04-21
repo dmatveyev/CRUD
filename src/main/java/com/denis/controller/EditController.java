@@ -43,6 +43,6 @@ public class EditController {
         user.setRole(req.getParameter("role"));
         log.info("Edited user: " + user.toString());
         usersService.updateUser(user);
-        resp.sendRedirect("/CRUD/admin");
+        resp.sendRedirect("/admin");
     }
 }

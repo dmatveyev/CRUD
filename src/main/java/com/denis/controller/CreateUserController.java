@@ -33,6 +33,6 @@ public class CreateUserController {
         String login = req.getParameter("login");
         String password = req.getParameter("pd");
         usersService.createUser(login, password);
-        resp.sendRedirect("/CRUD/admin");
+        resp.sendRedirect("/admin");
     }
 }

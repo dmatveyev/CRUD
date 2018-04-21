@@ -31,7 +31,7 @@ public class SpringDataConfig {
 
     @Autowired
     private Environment env;
-    @Bean("entityManagerFactory")
+    @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory (){
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setDatabase(Database.SQL_SERVER);

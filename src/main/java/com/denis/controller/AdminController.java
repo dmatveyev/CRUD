@@ -13,10 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+    private static final Logger log = Logger
+            .getLogger("AdminController");
 
     private UsersService usersService;
 
@@ -27,8 +30,10 @@ public class AdminController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String doGet(ModelMap mapModel, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        log.info("In admin controller");
         List<User> users = usersService.getUsers();
         mapModel.addAttribute("users", users);
+        log.info("returning index.jsp");
         return "index";
     }
 

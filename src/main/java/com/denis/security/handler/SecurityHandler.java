@@ -41,7 +41,7 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
         if (authorities.contains(new SimpleGrantedAuthority(UserRole.ROLE_ADMIN.name()))) {
             log.info("Redirecting to /admin");
             return "/admin";
-        } else if (authorities.contains(new SimpleGrantedAuthority(UserRole.ROLE_ADMIN.name()))) {
+        } else if (authorities.contains(new SimpleGrantedAuthority(UserRole.ROLE_USER.name()))) {
             log.info("Redirecting to /user");
             return "/user";
         } else {

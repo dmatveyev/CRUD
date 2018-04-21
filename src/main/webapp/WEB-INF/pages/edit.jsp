@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +8,7 @@
 <body>
 <form name="f2" method="post" action="edit-user">
     Login: <br />
-    <input name="login" type="text" size="25" maxlength="30" value="${user.login}" /> <br />
+    <input name="login" type="text" size="25" maxlength="30" value="${user.username}" /> <br />
     Password: <br />
     <input name="pd" type="password" size="25" maxlength="30" value="${user.password}" /> <br />
     Role: <br />

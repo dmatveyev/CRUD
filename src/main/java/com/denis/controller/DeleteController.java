@@ -30,6 +30,6 @@ public class DeleteController {
         long id = Long.parseLong(req.getParameter("user"));
         log.info("Deleting user with id = " + id);
         usersService.deleteUser(usersService.getUserById(id));
-        resp.sendRedirect("/CRUD/admin");
+        resp.sendRedirect("/admin");
     }
 }

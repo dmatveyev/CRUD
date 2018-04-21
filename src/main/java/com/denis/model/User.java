@@ -22,7 +22,7 @@ public class User implements Serializable, UserDetails {
     private long id;
 
     @Column(name = "login")
-    private String username;
+    private String login;
 
     @Column(name = "password")
     private String password;
@@ -38,7 +38,7 @@ public class User implements Serializable, UserDetails {
     }
 
     public User(String username, String password, Set<GrantedAuthority> roles) {
-        this.username = username;
+        this.login = username;
         this.password = password;
         this.role = roles.iterator().next().getAuthority();
     }
@@ -58,7 +58,7 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return login;
     }
 
     public boolean isAccountNonExpired() {
@@ -78,6 +78,10 @@ public class User implements Serializable, UserDetails {
         return this.enabled;
     }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public long getId() {
         return id;
     }
@@ -88,7 +92,7 @@ public class User implements Serializable, UserDetails {
 
 
     public void setLogin(final String login) {
-        this.username = login;
+        this.login = login;
     }
 
 
