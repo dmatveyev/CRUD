@@ -34,6 +34,5 @@ public class CreateUserController {
         String password = req.getParameter("pd");
         usersService.createUser(login, password);
         resp.sendRedirect("/CRUD/admin");
-        // TODO: 19.04.2018 Подумать с вариантом использования страниц 
     }
 }
