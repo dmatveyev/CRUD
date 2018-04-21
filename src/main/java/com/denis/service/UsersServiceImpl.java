@@ -1,6 +1,5 @@
 package com.denis.service;
 
-import com.denis.dao.UserDAO;
 import com.denis.model.User;
 import com.denis.model.UserRole;
 import com.denis.model.UserRepository;
@@ -13,12 +12,11 @@ import java.util.List;
 @Service
 public class UsersServiceImpl implements UsersService {
 
-    private UserDAO userDAO;
+
     private UserRepository userRepository;
 
     @Autowired
-    public UsersServiceImpl(UserDAO userDAO, UserRepository userRepository) {
-        this.userDAO = userDAO;
+    public UsersServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

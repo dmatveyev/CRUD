@@ -18,7 +18,7 @@
     <c:forEach var="user" items="${users}">
       <tr>
         <td><c:out value="${user.id}" /></td>
-        <td><c:out value="${user.login}" /></td>
+        <td><c:out value="${user.username}" /></td>
         <td><c:out value="${user.password}" /></td>
         <td><c:out value="${user.role}" /></td>
          <td><a href="./edit-user?user=${user.id}">edit</a></td>

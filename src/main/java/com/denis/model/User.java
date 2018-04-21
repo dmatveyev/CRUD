@@ -22,7 +22,7 @@ public class User implements Serializable, UserDetails {
     private long id;
 
     @Column(name = "login")
-    private String login;
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -38,7 +38,7 @@ public class User implements Serializable, UserDetails {
     }
 
     public User(String username, String password, Set<GrantedAuthority> roles) {
-        this.login = username;
+        this.username = username;
         this.password = password;
         this.role = roles.iterator().next().getAuthority();
     }
@@ -58,7 +58,7 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return username;
     }
 
     public boolean isAccountNonExpired() {
@@ -86,12 +86,9 @@ public class User implements Serializable, UserDetails {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
-    }
 
     public void setLogin(final String login) {
-        this.login = login;
+        this.username = login;
     }
 
 
@@ -109,7 +106,7 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public int hashCode() {
-        return (7 * Objects.hashCode(getLogin())) +
+        return (7 * Objects.hashCode(getUsername())) +
                 (11 * Objects.hashCode(getPassword()));
     }
 
@@ -119,14 +116,14 @@ public class User implements Serializable, UserDetails {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         final User other = (User) obj;
-        return Objects.equals(getLogin(), other.getLogin())
+        return Objects.equals(getUsername(), other.getUsername())
                 && Objects.equals(getPassword(), other.getPassword());
     }
 
     @Override
     public String toString() {
         return "[id " + getId() +
-                " login: " + getLogin() +
+                " login: " + getUsername() +
                 ", password: " + getPassword() +
                 ", role " + getRole() +
                 ", enabled: " + isEnabled() +

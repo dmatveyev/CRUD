@@ -38,12 +38,9 @@ public class EditController {
 
     @RequestMapping(method = RequestMethod.POST)
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
-        String password = req.getParameter("pd");
-        String role = req.getParameter("role");
-        user.setLogin(login);
-        user.setPassword(password);
-        user.setRole(role);
+        user.setLogin(req.getParameter("login"));
+        user.setPassword(req.getParameter("pd"));
+        user.setRole(req.getParameter("role"));
         log.info("Edited user: " + user.toString());
         usersService.updateUser(user);
         resp.sendRedirect("/CRUD/admin");
