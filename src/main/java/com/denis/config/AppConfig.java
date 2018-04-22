@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @Configuration
 @ComponentScan(basePackages = {"com.denis"})
-@Import({WebConfig.class, SecurityConfig.class, SpringDataConfig.class})
+@Import({SecurityConfig.class, SpringDataConfig.class})
 public class AppConfig {
 
 
