@@ -1,23 +1,26 @@
 package com.denis.service;
 
 import com.denis.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+public interface  UsersService{
 
-public interface UsersService {
+    void register(final User t);
 
-    void registerUser(final User user);
+    void delete(User t);
 
-    void deleteUser(User user);
+    List<User> getAll();
 
-    List<User> getUsers();
+    User create(String... params);
 
-    User createUser(final String login, final String password);
+    void update(User t);
 
-    void updateUser(User user);
+    User getById(long id);
 
-    User getUserById(long id);
+    User getByName(String login);
 
-    User getUserByLogin(String login);
+    List<User> getByParam(Object... o);
 }

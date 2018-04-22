@@ -22,13 +22,13 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    protected String doGet(HttpServletRequest req, HttpServletResponse resp) {
+    protected String doGet() {
         return "user";
 
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected String doPost(HttpServletRequest req, HttpServletResponse resp) {
+    protected String doPost() {
         return "user";
     }
 }

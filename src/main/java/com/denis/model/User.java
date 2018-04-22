@@ -1,13 +1,12 @@
 package com.denis.model;
 
-import org.hibernate.annotations.Type;
-import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -24,25 +23,16 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "userRoles")
-    private String role;
+    @ManyToMany(targetEntity =Role.class,fetch = FetchType.EAGER)
+    @JoinTable(name = "permissions",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name ="role_id"))
+    private List<Role> role;
 
-    @Column(name = "enabled")
-    @Type(type = "boolean")
-    private boolean enabled;
 
     public User() {
     }
 
-    public User(String username, String password, Set<GrantedAuthority> roles) {
-        this.username = username;
-        this.password = password;
-        this.role = roles.iterator().next().getAuthority();
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 
     public long getId() {
         return id;
@@ -69,11 +59,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getRole() {
+    public List<Role> getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(List<Role> role) {
         this.role = role;
     }
 
@@ -98,7 +88,6 @@ public class User implements Serializable {
         return "[id " + getId() +
                 " login: " + getUsername() +
                 ", password: " + getPassword() +
-                ", role " + getRole() +
                 "]";
     }
 }

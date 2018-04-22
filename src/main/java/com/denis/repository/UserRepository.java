@@ -1,5 +1,6 @@
-package com.denis.model;
+package com.denis.repository;
 
+import com.denis.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

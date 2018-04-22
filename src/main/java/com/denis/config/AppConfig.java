@@ -11,4 +11,5 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 @Import({SecurityConfig.class, SpringDataConfig.class})
 public class AppConfig {
 
+
 }

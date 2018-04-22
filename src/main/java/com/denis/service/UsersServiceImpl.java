@@ -1,12 +1,14 @@
 package com.denis.service;
 
+import com.denis.model.Role;
 import com.denis.model.User;
 import com.denis.model.UserRole;
-import com.denis.model.UserRepository;
+import com.denis.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,59 +17,72 @@ public class UsersServiceImpl implements UsersService {
 
 
     private UserRepository userRepository;
+    private RoleService roleService;
 
     @Autowired
-    public UsersServiceImpl(UserRepository userRepository) {
+    public UsersServiceImpl(UserRepository userRepository, RoleService roleService) {
+        this.roleService = roleService;
         this.userRepository = userRepository;
     }
 
     @Override
     @Transactional
-    public void registerUser(final User user) {
+    public void register(final User user) {
+        List<Role> roles = user.getRole();
+        for (Role r:roles) {
+            roleService.register(r);
+        }
         userRepository.save(user);
     }
 
+
     @Override
     @Transactional
-    public void deleteUser(User user) {
+    public void delete(User user) {
       userRepository.deleteById(user.getId());
     }
 
     @Override
     @Transactional
-    public List<User> getUsers() {
+    public List<User> getAll() {
         return  userRepository.findAll();
     }
 
     @Override
     @Transactional
-    public User createUser(final String login, final String password) {
+    public User create(String ... params){
         User user = new User();
-        user.setUsername(login);
-        user.setPassword(password);
-        user.setRole(UserRole.USER.name());
-        user.setEnabled(true);
-        registerUser(user);
+        user.setUsername(params[0]);
+        user.setPassword(params[1]);
+        List<Role> role = new ArrayList<>();
+        role.add((Role)roleService.getByName(UserRole.ROLE_USER.name()));
+        user.setRole(role);
+        register(user);
         return user;
     }
 
     @Override
     @Transactional
-    public void updateUser(User user) {
+    public void update(User user) {
         userRepository.save(user);
     }
 
     @Override
     @Transactional
-    public User getUserById(long id) {
+    public User getById(long id) {
         return userRepository.getOne(id);
 
     }
 
     @Override
     @Transactional
-    public User getUserByLogin(String login) {
+    public User getByName(String login) {
         return userRepository.findByLogin(login);
+    }
+
+    @Override
+    public List<User> getByParam(Object... o) {
+        return null;
     }
 }
 

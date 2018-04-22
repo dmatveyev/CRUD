@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,10 +27,9 @@ public class DeleteController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws IOException {
-        long id = Long.parseLong(req.getParameter("user"));
+    protected void doGet(@RequestParam("user") Long id, final HttpServletResponse resp) throws IOException {
         log.info("Deleting user with id = " + id);
-        usersService.deleteUser(usersService.getUserById(id));
+        usersService.delete(usersService.getById(id));
         resp.sendRedirect("/admin");
     }
 }

@@ -5,7 +5,7 @@
 <a href="./create-user">Create User</a>
 <table border="1">
     <tr>
-        <td>id</td>
+        <td>role_id</td>
         <td>login</td>
         <td>password</td>
         <td>role</td>
@@ -16,7 +16,7 @@
             <td th:text="${user.id}">1</td>
             <td th:text="${user.username}">""</td>
             <td th:text="${user.password}">""</td>
-            <td th:text="${user.role}">""</td>
+            <td>"ссылка на страницу с ролями"</td>
             <td><a th:href= "@{/edit-user(user=${user.id})}">edit</a></td>
             <td><a th:href="@{/delete-user(user=${user.id})}">delete</a></td>
         </tr>

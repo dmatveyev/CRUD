@@ -25,8 +25,8 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.denis")
-@PropertySource({ "classpath:hibernate.properties" })
-@EnableJpaRepositories(basePackages="com.denis")
+@PropertySource({ "classpath:application.properties" })
+@EnableJpaRepositories(basePackages="com.denis.repository")
 public class SpringDataConfig {
 
     @Autowired
@@ -54,6 +54,7 @@ public class SpringDataConfig {
         dataSource.setPassword(env.getProperty("hibernate.connection.password"));
         return dataSource;
     }
+
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
         JpaTransactionManager transactionManager = new JpaTransactionManager();
