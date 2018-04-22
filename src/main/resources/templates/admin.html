@@ -1,6 +1,8 @@
+
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org ">
-<body>
+
+<p>Ваш логин: <span  th:text = "${userName}"></span></p>
 <h1>Пользователи</h1>
 <a href="./create-user">Create User</a>
 <table border="1">
