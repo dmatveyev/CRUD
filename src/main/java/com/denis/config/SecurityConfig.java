@@ -4,12 +4,14 @@ package com.denis.config;
 import com.denis.security.UserDetailsServiceImpl;
 import com.denis.security.handler.SecurityHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder()); //- подключение реализации passwordEncoder
     }
 
     @Override
@@ -34,13 +37,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/admin/**").
-                access("hasRole('ROLE_ADMIN')")
+                access("hasRole('ADMIN')")
                 .antMatchers("/user/**").
-                access("hasRole('ROLE_USER')")
+                access("hasRole('USER')")
                 .and()
                 .formLogin()
                 .successHandler(securityHandler)
                 .usernameParameter("username")
                 .passwordParameter("password");
     }
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    };
 }

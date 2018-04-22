@@ -7,7 +7,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.User.UserBuilder;
 
 import java.util.logging.Logger;
 
@@ -28,8 +30,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throws UsernameNotFoundException, DataAccessException {
         log.info("loadUserByUsername(" + login + ");");
         User user = usersService.getUserByLogin(login);
+        UserBuilder builder =  org.springframework.security.core.userdetails.User.withUsername(login);
+        builder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
+        builder.roles(user.getRole());
         log.info("Created User " + user.toString());
         log.info("Created UserDetails with role: " + user.getRole());
-        return user;
+        return builder.build();
     }
 }

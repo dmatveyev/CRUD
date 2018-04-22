@@ -38,10 +38,13 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
 
     private String determineTargetUrl(Authentication authentication) {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        if (authorities.contains(new SimpleGrantedAuthority(UserRole.ROLE_ADMIN.name()))) {
+        for (GrantedAuthority g : authorities) {
+            log.info("authoritiy: " + g.getAuthority());
+        }
+        if (authorities.contains(new SimpleGrantedAuthority("ROLE_"+UserRole.ADMIN.name()))) {
             log.info("Redirecting to /admin");
             return "/admin";
-        } else if (authorities.contains(new SimpleGrantedAuthority(UserRole.ROLE_USER.name()))) {
+        } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_"+UserRole.USER.name()))) {
             log.info("Redirecting to /user");
             return "/user";
         } else {

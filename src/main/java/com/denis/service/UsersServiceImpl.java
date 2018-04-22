@@ -45,7 +45,7 @@ public class UsersServiceImpl implements UsersService {
         User user = new User();
         user.setUsername(login);
         user.setPassword(password);
-        user.setRole(UserRole.ROLE_USER.name());
+        user.setRole(UserRole.USER.name());
         user.setEnabled(true);
         registerUser(user);
         return user;

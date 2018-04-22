@@ -11,10 +11,4 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 @Import({SecurityConfig.class, SpringDataConfig.class})
 public class AppConfig {
 
-
-    @SuppressWarnings("deprecation")
-    @Bean
-    public static NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-    }
 }
