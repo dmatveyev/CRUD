@@ -43,7 +43,7 @@ public class UsersServiceImpl implements UsersService {
     @Transactional
     public User createUser(final String login, final String password) {
         User user = new User();
-        user.setLogin(login);
+        user.setUsername(login);
         user.setPassword(password);
         user.setRole(UserRole.ROLE_USER.name());
         user.setEnabled(true);

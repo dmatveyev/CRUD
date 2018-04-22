@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
 <head>
     <meta charset="UTF-8">
     <title>User Form</title>
 </head>
 <body>
-<form name="f2" method="post" action="edit-user">
+<form action="#" name="f2" method="post" th:action="@{/edit-user}" th:object="${user}">
     Login: <br />
-    <input name="login" type="text" size="25" maxlength="30" value="${user.username}" /> <br />
+    <input type="text" size="25" maxlength="30" th:field="*{username}" /> <br />
     Password: <br />
-    <input name="pd" type="password" size="25" maxlength="30" value="${user.password}" /> <br />
+    <input type="text" size="25" maxlength="30" th:field="*{password}" /> <br />
     Role: <br />
-    <input name="role" type="text" size="25" maxlength="30" value="${user.role}" /> <br />
-    <input type="submit" name="enter" value="Send" />
+    <input type="text" size="25" maxlength="30" th:field="*{role}" /> <br />
+    <input type="submit" name="enter" value="Send" /> <input type="reset" value="Reset" />
+
 </form>
 </body>
 </html>
