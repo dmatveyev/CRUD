@@ -6,6 +6,7 @@
     <title>User Form</title>
 </head>
 <body>
+<p><span  th:text = "${message}"></span></p>
 <form action="#" name="f2" method="post" th:action="@{/admin/edit-user}" th:object="${user}">
     Login: <br />
     <input type="text" size="25" maxlength="30" th:field="*{username}" /> <br />

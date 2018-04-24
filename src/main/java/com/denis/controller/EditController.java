@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Collections;
 import java.util.logging.Logger;
 
 @Controller
@@ -27,7 +29,7 @@ public class EditController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    protected String doGet(@RequestParam("user") Long userid, ModelMap modelMap) {
+    protected String doGet(@RequestParam("user") Long userid, @ModelAttribute("message") String message, ModelMap modelMap) {
         this.userid = userid;
         User user = usersService.getById(userid);
         modelMap.addAttribute("user", user);
@@ -35,10 +37,18 @@ public class EditController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected RedirectView doPost(@ModelAttribute("user") User user) {
+    protected ModelAndView doPost(@ModelAttribute("user") User user, ModelMap model) {
         user.setId(userid);
         log.info("Edited user: " + user.toString());
-        usersService.update(user);
-        return new RedirectView("/admin");
+        if (usersService.getByName(user.getUsername()) == null) {
+            usersService.update(user);
+            return new ModelAndView("redirect:/admin", model);
+        } else {
+            String message = "User " + user.getUsername()+ " has been allready exists";
+            model.addAttribute("message", message);
+            model.addAttribute("user", user.getId());
+            log.info(message);
+            return new ModelAndView("redirect:/admin/edit-user", model);
+        }
     }
 }
