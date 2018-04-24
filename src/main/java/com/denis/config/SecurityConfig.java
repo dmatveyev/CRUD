@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 access("hasRole('USER')")
                 .and()
                 .formLogin()
+                .loginPage("/login")
                 .successHandler(securityHandler)
                 .usernameParameter("username")
                 .passwordParameter("password")
