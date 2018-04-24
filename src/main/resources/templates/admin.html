@@ -4,7 +4,7 @@
 
 <p>Ваш логин: <span  th:text = "${userName}"></span></p>
 <h1>Пользователи</h1>
-<a href="./create-user">Create User</a>
+<a th:href="@{admin/create-user}">Create User</a>
 <table border="1">
     <tr>
         <td>role_id</td>
@@ -19,10 +19,12 @@
             <td th:text="${user.username}">""</td>
             <td th:text="${user.password}">""</td>
             <td>"ссылка на страницу с ролями"</td>
-            <td><a th:href= "@{/edit-user(user=${user.id})}">edit</a></td>
-            <td><a th:href="@{/delete-user(user=${user.id})}">delete</a></td>
+            <td><a th:href= "@{admin/edit-user(user=${user.id})}">edit</a></td>
+            <td><a th:href="@{admin/delete-user(user=${user.id})}">delete</a></td>
         </tr>
 </table>
+<td><a th:href="@{/logout}">logout</a></td>
+
 </body>
 </html>
 

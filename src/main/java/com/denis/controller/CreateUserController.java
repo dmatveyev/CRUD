@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/create-user")
+@RequestMapping("/admin/create-user")
 public class CreateUserController {
 
     private final UsersService usersService;
@@ -31,11 +33,9 @@ public class CreateUserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected void doPost(@RequestParam("login") String login,
-                          @RequestParam("pd")String pd,
-                          final HttpServletResponse resp) throws IOException {
+    protected RedirectView  doPost(@RequestParam("login") String login,
+                                   @RequestParam("pd")String pd) throws IOException {
         usersService.create(login, pd);
-        resp.sendRedirect("/admin");
-
+        return new RedirectView("/admin");
     }
 }

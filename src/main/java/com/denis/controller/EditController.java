@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 @Controller
-@RequestMapping("/edit-user")
+@RequestMapping("/admin/edit-user")
 public class EditController {
 
     private UsersService usersService;
@@ -43,10 +44,10 @@ public class EditController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected void doPost(@ModelAttribute("user") User user, Model model, HttpServletResponse resp) throws ServletException, IOException {
+    protected RedirectView doPost(@ModelAttribute("user") User user, Model model, HttpServletResponse resp) throws ServletException, IOException {
         user.setId(userid);
         log.info("Edited user: " + user.toString());
         usersService.update(user);
-        resp.sendRedirect("/admin");
+        return new RedirectView("/admin");
     }
 }

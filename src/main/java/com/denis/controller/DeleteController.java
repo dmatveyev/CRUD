@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 @Controller
-@RequestMapping("/delete-user")
+@RequestMapping("/admin/delete-user")
 public class DeleteController {
 
     private UsersService usersService;
@@ -27,9 +28,9 @@ public class DeleteController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    protected void doGet(@RequestParam("user") Long id, final HttpServletResponse resp) throws IOException {
+    protected RedirectView doGet(@RequestParam("user") Long id, final HttpServletResponse resp) throws IOException {
         log.info("Deleting user with id = " + id);
         usersService.delete(usersService.getById(id));
-        resp.sendRedirect("/admin");
+        return new RedirectView("/admin");
     }
 }

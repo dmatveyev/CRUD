@@ -46,6 +46,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(securityHandler)
                 .usernameParameter("username")
                 .passwordParameter("password");
+        http.logout()
+                // разрешаем делать логаут всем
+                .permitAll()
+                // указываем URL логаута
+                .logoutUrl("/logout")
+                // указываем URL при удачном логауте
+                .logoutSuccessUrl("/login")
+                // делаем не валидной текущую сессию
+                .invalidateHttpSession(true);
+
     }
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
