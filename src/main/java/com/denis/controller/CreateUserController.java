@@ -3,17 +3,10 @@ package com.denis.controller;
 import com.denis.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @Controller
 @RequestMapping("/admin/create-user")
@@ -33,8 +26,8 @@ public class CreateUserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected RedirectView  doPost(@RequestParam("login") String login,
-                                   @RequestParam("pd")String pd) throws IOException {
+    protected RedirectView doPost(@RequestParam("login") String login,
+                                  @RequestParam("pd") String pd) {
         usersService.create(login, pd);
         return new RedirectView("/admin");
     }

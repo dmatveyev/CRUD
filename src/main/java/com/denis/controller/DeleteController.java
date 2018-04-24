@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.logging.Logger;
 
 @Controller
@@ -28,7 +25,7 @@ public class DeleteController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    protected RedirectView doGet(@RequestParam("user") Long id, final HttpServletResponse resp) throws IOException {
+    protected RedirectView doGet(@RequestParam("user") Long id) {
         log.info("Deleting user with id = " + id);
         usersService.delete(usersService.getById(id));
         return new RedirectView("/admin");

@@ -53,7 +53,7 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
             log.info("Redirecting to /user");
             return "/user";
         } else {
-            log.log(Level.WARNING,"Current Authorities: " +
+            log.log(Level.WARNING, "Current Authorities: " +
                     Arrays.toString(authorities.toArray()));
             throw new IllegalStateException();
         }

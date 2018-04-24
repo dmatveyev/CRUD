@@ -25,15 +25,15 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.denis")
-@EnableJpaRepositories(basePackages="com.denis.repository")
+@EnableJpaRepositories(basePackages = "com.denis.repository")
 public class SpringDataConfig {
 
     @Autowired
     private Environment env;
 
 
-   @Bean
-    public DataSource dataSource(){
+    @Bean
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty("hibernate.connection.driver_class"));
         dataSource.setUrl(env.getProperty("hibernate.connection.url"));

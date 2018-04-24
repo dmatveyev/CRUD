@@ -1,21 +1,14 @@
 package com.denis.controller;
 
-import com.denis.model.Role;
 import com.denis.model.User;
 import com.denis.service.RoleService;
 import com.denis.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Map;
 import java.util.logging.Logger;
 
 @Controller
@@ -36,7 +29,7 @@ public class EditController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    protected String doGet(@RequestParam("user")Long userid, ModelMap modelMap) throws ServletException, IOException {
+    protected String doGet(@RequestParam("user") Long userid, ModelMap modelMap) {
         this.userid = userid;
         User user = usersService.getById(userid);
         modelMap.addAttribute("user", user);
@@ -44,7 +37,7 @@ public class EditController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected RedirectView doPost(@ModelAttribute("user") User user, Model model, HttpServletResponse resp) throws ServletException, IOException {
+    protected RedirectView doPost(@ModelAttribute("user") User user) {
         user.setId(userid);
         log.info("Edited user: " + user.toString());
         usersService.update(user);
