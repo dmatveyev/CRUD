@@ -28,10 +28,6 @@ public class UsersServiceImpl implements UsersService {
     @Override
     @Transactional
     public void register(final User user) {
-        List<Role> roles = user.getRole();
-        for (Role r:roles) {
-            roleService.register(r);
-        }
         userRepository.save(user);
     }
 
@@ -55,7 +51,7 @@ public class UsersServiceImpl implements UsersService {
         user.setUsername(params[0]);
         user.setPassword(params[1]);
         List<Role> role = new ArrayList<>();
-        role.add((Role)roleService.getByName(UserRole.ROLE_USER.name()));
+        role.add(roleService.getByName(UserRole.ROLE_USER.name()));
         user.setRole(role);
         register(user);
         return user;

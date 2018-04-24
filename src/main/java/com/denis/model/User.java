@@ -17,13 +17,13 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
     private String username;
 
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(targetEntity =Role.class,fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity =Role.class,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "permissions",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name ="role_id"))

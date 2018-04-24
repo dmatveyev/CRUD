@@ -16,15 +16,13 @@ import java.util.logging.Logger;
 public class EditController {
 
     private UsersService usersService;
-    private RoleService roleService;
     long userid;
 
     private static final Logger log = Logger
             .getLogger("EditController");
 
     @Autowired
-    public EditController(UsersService usersService, RoleService roleService) {
-        this.roleService = roleService;
+    public EditController(UsersService usersService) {
         this.usersService = usersService;
     }
 
