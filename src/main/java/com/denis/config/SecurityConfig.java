@@ -1,6 +1,5 @@
 package com.denis.config;
 
-
 import com.denis.security.UserDetailsServiceImpl;
 import com.denis.security.handler.SecurityHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -55,11 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")
                 // делаем не валидной текущую сессию
                 .invalidateHttpSession(true);
-
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    private BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
