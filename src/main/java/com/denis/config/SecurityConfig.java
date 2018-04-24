@@ -1,7 +1,7 @@
 package com.denis.config;
 
 import com.denis.security.UserDetailsServiceImpl;
-import com.denis.security.handler.FalureHandler;
+import com.denis.security.handler.FailureHandler;
 import com.denis.security.handler.SecurityHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SecurityHandler securityHandler;
     @Autowired
-    private FalureHandler falureHandler;
+    private FailureHandler failureHandler;
 
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .permitAll()
                 .loginPage("/login")
-                .failureHandler(falureHandler)  //Используется в случае неудачного логина
+                .failureHandler(failureHandler)  //Используется в случае неудачного логина
                 .successHandler(securityHandler)
                 .usernameParameter("username")
                 .passwordParameter("password")

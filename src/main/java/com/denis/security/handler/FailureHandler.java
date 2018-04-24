@@ -13,11 +13,11 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 @Service
-public class FalureHandler implements AuthenticationFailureHandler {
+public class FailureHandler implements AuthenticationFailureHandler {
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
     private static final Logger log = Logger
-            .getLogger("FalureHandler");
+            .getLogger("FailureHandler");
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
