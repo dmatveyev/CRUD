@@ -5,6 +5,7 @@ import com.denis.service.RoleServiceImpl;
 import com.denis.service.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UsersServiceImpl usersService;
     private RoleServiceImpl roleService;
 
-    @Autowired //Как делать внедрение?
+    @Autowired
     public UserDetailsServiceImpl(UsersServiceImpl usersService, RoleServiceImpl roleService) {
         this.usersService = usersService;
         this.roleService = roleService;
@@ -36,13 +37,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throws UsernameNotFoundException, DataAccessException {
         log.info("loadUserByUsername(" + login + ");");
         User user = usersService.getByName(login);
-        Set<GrantedAuthority> roles = new HashSet<>(roleService.getByParam(user));
-        UserBuilder userBuilder =
-                org.springframework.security.core.userdetails.User.withUsername(user.getUsername());
-        userBuilder.authorities(roles);
-        userBuilder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
-        log.info("Created User " + user.toString());
-        log.info("Created UserDetails with role: " + user.getRole());
-        return userBuilder.build();
+        if (user == null) {
+            UserBuilder userInvalid =
+                    org.springframework.security.core.userdetails.User.withUsername("Invalid");
+            userInvalid.authorities("ROLE_INVALID");
+            userInvalid.password(new BCryptPasswordEncoder().encode(""));
+            return userInvalid.build();
+        } else {
+            Set<GrantedAuthority> roles = new HashSet<>(roleService.getByParam(user));
+            UserBuilder userBuilder =
+                    org.springframework.security.core.userdetails.User.withUsername(user.getUsername());
+            userBuilder.authorities(roles);
+            userBuilder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
+            log.info("Created User " + user.toString());
+            log.info("Created UserDetails with role: " + user.getRole());
+            log.info("Created UserDetails with role: " + user.getRole());
+            return userBuilder.build();
+        }
+
     }
 }

@@ -2,7 +2,6 @@ package com.denis.security.handler;
 
 import com.denis.model.Role;
 import com.denis.model.UserRole;
-import com.denis.service.UsersService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,7 +10,6 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,13 +24,12 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
     private static final Logger log = Logger
             .getLogger("SecurityHandler");
 
-    private UsersService usersService;
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
-                                        Authentication authentication) throws IOException, ServletException {
+                                        Authentication authentication) throws IOException {
 
         String targetUrl = determineTargetUrl(authentication);
         redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, targetUrl);
