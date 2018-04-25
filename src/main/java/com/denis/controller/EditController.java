@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @Controller
@@ -37,18 +40,25 @@ public class EditController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected ModelAndView doPost(@ModelAttribute("user") User user, ModelMap model) {
-        user.setId(userid);
+    protected ModelAndView doPost(@RequestParam("userid") String userid,
+                                  @RequestParam("username") String username,
+                                  @RequestParam("pd") String pd,
+                                  @RequestParam("roles") String roles,
+                                  HttpServletRequest reg,
+                                  ModelMap model) {
+        Map<String,String[]> map = reg.getParameterMap();
+        log.info("Params with modal");
+        for (Map.Entry<String,String[]> entry: map.entrySet()) {
+            log.info(entry.getKey() + ":" + Arrays.toString(entry.getValue()));
+        }
+        User user = usersService.getById(Long.parseLong(userid));
         log.info("Edited user: " + user.toString());
-        if (usersService.getByName(user.getUsername()) == null) {
+        log.info("New user: " + user.toString());
+            user.setUsername(username);
+            user.setPassword(pd);
+            log.info("New user to update: " + user.toString());
             usersService.update(user);
             return new ModelAndView("redirect:/admin", model);
-        } else {
-            String message = "User " + user.getUsername()+ " has been allready exists";
-            model.addAttribute("message", message);
-            model.addAttribute("user", user.getId());
-            log.info(message);
-            return new ModelAndView("redirect:/admin/edit-user", model);
-        }
+
     }
 }

@@ -30,8 +30,7 @@ public class User implements Serializable {
     private List<Role> role;
 
 
-    public User() {
-    }
+    public User() {    }
 
 
     public long getId() {

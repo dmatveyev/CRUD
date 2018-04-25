@@ -34,7 +34,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">logout</a></li>
+                <li><a href="/logout">logout</a></li>
             </ul>
         </div>
     </div>
@@ -78,17 +78,10 @@
                                     <td th:text="${user.id}">1</td>
                                     <td th:text="${user.username}">""</td>
                                     <td th:text="${user.password}">""</td>
-                                    <td>"ссылка на страницу с ролями"</td>
-
-
-                                    <td><a class="btn btn-success" th:href="@{admin/edit-user(user=${user.id})}"
-                                           role="button">Edit</a></td>
-                                    <td><a class="btn btn-success" data-toggle="modal" data-target="#myModal"
-                                           role="button">Modal Edit</a></td>
-                                    <td><a class="btn btn-success" th:href="@{admin/delete-user(user=${user.id})}"
-                                           role="button">Delete</a></td>
-
-                                    <div class="modal" id="myModal">
+                                    <td th:text="${user.role}"></td>
+                                    <td><a class="btn btn-success" data-toggle="modal" th:data-target="'#'+${user.id}"
+                                           role="button">Edit</a>
+                                    <div class="modal" th:id="${user.id}">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -98,17 +91,27 @@
                                                     <h4>Название окна <span th:text="${user.id}"></span></h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="/admin/edit-user" name="contact" id="ContactForm"
-                                                          method="post">
+                                                    <form name="contact" th:id="'ContactForm'+${user.id}"
+                                                          method="post" action="./admin/edit-user" th:object="${user}">
                                                         <div class="form-group">
+                                                            ID: <br/>
+                                                            <input class="form-control" type="text" size="25"
+                                                                   maxlength="30" name="123"
+                                                                   th:value="${user.id}" disabled/> <br/>
                                                             Login: <br/>
                                                             <input class="form-control" type="text" size="25"
-                                                                   maxlength="30"
-                                                                   name="username" value=""/> <br/>
+                                                                   maxlength="30" name="username"
+                                                                   th:value="${user.username}" /> <br/>
                                                             Password: <br/>
                                                             <input class="form-control" type="text" size="25"
                                                                    maxlength="30"
-                                                                   name="pd" value=""/> <br/>
+                                                                   th:value="${user.password}" name="pd"/>
+                                                            Roles: <br/>
+                                                            <input class="form-control" type="text" size="25"
+                                                                   maxlength="30"
+                                                                   th:value="${user.role}" name="roles"/>
+                                                            <input type="hidden" name="userid" th:value="${user.id}">
+
                                                         </div>
                                                     </form>
                                                 </div>
@@ -116,13 +119,15 @@
                                                     <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Close
                                                     </button>
-                                                    <button id="submit" type="submit" class="btn btn-success"
-                                                            data-dismiss="modal">Save changes
+                                                    <button id="submit" type="submit" th:form="'ContactForm'+${user.id}" class="btn btn-success">Save changes
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    </td>
+                                    <td><a class="btn btn-success" th:href="@{admin/delete-user(user=${user.id})}"
+                                           role="button">Delete</a></td>
                                 </tr>
                             </table>
                         </div>
