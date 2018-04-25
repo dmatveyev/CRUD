@@ -73,7 +73,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     @Transactional
     public User getByName(String login) {
-        return userRepository.findByLogin(login);
+        return userRepository.findByUsername(login);
     }
 
     @Override

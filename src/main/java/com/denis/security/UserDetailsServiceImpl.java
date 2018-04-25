@@ -5,7 +5,6 @@ import com.denis.service.RoleServiceImpl;
 import com.denis.service.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,11 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         log.info("loadUserByUsername(" + login + ");");
         User user = usersService.getByName(login);
         if (user == null) {
-            UserBuilder userInvalid =
-                    org.springframework.security.core.userdetails.User.withUsername("Invalid");
-            userInvalid.authorities("ROLE_INVALID");
-            userInvalid.password(new BCryptPasswordEncoder().encode(""));
-            return userInvalid.build();
+            throw new UsernameNotFoundException("User not Found");
         } else {
             Set<GrantedAuthority> roles = new HashSet<>(roleService.getByParam(user));
             UserBuilder userBuilder =
@@ -54,6 +49,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             log.info("Created UserDetails with role: " + user.getRole());
             return userBuilder.build();
         }
-
     }
 }

@@ -8,9 +8,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
-    @Query("FROM Role WHERE role = :role ")
-    Role findByLogin(@Param("role") String role);
 
-    @Query("SELECT r FROM Role r  JOIN r.user u WHERE u.id = :userid")
+    Role findByRole(String role);
+
+    @Query("SELECT r FROM Role r JOIN r.user u WHERE u.id = :userid")
     List<Role> getRoleByUser(@Param("userid")long id);
 }

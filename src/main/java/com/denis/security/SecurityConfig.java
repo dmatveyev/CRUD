@@ -1,4 +1,4 @@
-package com.denis.config;
+package com.denis.security;
 
 import com.denis.security.UserDetailsServiceImpl;
 import com.denis.security.handler.FailureHandler;
