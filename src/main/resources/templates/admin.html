@@ -67,7 +67,7 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <td>role_id</td>
+                                    <td>ID</td>
                                     <td>login</td>
                                     <td>password</td>
                                     <td>role</td>
@@ -79,10 +79,50 @@
                                     <td th:text="${user.username}">""</td>
                                     <td th:text="${user.password}">""</td>
                                     <td>"ссылка на страницу с ролями"</td>
+
+
                                     <td><a class="btn btn-success" th:href="@{admin/edit-user(user=${user.id})}"
                                            role="button">Edit</a></td>
+                                    <td><a class="btn btn-success" data-toggle="modal" data-target="#myModal"
+                                           role="button">Modal Edit</a></td>
                                     <td><a class="btn btn-success" th:href="@{admin/delete-user(user=${user.id})}"
                                            role="button">Delete</a></td>
+
+                                    <div class="modal" id="myModal">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button class="close" type="button" data-dismiss="modal">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h4>Название окна <span th:text="${user.id}"></span></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/admin/edit-user" name="contact" id="ContactForm"
+                                                          method="post">
+                                                        <div class="form-group">
+                                                            Login: <br/>
+                                                            <input class="form-control" type="text" size="25"
+                                                                   maxlength="30"
+                                                                   name="username" value=""/> <br/>
+                                                            Password: <br/>
+                                                            <input class="form-control" type="text" size="25"
+                                                                   maxlength="30"
+                                                                   name="pd" value=""/> <br/>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close
+                                                    </button>
+                                                    <button id="submit" type="submit" class="btn btn-success"
+                                                            data-dismiss="modal">Save changes
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </tr>
                             </table>
                         </div>
@@ -108,9 +148,14 @@
         </div>
     </div>
 </div>
+<br>
+<br>
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js">
+</script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="pages/js/bootstrap.js"></script>
+<script src="pages/js/bootstrap.js">
+</script>
 </body>
 </html>

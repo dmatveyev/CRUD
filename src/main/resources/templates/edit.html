@@ -4,16 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title>User Form</title>
+    <link href="/pages/css/bootstrap.css" rel="stylesheet">
+    <link href="pages/css/style.css" rel="stylesheet">
 </head>
 <body>
-<p><span  th:text = "${message}"></span></p>
-<form action="#" name="f2" method="post" th:action="@{/admin/edit-user}" th:object="${user}">
-    Login: <br />
-    <input type="text" size="25" maxlength="30" th:field="*{username}" /> <br />
-    Password: <br />
-    <input type="text" size="25" maxlength="30" th:field="*{password}" /> <br />
-    <input type="submit" name="enter" value="Send" /> <input type="reset" value="Reset" />
-
-</form>
+<div class="container pull-left" style="width: 300px;">
+    <p><span th:text="${message}"></span></p>
+    <form name="edit" method="post" th:action="@{/admin/edit-user}" th:object="${user}">
+        <div class="form-group">
+            Login: <br/>
+            <input class="form-control" type="text" size="25" maxlength="30" th:field="*{username}"/> <br/>
+            Password: <br/>
+            <input class="form-control" type="text" size="25" maxlength="30" th:field="*{password}"/> <br/>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
+    </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="pages/js/bootstrap.js"></script>
 </body>
 </html>
