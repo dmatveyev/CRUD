@@ -17,8 +17,7 @@ public class UserRestController {
 
     @Autowired
     private UsersService usersService;
-    @Autowired
-    private RoleService roleService;
+
 
     private static final Logger log = Logger
             .getLogger("UserRestController");
@@ -29,8 +28,6 @@ public class UserRestController {
     public User greeting(@RequestParam(value = "name", required = false) String name) {
         log.info("Search user by name: " + name);
         User user = usersService.getByName(name);
-        List<Role> roles = roleService.getByParam(user);
-        user.setRole(roles);
         log.info("Result: " + user.toString());
         return user;
     }
@@ -44,7 +41,7 @@ public class UserRestController {
         return user;
     }
 
-    @RequestMapping(value = "/rest/user/update",  produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes =  MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/rest/user/update", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String update(@RequestBody User user) {
         log.info("Updating user: " + user.toString());
         User editUser = usersService.getById(user.getId());
@@ -55,24 +52,24 @@ public class UserRestController {
             usersService.update(editUser);
             log.info("Result: " + user.toString());
             message = "User nas been updated";
-        }else {
+        } else {
             message = "User not found";
         }
         return message;
     }
 
-    @RequestMapping(value = "/rest/user/delete",  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/rest/user/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String delete(@RequestBody User user) {
         log.info("Updating user: " + user.toString());
         String message;
         if (usersService.getById(user.getId()) != null) {
             usersService.delete(user);
             log.info("Result: " + user.toString());
-            message= "User nas been deleted";
+            message = "User nas been deleted";
         } else {
-            message= "User not found";
+            message = "User not found";
         }
-        return  message;
+        return message;
 
     }
 }
