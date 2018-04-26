@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org ">
-<p>Hello <span  th:text = "${userName}"></span></p></html>
+<p>Hello <span th:text="${userName}"></span></p></html>
 
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -24,7 +24,6 @@
     <![endif]-->
 </head>
 <body>
-
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -46,26 +45,20 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-2 col-sm-2 col-md-2">
-            <br>
-            <br>
-            <br>
             <ul class="nav nav-sidebar">
-                <li><a href="/admin" data-toggle="pill">Admin</a></li>
-                <li><a href="/user" data-toggle="pill">User</a></li>
+                <br>
+                <br>
+                <li><a href="/admin">Admin</a></li>
+                <li><a href="/user">User</a></li>
             </ul>
         </div>
         <div class="col-lg-10 col-sm-10 col-md-10">
             <br>
             <br>
-            <br>
             <p>Привет, <span th:text="${userName}"></span> !!!</p>
-
         </div>
     </div>
 </div>
-<br>
-<br>
-
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js">
 </script>
