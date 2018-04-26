@@ -1,6 +1,7 @@
 package com.denis.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class Role implements Serializable, GrantedAuthority {
     @JoinTable(name = "permissions",
             joinColumns = {@JoinColumn(name = "role_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    @JsonBackReference
     private List<User> user;
 
     @Column(name = "role")

@@ -13,6 +13,7 @@
         <hibernate-core.version>4.3.10.Final</hibernate-core.version>
         <spring.ver>4.3.5.RELEASE</spring.ver>
         <spring.security.ver>4.2.5.RELEASE</spring.security.ver>
+        <start-class>com.denis.Application</start-class>
     </properties>
 
     <parent>
@@ -57,9 +58,15 @@
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.3.7</version>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>CRUD</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
