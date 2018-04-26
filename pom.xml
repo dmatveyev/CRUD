@@ -13,7 +13,6 @@
         <hibernate-core.version>4.3.10.Final</hibernate-core.version>
         <spring.ver>4.3.5.RELEASE</spring.ver>
         <spring.security.ver>4.2.5.RELEASE</spring.security.ver>
-        <start-class>com.denis.Application</start-class>
     </properties>
 
     <parent>

@@ -49,7 +49,7 @@ public class UserRestController {
         if (editUser != null) {
             editUser.setUsername(user.getUsername());
             editUser.setPassword(user.getPassword());
-            usersService.update(editUser);
+            usersService.update(user);
             log.info("Result: " + user.toString());
             message = "User nas been updated";
         } else {
