@@ -1,4 +1,5 @@
-package com.denis.model;
+package com.client.model;
+
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -73,13 +74,11 @@ public class Role implements Serializable/*, GrantedAuthority*/ {
 
         return Objects.hash(role);
     }
-
 /*
     @Override
     public String getAuthority() {
         return role;
-    }
-*/
+    }*/
 
     @Override
     public String toString() {

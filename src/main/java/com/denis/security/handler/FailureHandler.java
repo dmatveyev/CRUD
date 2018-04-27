@@ -1,3 +1,4 @@
+/*
 package com.denis.security.handler;
 
 import org.springframework.security.core.AuthenticationException;
@@ -37,3 +38,4 @@ public class FailureHandler implements AuthenticationFailureHandler {
         return redirectStrategy;
     }
 }
+*/

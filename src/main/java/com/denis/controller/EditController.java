@@ -1,18 +1,19 @@
 package com.denis.controller;
 
 import com.denis.model.User;
-import com.denis.service.RoleService;
-import com.denis.service.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -20,21 +21,20 @@ import java.util.logging.Logger;
 @RequestMapping("/admin/edit-user")
 public class EditController {
 
-    private UsersService usersService;
-    long userid;
+    private static final String URL_UPDATE ="http://localhost:8181/rest/user/update";
+    private static final String URL_GET_USER ="http://localhost:8181/rest/user/getbyid";
 
     private static final Logger log = Logger
             .getLogger("EditController");
 
-    @Autowired
-    public EditController(UsersService usersService) {
-        this.usersService = usersService;
-    }
-
     @RequestMapping(method = RequestMethod.GET)
     protected String doGet(@RequestParam("user") Long userid, @ModelAttribute("message") String message, ModelMap modelMap) {
-        this.userid = userid;
-        User user = usersService.getById(userid);
+        RestTemplate restTemplate = new RestTemplate();
+        //Getting user
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_GET_USER)
+                .queryParam("id", userid);
+        URI url = builder.build().encode().toUri();
+        User user = restTemplate.getForObject(url, User.class);
         modelMap.addAttribute("user", user);
         return "edit";
     }
@@ -51,14 +51,20 @@ public class EditController {
         for (Map.Entry<String,String[]> entry: map.entrySet()) {
             log.info(entry.getKey() + ":" + Arrays.toString(entry.getValue()));
         }
-        User user = usersService.getById(Long.parseLong(userid));
-        log.info("Edited user: " + user.toString());
-        log.info("New user: " + user.toString());
-            user.setUsername(username);
-            user.setPassword(pd);
-            log.info("New user to update: " + user.toString());
-            usersService.update(user);
-            return new ModelAndView("redirect:/admin", model);
+        User user = new User();
+        user.setId(Long.parseLong(userid));
+        user.setUsername(username);
+        user.setPassword(pd);
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        HttpEntity<User> requestBody = new HttpEntity<>(user,headers);
+        restTemplate.postForObject(URL_UPDATE,requestBody,String.class);
+        log.info("User was updated");
+
+        return new ModelAndView("redirect:/admin", model);
 
     }
 }

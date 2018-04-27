@@ -1,3 +1,4 @@
+/*
 package com.denis.security;
 
 import com.denis.security.UserDetailsServiceImpl;
@@ -67,10 +68,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+*/
 /*  Если нужно отключить
     @SuppressWarnings("deprecation")
     @Bean
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-    }*/
+    }*//*
+
 }
+*/

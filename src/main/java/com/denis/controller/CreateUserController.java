@@ -1,8 +1,6 @@
 package com.denis.controller;
 
 import com.denis.model.User;
-import com.denis.service.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,20 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/admin/create-user")
 public class CreateUserController {
 
-    private final UsersService usersService;
-    static final String URL_CREATE = "http://localhost:8080/rest/user/create";
-
-    @Autowired
-    public CreateUserController(UsersService usersService) {
-        this.usersService = usersService;
-    }
+    static final String URL_CREATE = "http://localhost:8181/rest/user/create";
 
     @RequestMapping(method = RequestMethod.GET)
     protected String doGet(@ModelAttribute("message") String message) {

@@ -1,3 +1,4 @@
+/*
 package com.denis.security.handler;
 
 import com.denis.model.Role;
@@ -64,3 +65,4 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
         return redirectStrategy;
     }
 }
+*/

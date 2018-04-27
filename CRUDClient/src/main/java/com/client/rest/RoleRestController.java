@@ -1,9 +1,9 @@
-package com.denis.controller.rest;
+package com.client.rest;
 
-import com.denis.model.Role;
-import com.denis.model.User;
-import com.denis.service.RoleService;
-import com.denis.service.UsersService;
+import com.client.model.Role;
+import com.client.model.User;
+import com.client.service.RoleService;
+import com.client.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

@@ -1,15 +1,13 @@
-package com.denis;
+package com.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-
 @SpringBootApplication
-public class Application {
-    public Application(){}
-
+@EnableJpaRepositories(basePackages = "com.client.repository")
+public class Client {
     public static void main(final String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(Client.class, args);
     }
 }

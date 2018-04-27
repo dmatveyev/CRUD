@@ -1,6 +1,6 @@
-package com.denis.service;
+package com.client.service;
 
-import com.denis.model.Role;
+import com.client.model.Role;
 
 import java.util.List;
 

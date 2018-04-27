@@ -1,8 +1,8 @@
-package com.denis.service;
+package com.client.service;
 
-import com.denis.model.Role;
-import com.denis.repository.RoleRepository;
-import com.denis.model.User;
+import com.client.model.Role;
+import com.client.repository.RoleRepository;
+import com.client.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

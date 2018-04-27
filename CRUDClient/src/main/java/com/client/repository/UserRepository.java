@@ -1,6 +1,6 @@
-package com.denis.repository;
+package com.client.repository;
 
-import com.denis.model.User;
+import com.client.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

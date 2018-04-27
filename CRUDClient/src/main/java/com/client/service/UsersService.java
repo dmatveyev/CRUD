@@ -1,6 +1,6 @@
-package com.denis.service;
+package com.client.service;
 
-import com.denis.model.User;
+import com.client.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
