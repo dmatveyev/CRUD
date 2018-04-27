@@ -44,10 +44,9 @@ public class CreateUserController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
         HttpEntity<User> requestBody = new HttpEntity<>(user,headers);
-        User restUser = restTemplate.postForObject(URL_CREATE,requestBody,User.class);
+        User us = restTemplate.postForObject(URL_CREATE,requestBody,User.class);
+        System.out.println(us.toString());
         return new ModelAndView("redirect:/admin", model);
-
     }
 }

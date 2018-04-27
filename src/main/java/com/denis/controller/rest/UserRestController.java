@@ -22,12 +22,17 @@ public class UserRestController {
     private static final Logger log = Logger
             .getLogger("UserRestController");
 
-    //В этом методе можно возаращать лист пользователей по имени, если параметр имени отсутствует,
-    // то возвращаются все пользователи.
     @RequestMapping(value = "/rest/user")
     public User greeting(@RequestParam(value = "name", required = false) String name) {
         log.info("Search user by name: " + name);
         User user = usersService.getByName(name);
+        log.info("Result: " + user.toString());
+        return user;
+    }
+    @RequestMapping(value = "/rest/user/getbyid")
+    public User getById(@RequestParam(value = "id") String userId) {
+        log.info("Search user by ID:" + userId);
+        User user = usersService.getById(Long.parseLong(userId));
         log.info("Result: " + user.toString());
         return user;
     }
@@ -64,17 +69,15 @@ public class UserRestController {
     }
 
     @RequestMapping(value = "/rest/user/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String delete(@RequestBody User user) {
-        log.info("Updating user: " + user.toString());
-        String message;
+    public User delete(@RequestBody User user) {
+        log.info("Deleting user: " + user.toString());
+
         if (usersService.getById(user.getId()) != null) {
             usersService.delete(user);
-            log.info("Result: " + user.toString());
-            message = "User nas been deleted";
-        } else {
-            message = "User not found";
+            log.info("User nas been deleted" );
+            return  new User();
         }
-        return message;
+        return user;
 
     }
 }
