@@ -31,14 +31,19 @@ public class UserRestController {
         log.info("Result: " + user.toString());
         return user;
     }
+    @RequestMapping(value = "/rest/user/getAll")
+    public List<User> getAll() {
+        log.info("Getting All Users");
+        return usersService.getAll();
+    }
+
 
     @RequestMapping(value = "/rest/user/create")
-    public User create(@RequestParam(value = "name") String name,
-                       @RequestParam(value = "pd") String pd) {
-        log.info("Creating user by name and password " + name + pd);
-        User user = usersService.create(name, pd);
-        log.info("Result: " + user.toString());
-        return user;
+    public User create(@RequestBody User user) {
+        log.info("Creating user by name and password.");
+        User newUser = usersService.create(user.getUsername(), user.getPassword());
+        log.info("Result: " + newUser.toString());
+        return newUser;
     }
 
     @RequestMapping(value = "/rest/user/update", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

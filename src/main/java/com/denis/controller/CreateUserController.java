@@ -3,12 +3,16 @@ package com.denis.controller;
 import com.denis.model.User;
 import com.denis.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -18,7 +22,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class CreateUserController {
 
     private final UsersService usersService;
-    private String uuid;
+    static final String URL_CREATE = "http://localhost:8080/rest/user/create";
 
     @Autowired
     public CreateUserController(UsersService usersService) {
@@ -33,14 +37,17 @@ public class CreateUserController {
     @RequestMapping(method = RequestMethod.POST)
     protected ModelAndView doPost(@RequestParam("login") String login,
                                   @RequestParam("pd") String pd, ModelMap model) {
+        RestTemplate restTemplate = new RestTemplate();
+        User user = new User();
+        user.setUsername(login);
+        user.setPassword(pd);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
-        if (usersService.getByName(login) == null) {
-            usersService.create(login, pd);
-            return new ModelAndView("redirect:/admin", model);
-        } else {
-            String message = "User " + login + " has been allready exists";
-            model.addAttribute("message", message);
-            return new ModelAndView("redirect:/admin/create-user", model);
-        }
+        HttpEntity<User> requestBody = new HttpEntity<>(user,headers);
+        User restUser = restTemplate.postForObject(URL_CREATE,requestBody,User.class);
+        return new ModelAndView("redirect:/admin", model);
+
     }
 }

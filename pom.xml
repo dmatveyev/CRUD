@@ -73,4 +73,17 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <!-- Enable this profile to run in IntelliJ. IntelliJ excludes provided dependencies from compile by default. -->
+        <profile>
+            <id>intellij</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 </project>
