@@ -1,7 +1,8 @@
-package com.denis.security.handler;
+package com.client.security.handler;
 
-import com.denis.model.Role;
-import com.denis.model.UserRole;
+
+import com.client.model.Role;
+import com.client.model.UserRole;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

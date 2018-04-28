@@ -3,6 +3,7 @@ package com.denis.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
 /*import org.springframework.security.core.GrantedAuthority;*/
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
-public class Role implements Serializable/*, GrantedAuthority*/ {
+public class Role implements Serializable, GrantedAuthority {
     @Id
     @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,12 +75,12 @@ public class Role implements Serializable/*, GrantedAuthority*/ {
         return Objects.hash(role);
     }
 
-/*
+
     @Override
     public String getAuthority() {
         return role;
     }
-*/
+
 
     @Override
     public String toString() {

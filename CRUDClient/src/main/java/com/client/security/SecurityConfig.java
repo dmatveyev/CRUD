@@ -1,22 +1,18 @@
-package com.denis.security;
+package com.client.security;
 
-import com.denis.security.UserDetailsServiceImpl;
-import com.denis.security.handler.FailureHandler;
-import com.denis.security.handler.SecurityHandler;
+
+import com.client.security.handler.FailureHandler;
+import com.client.security.handler.SecurityHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity
@@ -29,7 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private SecurityHandler securityHandler;
     @Autowired
     private FailureHandler failureHandler;
-
 
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
@@ -44,16 +39,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/admin/**").
-                hasRole("ADMIN")
-                .antMatchers("/user/**").
+                .antMatchers("/rest/user").permitAll()
+                .antMatchers("/rest/role").permitAll()
+                .antMatchers("/rest/**").
                 access("hasRole('USER')")
+                .antMatchers("/rest/**").
+                access("hasRole('ADMIN')")
                 .and()
                 .formLogin()
                 .permitAll()
-                .loginPage("/login")
-                .failureHandler(failureHandler)  //Используется в случае неудачного логина
-                .successHandler(securityHandler)
+                /*.failureHandler(failureHandler)  //Используется в случае неудачного логина
+                .successHandler(securityHandler)*/
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and()
@@ -74,7 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
   //Если нужно отключить
- /*   @SuppressWarnings("deprecation")
+    /*
+    @SuppressWarnings("deprecation")
     @Bean
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();

@@ -1,4 +1,4 @@
-package com.denis.security.handler;
+package com.client.security.handler;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.DefaultRedirectStrategy;

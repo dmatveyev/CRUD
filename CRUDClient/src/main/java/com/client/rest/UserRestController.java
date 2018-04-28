@@ -35,7 +35,7 @@ public class UserRestController {
         log.info("Result: " + user.toString());
         return user;
     }
-    @RequestMapping(value = "/rest/user/getAll")
+    @RequestMapping(value = "/rest/user/getAll", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<User> getAll() {
         log.info("Getting All Users");
         return usersService.getAll();
