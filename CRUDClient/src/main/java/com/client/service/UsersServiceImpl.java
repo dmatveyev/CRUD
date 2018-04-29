@@ -4,7 +4,6 @@ import com.client.model.Role;
 import com.client.model.User;
 import com.client.model.UserRole;
 import  com.client.repository.UserRepository;
-import com.client.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,6 +74,11 @@ public class UsersServiceImpl implements UsersService {
     @Transactional
     public User getByName(String login) {
         return userRepository.findByUsername(login);
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override

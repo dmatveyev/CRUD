@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static List<String> clients = Arrays.asList("google");
 
+    @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
@@ -40,11 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private FailureHandler failureHandler;
 
-
+    @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(userDetailsService)
-               /* .passwordEncoder(passwordEncoder())*/; //- подключение реализации passwordEncoder
+                .passwordEncoder(passwordEncoder()); //- подключение реализации passwordEncoder
     }
 
     @Override
@@ -59,8 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .oauth2Login()
                 .loginPage("/login")
-                /*.successHandler(securityHandler);*/
-        .defaultSuccessUrl("/admin");
+                .successHandler(securityHandler);
+       /* .defaultSuccessUrl("/admin");*/
 
         ;
 

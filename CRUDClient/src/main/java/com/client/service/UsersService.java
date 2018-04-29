@@ -22,5 +22,7 @@ public interface  UsersService{
 
     User getByName(String login);
 
+    User getByEmail(String Email);
+
     List<User> getByParam(Object... o);
 }

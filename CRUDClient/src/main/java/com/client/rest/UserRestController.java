@@ -23,8 +23,8 @@ public class UserRestController {
 
     @RequestMapping(value = "/rest/user")
     public User greeting(@RequestParam(value = "name", required = false) String name) {
-        log.info("Search user by name: " + name);
-        User user = usersService.getByName(name);
+        log.info("Search user by email: " + name);
+        User user = usersService.getByEmail(name);
         log.info("Result: " + user.toString());
         return user;
     }

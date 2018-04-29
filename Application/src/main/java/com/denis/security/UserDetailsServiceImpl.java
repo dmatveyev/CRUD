@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
-
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     private static String URL_GET_USER = "http://localhost:8181/rest/user";
     private static String URL_GET_ROLE = "http://localhost:8181/rest/role";

@@ -1,20 +1,28 @@
 package com.denis.security.handler;
 
 import com.denis.model.Role;
+import com.denis.model.User;
 import com.denis.model.UserRole;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
+import java.net.URI;
+import java.security.Principal;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,7 +45,17 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
     }
 
     private String determineTargetUrl(Authentication authentication) {
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        log.info(authentication.getPrincipal().toString());
+        log.info(authentication.getPrincipal().getClass().getCanonicalName());
+
+        DefaultOidcUser user = (DefaultOidcUser) authentication.getPrincipal();
+
+        Map<String, Object> userAtr = user.getAttributes();
+
+        String  email = (String) userAtr.get("email");
+        log.info(email);
+
+        Collection<? extends GrantedAuthority> authorities = getAuthorityByUser(email);
         for (GrantedAuthority g : authorities) {
             log.info("authoritiy: " + g.getAuthority());
         }
@@ -56,6 +74,27 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
         }
     }
 
+    private Collection<? extends GrantedAuthority> getAuthorityByUser(String email) {
+        log.info("loadUserByEmail(" + email + ");");
+        RestTemplate restTemplate = new RestTemplate();
+        //Getting user
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_GET_USER)
+                .queryParam("name", email);
+        URI url = builder.build().encode().toUri();
+        User user = restTemplate.getForObject(url, User.class);
+        //Deleting user
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        HttpEntity<User> requestBody = new HttpEntity<>(user,headers);
+        Role[] arr = restTemplate.postForObject(URL_GET_ROLE,requestBody,Role[].class);
+        List<Role> r = Arrays.asList(arr);
+        return r;
+
+    }
+
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
     }
@@ -63,4 +102,7 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
     protected RedirectStrategy getRedirectStrategy() {
         return redirectStrategy;
     }
+
+    private static String URL_GET_USER = "http://localhost:8181/rest/user";
+    private static String URL_GET_ROLE = "http://localhost:8181/rest/role";
 }
