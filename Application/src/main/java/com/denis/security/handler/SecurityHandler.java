@@ -54,8 +54,6 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
         String  email = (String) userAtr.get("email");
         log.info(email);
 
-
-
         Collection<? extends GrantedAuthority> authorities = getAuthorityByUser(email);
         for (GrantedAuthority g : authorities) {
             log.info("authoritiy: " + g.getAuthority());

@@ -55,16 +55,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/login")
                 .permitAll()
+                .antMatchers("/admin/**").
+                hasRole("ADMIN")
+                .antMatchers("/user/**").
+                access("hasRole('USER')")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .oauth2Login()
                 .loginPage("/login")
                 .successHandler(securityHandler);
-       /* .defaultSuccessUrl("/admin");*/
-
-        ;
-
 
 
         http.csrf().disable();
