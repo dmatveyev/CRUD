@@ -8,26 +8,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 
 @SpringBootApplication
-@EnableOAuth2Sso
-public class Application extends WebSecurityConfigurerAdapter {
+
+public class Application  {
     public Application() {
     }
 
     public static void main(final String[] args) {
         SpringApplication.run(Application.class, args);
 
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .antMatcher("/**")
-                .authorizeRequests()
-                .antMatchers("/", "/login**", "/webjars/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated();
-
-        http.csrf().disable();
     }
 }

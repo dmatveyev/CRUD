@@ -1,10 +1,8 @@
-/*
 package com.denis.security;
 
 import com.denis.model.Role;
 import com.denis.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -25,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
-@Service
+
 public class UserDetailsServiceImpl implements UserDetailsService {
     private static String URL_GET_USER = "http://localhost:8181/rest/user";
     private static String URL_GET_ROLE = "http://localhost:8181/rest/role";
@@ -34,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             .getLogger("UserDetailsServiceImpl");
 
     public UserDetails loadUserByUsername(String login)
-            throws UsernameNotFoundException, DataAccessException {
+            throws UsernameNotFoundException {
         log.info("loadUserByUsername(" + login + ");");
         RestTemplate restTemplate = new RestTemplate();
         //Getting user
@@ -44,10 +42,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         URI url = builder.build().encode().toUri();
         User user = restTemplate.getForObject(url, User.class);
 
-        org.springframework.security.core.userdetails.User user1 = org.springframework.security.core.userdetails.User.
 
 
         //Deleting user
+
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
@@ -71,4 +69,3 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
     }
 }
-*/

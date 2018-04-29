@@ -1,4 +1,3 @@
-/*
 package com.denis.security.handler;
 
 import org.springframework.security.core.AuthenticationException;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-@Service
+
 public class FailureHandler implements AuthenticationFailureHandler {
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -38,4 +37,3 @@ public class FailureHandler implements AuthenticationFailureHandler {
         return redirectStrategy;
     }
 }
-*/
