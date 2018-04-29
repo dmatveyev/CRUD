@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
-import java.security.Principal;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,6 +53,8 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
 
         String  email = (String) userAtr.get("email");
         log.info(email);
+
+
 
         Collection<? extends GrantedAuthority> authorities = getAuthorityByUser(email);
         for (GrantedAuthority g : authorities) {
