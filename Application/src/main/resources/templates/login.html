@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>User Form</title>
+    <!-- Bootstrap core CSS -->
+    <link href="pages/css/bootstrap.css" rel="stylesheet">
+    <link href="pages/css/style.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+</head>
+<body>
+<div class="container" style="width: 300px;">
+    <p><span th:text="${message}"></span></p>
+    <form name='f2' method="post">
+        <div class="form-group">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <input type='text' placeholder="login" class="form-control" name='username' value=''>
+            <input type='password' placeholder="password" class="form-control" name='password'/>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="pages/js/bootstrap.js"></script>
+</body>
+</html>
