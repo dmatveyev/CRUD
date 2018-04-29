@@ -35,7 +35,7 @@ public class AdminController {
         mapModel.addAttribute("userName", "");
         mapModel.addAttribute("users", users);
         log.info("returning admin.html");
-        return "/admin";
+        return "admin";
     }
 
 
