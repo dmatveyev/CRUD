@@ -24,6 +24,8 @@ public class User implements Serializable {
 
     private String password;
 
+    private String email;
+
     @JsonIgnore
     private List<Role> role;
 
@@ -54,6 +56,14 @@ public class User implements Serializable {
 
     public void setPassword(final String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<Role> getRole() {

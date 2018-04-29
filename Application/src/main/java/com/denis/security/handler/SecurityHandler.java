@@ -18,7 +18,7 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+@Service
 public class SecurityHandler implements AuthenticationSuccessHandler {
 
     private static final Logger log = Logger

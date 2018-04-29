@@ -27,6 +27,9 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @Column(name= "email")
+    private String email;
+
     @ManyToMany(targetEntity =Role.class,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "permissions",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -61,6 +64,14 @@ public class User implements Serializable {
 
     public void setPassword(final String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<Role> getRole() {
