@@ -20,6 +20,6 @@ public interface RoleService {
 
         Role getByName(String login);
 
-        List<Role> getByParam(Object... o);
+        Role getByParam(Object... o);
 
 }

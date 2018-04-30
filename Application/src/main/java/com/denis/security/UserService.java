@@ -37,7 +37,7 @@ public class UserService {
         User us = restTemplate.postForObject(URL_CREATE, requestBody, User.class);
     }
 
-    public List<? extends GrantedAuthority> getUserRoles(String email) {
+    public Role getUserRoles(String email) {
         RestTemplate restTemplate = new RestTemplate();
         User user = getUser(email, restTemplate);
 
@@ -45,7 +45,7 @@ public class UserService {
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         HttpEntity<User> requestBody = new HttpEntity<>(user, headers);
-        Role[] arr = restTemplate.postForObject(URL_GET_ROLE, requestBody, Role[].class);
-        return Arrays.asList(arr);
+        Role role = restTemplate.postForObject(URL_GET_ROLE, requestBody, Role.class);
+        return role;
     }
 }

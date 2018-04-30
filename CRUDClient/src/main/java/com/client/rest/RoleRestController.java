@@ -19,7 +19,7 @@ public class RoleRestController {
     private UsersService usersService;
 
     @RequestMapping(value = "/rest/role",  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Role> get(@RequestBody User user){
+    public Role get(@RequestBody User user){
         roleService.getByParam(user);
         return roleService.getByParam(user);
     }

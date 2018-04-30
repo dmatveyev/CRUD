@@ -57,7 +57,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> getByParam(Object... o) {
+    public Role getByParam(Object... o) {
         User user = (User) o[0];
         return roleRepository.getRoleByUser(user.getId());
     }

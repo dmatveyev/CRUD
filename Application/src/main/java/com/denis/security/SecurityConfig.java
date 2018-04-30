@@ -1,5 +1,6 @@
 package com.denis.security;
 
+import com.denis.model.Role;
 import com.denis.security.handler.FailureHandler;
 import com.denis.security.handler.SecurityHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,8 +113,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             Map<String, Object> userAttr = oidcUser.getUserInfo().getClaims();
             OAuth2AccessToken accessToken = userRequest.getAccessToken();
             String email = (String) userAttr.get("email");
-            List<? extends GrantedAuthority> g = userService.getUserRoles(email);
-            Set<GrantedAuthority> mappedAuthorities = new HashSet<>(g);
+            Role role = userService.getUserRoles(email);
+            Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
+            mappedAuthorities.add(role);
             oidcUser = new DefaultOidcUser(mappedAuthorities, oidcUser.getIdToken(), oidcUser.getUserInfo());
 
             return oidcUser;
