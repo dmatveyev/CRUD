@@ -50,8 +50,9 @@ public class UsersServiceImpl implements UsersService {
         User user = new User();
         user.setUsername(params[0]);
         user.setPassword(params[1]);
+        user.setEmail(params[2]);
         List<Role> role = new ArrayList<>();
-        role.add(roleService.getByName(UserRole.ROLE_USER.name()));
+        role.add(roleService.getByName(UserRole.ROLE_ADMIN.name()));
         user.setRole(role);
         register(user);
         return user;

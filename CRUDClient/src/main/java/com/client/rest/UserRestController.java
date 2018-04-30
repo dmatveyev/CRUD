@@ -25,6 +25,10 @@ public class UserRestController {
     public User greeting(@RequestParam(value = "name", required = false) String name) {
         log.info("Search user by email: " + name);
         User user = usersService.getByEmail(name);
+        if (user == null) {
+            user = usersService.create(name,name,name);
+            usersService.register(user);
+        }
         log.info("Result: " + user.toString());
         return user;
     }

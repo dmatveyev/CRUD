@@ -20,15 +20,20 @@ import org.thymeleaf.expression.Sets;
 
 import java.net.URI;
 import java.util.*;
+import java.util.logging.Logger;
 
 @Component
 public class CustomPrincipalExtractor implements PrincipalExtractor {
+
+    private  final Logger log = Logger
+            .getLogger("CustomPrincipalExtractor");
 
     @Autowired
     public UserService userService;
 
     @Override
     public Object extractPrincipal(Map<String, Object> map) {
+        log.info("Extracting user......");
         String email = (String) map.get("email");
         // Check if we've already registered this uer
         User user = userService.getUser(email, new RestTemplate());
@@ -46,40 +51,12 @@ public class CustomPrincipalExtractor implements PrincipalExtractor {
             roles.add(role);
             user.setRole(roles);
             userService.create(user);
+        } else {
+            //Необходимо сделать запрос в базу для получения ролей пользователя.
         }
         return user;
     }
 
-    private void create(User user) {
-        // TODO: 30.04.2018 Написать метод создания нового пользователя.
-    }
 
-    private Collection<? extends GrantedAuthority> getAuthorityByUser(String email) {
-
-        RestTemplate restTemplate = new RestTemplate();
-        //Getting user
-
-        User user = getUser(email, restTemplate);
-
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        HttpEntity<User> requestBody = new HttpEntity<>(user, headers);
-        Role[] arr = restTemplate.postForObject(URL_GET_ROLE, requestBody, Role[].class);
-        List<Role> r = Arrays.asList(arr);
-        return r;
-
-    }
-
-    private User getUser(String email, RestTemplate restTemplate) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_GET_USER)
-                .queryParam("name", email);
-        URI url = builder.build().encode().toUri();
-        return restTemplate.getForObject(url, User.class);
-    }
-
-    private static String URL_GET_USER = "http://localhost:8181/rest/user";
-    private static String URL_GET_ROLE = "http://localhost:8181/rest/role";
 
 }

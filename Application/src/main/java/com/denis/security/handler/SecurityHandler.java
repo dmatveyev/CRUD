@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
+import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -57,24 +58,28 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
 
         String  email = (String) userAtr.get("email");
         log.info(email);
-
-        Collection<? extends GrantedAuthority> authorities = getAuthorityByUser(email);
+        log.info(authentication.getAuthorities().toString());
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        OidcUserAuthority r;
         for (GrantedAuthority g : authorities) {
             log.info("authoritiy: " + g.getAuthority());
+            if (g.getAuthority().equals(UserRole.ROLE_ADMIN.name())) {
+                log.log(Level.INFO, "Current Authorities: " +
+                        Arrays.toString(authorities.toArray()));
+                log.info("Redirecting to /admin");
+                return "/admin";
+            } else if (g.getAuthority().equals(UserRole.ROLE_USER.name())) {
+                log.log(Level.INFO, "Current Authorities: " +
+                        Arrays.toString(authorities.toArray()));
+                log.info("Redirecting to /user");
+                return "/user";
+            } else {
+                log.log(Level.WARNING, "Current Authorities: " +
+                        Arrays.toString(authorities.toArray()));
+                throw new IllegalStateException();
+            }
         }
-        GrantedAuthority a = new SimpleGrantedAuthority(UserRole.ROLE_ADMIN.name());
-        log.info("GrantedAuthority a " + a.getAuthority());
-        if (authorities.contains(new Role(UserRole.ROLE_ADMIN.name()))) {
-            log.info("Redirecting to /admin");
-            return "/admin";
-        } else if (authorities.contains(new Role(UserRole.ROLE_USER.name()))) {
-            log.info("Redirecting to /user");
-            return "/user";
-        } else {
-            log.log(Level.WARNING, "Current Authorities: " +
-                    Arrays.toString(authorities.toArray()));
-            throw new IllegalStateException();
-        }
+        return "/login";
     }
 
     private Collection<? extends GrantedAuthority> getAuthorityByUser(String email) {

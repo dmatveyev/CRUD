@@ -1,10 +1,14 @@
 package com.denis.security;
 
 
+import com.denis.model.Role;
+import com.denis.model.User;
+import com.denis.model.UserRole;
 import com.denis.security.handler.FailureHandler;
 import com.denis.security.handler.SecurityHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -14,13 +18,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -120,6 +128,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         return new InMemoryOAuth2AuthorizedClientService(
                 clientRegistrationRepository());
+    }
+
+
+    @Bean
+    public PrincipalExtractor principalExtractor(UserService userService) {
+        return map -> {
+            String email = (String) map.get("email");
+            // Check if we've already registered this uer
+            User user = userService.getUser(email, new RestTemplate());
+
+
+            return user;
+        };
     }
 
 

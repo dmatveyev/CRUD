@@ -4,6 +4,7 @@ package com.denis.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 /*import org.springframework.security.core.GrantedAuthority;*/
 
 
@@ -11,7 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class Role implements Serializable, GrantedAuthority{
+public class Role  implements Serializable, GrantedAuthority {
 
     private long role_id;
 
