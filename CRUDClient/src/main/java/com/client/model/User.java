@@ -32,7 +32,6 @@ public class User implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Role_id")
-    @JsonIgnore
     private Role role;
 
 
@@ -101,6 +100,7 @@ public class User implements Serializable {
         return "[id " + getId() +
                 " login: " + getUsername() +
                 ", password: " + getPassword() +
+                ", role:" + getRole() +
                 "]";
     }
 }

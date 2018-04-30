@@ -16,8 +16,6 @@ public class Role  implements Serializable, GrantedAuthority {
 
     private long role_id;
 
-
-    @JsonIgnore
     private List<User> user;
 
 

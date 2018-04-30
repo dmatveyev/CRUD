@@ -18,6 +18,12 @@ public class RoleRestController {
     @Autowired
     private UsersService usersService;
 
+    @RequestMapping(value = "/rest/role/byName",  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Role getCurrent(@RequestParam(value="role") String role){
+        roleService.getByName(role);
+        return roleService.getByName(role);
+    }
+
     @RequestMapping(value = "/rest/role",  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Role get(@RequestBody User user){
         roleService.getByParam(user);

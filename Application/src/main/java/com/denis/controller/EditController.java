@@ -1,6 +1,9 @@
 package com.denis.controller;
 
+import com.denis.model.Role;
 import com.denis.model.User;
+import com.denis.security.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -26,6 +29,8 @@ public class EditController {
 
     private static final Logger log = Logger
             .getLogger("EditController");
+    @Autowired
+    private RoleService roleServise;
 
     @RequestMapping(method = RequestMethod.GET)
     protected String doGet(@RequestParam("user") Long userid, @ModelAttribute("message") String message, ModelMap modelMap) {
@@ -44,7 +49,7 @@ public class EditController {
                                   @RequestParam("username") String username,
                                   @RequestParam("pd") String pd,
                                   @RequestParam("email") String email,
-                                  @RequestParam("roles") String roles,
+                                  @RequestParam("roles") String role,
                                   HttpServletRequest reg,
                                   ModelMap model) {
         Map<String,String[]> map = reg.getParameterMap();
@@ -57,6 +62,8 @@ public class EditController {
         user.setUsername(username);
         user.setPassword(pd);
         user.setEmail(email);
+        Role r = roleServise.getRole(role);
+        user.setRole(r);
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
