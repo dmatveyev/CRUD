@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="container" style="width: 300px;">
-    <p><span th:text="${message}"></span></p>
+    <!--<p><span th:text="${message}"></span></p>
     <form name='f2' method="post">
         <div class="form-group">
             <h2 class="form-signin-heading">Please sign in</h2>
@@ -18,10 +18,10 @@
             <input type='password' placeholder="password" class="form-control" name='password'/>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
+    </form>-->
     <h3>Login with:</h3>
     <p th:each="url : ${urls}">
-        <a th:text="${url.key}" th:href="${url.value}">Client</a>
+        <a class="btn btn-success"role="button" th:text="${url.key}" th:href="${url.value}">Client</a>
     </p>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

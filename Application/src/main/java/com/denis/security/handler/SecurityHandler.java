@@ -60,7 +60,6 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
         log.info(email);
         log.info(authentication.getAuthorities().toString());
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        OidcUserAuthority r;
         for (GrantedAuthority g : authorities) {
             log.info("authoritiy: " + g.getAuthority());
             if (g.getAuthority().equals(UserRole.ROLE_ADMIN.name())) {

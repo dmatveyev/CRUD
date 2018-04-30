@@ -16,9 +16,6 @@
     <orderEntry type="library" name="Maven: io.micrometer:micrometer-core:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.hdrhistogram:HdrHistogram:2.1.10" level="project" />
     <orderEntry type="library" name="Maven: org.latencyutils:LatencyUtils:2.0.3" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-security:2.0.0.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:5.0.3.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:5.0.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security.oauth:spring-security-oauth2:2.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.11" level="project" />
@@ -37,7 +34,39 @@
     <orderEntry type="library" name="Maven: net.minidev:accessors-smart:1.2" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm:5.0.4" level="project" />
     <orderEntry type="library" name="Maven: com.nimbusds:lang-tag:1.4.3" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:5.0.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-oauth2-core:5.0.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-oauth2-jose:5.0.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: com.nimbusds:nimbus-jose-jwt:5.4" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:js-cookie:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:jquery:2.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:bootstrap:3.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars:webjars-locator-core:0.35" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.7" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-compress:1.9" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-actuator:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator-autoconfigure:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: io.micrometer:micrometer-core:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.hdrhistogram:HdrHistogram:2.1.10" level="project" />
+    <orderEntry type="library" name="Maven: org.latencyutils:LatencyUtils:2.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security.oauth:spring-security-oauth2:2.2.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.11" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-jwt:1.0.9.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.56" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.56" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-oauth2-client:5.0.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: com.nimbusds:oauth2-oidc-sdk:5.54" level="project" />
+    <orderEntry type="library" name="Maven: javax.mail:mail:1.4.7" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.github.stephenc.jcip:jcip-annotations:1.0-1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-collections4:4.1" level="project" />
+    <orderEntry type="library" name="Maven: net.minidev:json-smart:2.3" level="project" />
+    <orderEntry type="library" name="Maven: net.minidev:accessors-smart:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm:5.0.4" level="project" />
+    <orderEntry type="library" name="Maven: com.nimbusds:lang-tag:1.4.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-oauth2-core:5.0.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-oauth2-jose:5.0.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.nimbusds:nimbus-jose-jwt:5.4" level="project" />

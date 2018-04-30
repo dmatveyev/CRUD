@@ -58,8 +58,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-
         http.authorizeRequests()
                 .antMatchers("/login")
                 .permitAll()
@@ -72,13 +70,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .oauth2Login()
                 .loginPage("/login")
-                .successHandler(securityHandler);
-        http.formLogin()
-                .loginPage("/login")
+                .successHandler(securityHandler)
+               /* .and().formLogin()
                 .permitAll()
+                .loginPage("/login")
                 .successHandler(securityHandler)
                 .passwordParameter("password")
-                .usernameParameter("username");
+                .usernameParameter("username")*/;
 
 
         http.csrf().disable();
@@ -135,19 +133,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new InMemoryOAuth2AuthorizedClientService(
                 clientRegistrationRepository());
     }
-
-
-    @Bean
-    public PrincipalExtractor principalExtractor(UserService userService) {
-        return map -> {
-            String email = (String) map.get("email");
-            // Check if we've already registered this uer
-            User user = userService.getUser(email, new RestTemplate());
-
-
-            return user;
-        };
-    }
-
 
 }

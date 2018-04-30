@@ -53,16 +53,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not Found");
         } else {
-
             Set<GrantedAuthority> roles = new HashSet<>(r);
-
+            log.info("GrantedAuthority " + roles);
             UserBuilder userBuilder =
                     org.springframework.security.core.userdetails.User.withUsername(user.getUsername());
             userBuilder.authorities(roles);
             userBuilder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
             log.info("Created User " + user.toString());
-            log.info("Created UserDetails with role: " + user.getRole());
-            log.info("Created UserDetails with role: " + user.getRole());
+            log.info("Created UserDetails with role: " + Arrays.toString(arr));
+            UserDetails ud = userBuilder.build();
+            log.info("UserDetails: " + Arrays.toString(arr));
             return userBuilder.build();
         }
     }
