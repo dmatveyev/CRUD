@@ -30,12 +30,10 @@ public class User implements Serializable {
     @Column(name= "email")
     private String email;
 
-    @ManyToMany(targetEntity =Role.class,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "permissions",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name ="role_id"))
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Role_id")
     @JsonIgnore
-    private List<Role> role;
+    private Role role;
 
 
     public User() {    }
@@ -74,11 +72,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public List<Role> getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(List<Role> role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

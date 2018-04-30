@@ -4,7 +4,7 @@ package com.client.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-/*import org.springframework.security.core.GrantedAuthority;*/
+
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,17 +13,14 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
-public class Role implements Serializable/*, GrantedAuthority*/ {
+public class Role implements Serializable {
     @Id
-    @Column(name = "role_id")
+    @Column(name = "role_id", insertable = true , updatable = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long role_id;
 
 
-    @ManyToMany(cascade = {CascadeType.DETACH},targetEntity = User.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "permissions",
-            joinColumns = {@JoinColumn(name = "role_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    @OneToMany(fetch = FetchType.LAZY)
     @JsonIgnore
     private List<User> user;
 

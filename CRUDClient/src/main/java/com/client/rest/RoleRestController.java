@@ -26,7 +26,7 @@ public class RoleRestController {
     @RequestMapping(value = "/rest/role/add", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String add(@RequestHeader(value="userId") String userId, @RequestBody Role role){
         User user = usersService.getById(Long.parseLong(userId));
-        user.getRole().add(role);
+        user.setRole(role);
         usersService.register(user);
         return "Role has been added to User"; }
 
@@ -34,7 +34,7 @@ public class RoleRestController {
     @RequestMapping(value = "/rest/role/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String delete(@RequestHeader(value="userId") String userId, @RequestBody Role role){
         User user = usersService.getById(Long.parseLong(userId));
-        user.getRole().remove(role);
+        user.setRole(null);
         usersService.register(user);
         return "Role has been removed from User";
     }
