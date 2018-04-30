@@ -3,6 +3,7 @@ package com.denis.security;
 import com.denis.model.Role;
 import com.denis.security.handler.FailureHandler;
 import com.denis.security.handler.SecurityHandler;
+import com.denis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

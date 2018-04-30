@@ -1,18 +1,15 @@
 package com.denis.controller;
 
 import com.denis.model.User;
-import com.denis.security.UserService;
+import com.denis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.logging.Logger;
 
 @Controller

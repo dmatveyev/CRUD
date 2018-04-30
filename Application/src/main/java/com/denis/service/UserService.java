@@ -1,4 +1,4 @@
-package com.denis.security;
+package com.denis.service;
 
 import com.denis.model.Role;
 import com.denis.model.User;
