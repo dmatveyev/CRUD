@@ -1,14 +1,9 @@
 package com.denis.security;
 
 
-import com.denis.model.Role;
-import com.denis.model.User;
-import com.denis.model.UserRole;
 import com.denis.security.handler.FailureHandler;
 import com.denis.security.handler.SecurityHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -18,19 +13,23 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 
@@ -38,6 +37,9 @@ import java.util.stream.Collectors;
 @EnableWebSecurity
 @PropertySource("classpath:application.properties")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final Logger log = Logger
+            .getLogger("SecurityConfig");
 
     private static List<String> clients = Arrays.asList("google");
 
@@ -48,6 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private SecurityHandler securityHandler;
 
     private FailureHandler failureHandler;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
@@ -68,7 +72,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .oauth2Login()
+                .oauth2Login().
+                userInfoEndpoint()
+                .oidcUserService(this.oidcUserService())
+                .and()
                 .loginPage("/login")
                 .successHandler(securityHandler)
                /* .and().formLogin()
@@ -132,6 +139,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         return new InMemoryOAuth2AuthorizedClientService(
                 clientRegistrationRepository());
+    }
+
+    private OAuth2UserService<OidcUserRequest, OidcUser> oidcUserService() {
+        final OidcUserService delegate = new OidcUserService();
+
+        return (userRequest) -> {
+            // Delegate to the default implementation for loading a user
+            OidcUser oidcUser = delegate.loadUser(userRequest);
+
+            Map<String, Object> userAttr = oidcUser.getUserInfo().getClaims();
+            for (Map.Entry<String, Object> entry: userAttr.entrySet()){
+                log.info("Key: " + entry.getKey() + "; Value: " + entry.getValue());
+            }
+            OAuth2AccessToken accessToken = userRequest.getAccessToken();
+            String email = (String) userAttr.get("email");
+            List<? extends GrantedAuthority> g = userService.getUserRoles(email);
+            Set<GrantedAuthority> mappedAuthorities = new HashSet<>(g);
+            oidcUser = new DefaultOidcUser(mappedAuthorities, oidcUser.getIdToken(), oidcUser.getUserInfo());
+
+            return oidcUser;
+        };
     }
 
 }
