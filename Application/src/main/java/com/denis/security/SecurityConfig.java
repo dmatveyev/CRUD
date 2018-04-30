@@ -73,6 +73,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .oauth2Login()
                 .loginPage("/login")
                 .successHandler(securityHandler);
+        http.formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .successHandler(securityHandler)
+                .passwordParameter("username")
+                .usernameParameter("pd");
 
 
         http.csrf().disable();
