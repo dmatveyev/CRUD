@@ -15,7 +15,7 @@ import java.net.URI;
 @Service
 public class UserService {
 
-    private static String URL_GET_USER = "http://localhost:8181/rest/user";
+    private static final String URL_GET_USER = "http://localhost:8181/rest/user";
     private static final String URL_CREATE = "http://localhost:8181/rest/user/create";
     private static final String URL_UPDATE ="http://localhost:8181/rest/user/update";
     private static final String URL_GET_USER_BY_ID ="http://localhost:8181/rest/user/getbyid";
