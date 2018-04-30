@@ -51,6 +51,10 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
 
         Map<String, Object> userAtr = user.getAttributes();
 
+        for (Map.Entry<String, Object> entry: userAtr.entrySet()){
+            log.info("Key:   " + entry.getKey() + ";  Value:   " + entry.getValue());
+        }
+
         String  email = (String) userAtr.get("email");
         log.info(email);
 
