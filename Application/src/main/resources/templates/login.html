@@ -9,7 +9,7 @@
     <!-- Custom styles for this template -->
 </head>
 <body>
-<!--<div class="container" style="width: 300px;">
+<div class="container" style="width: 300px;">
     <p><span th:text="${message}"></span></p>
     <form name='f2' method="post">
         <div class="form-group">
@@ -19,11 +19,11 @@
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
-</div>-->
-<h3>Login with:</h3>
-<p th:each="url : ${urls}">
-    <a th:text="${url.key}" th:href="${url.value}">Client</a>
-</p>
+    <h3>Login with:</h3>
+    <p th:each="url : ${urls}">
+        <a th:text="${url.key}" th:href="${url.value}">Client</a>
+    </p>
+</div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->

@@ -41,9 +41,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .queryParam("name", login);
         URI url = builder.build().encode().toUri();
         User user = restTemplate.getForObject(url, User.class);
-
-
-
         //Deleting user
 
         HttpHeaders headers = new HttpHeaders();
@@ -52,6 +49,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         HttpEntity<User> requestBody = new HttpEntity<>(user,headers);
         Role[] arr = restTemplate.postForObject(URL_GET_ROLE,requestBody,Role[].class);
         List<Role> r = Arrays.asList(arr);
+
         if (user == null) {
             throw new UsernameNotFoundException("User not Found");
         } else {

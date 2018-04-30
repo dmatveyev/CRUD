@@ -24,7 +24,8 @@ public class UserRestController {
     @RequestMapping(value = "/rest/user")
     public User greeting(@RequestParam(value = "name", required = false) String name) {
         log.info("Search user by email: " + name);
-        User user = usersService.getByEmail(name);
+        //User user = usersService.getByEmail(name);
+        User user = usersService.getByName(name);
         if (user == null) {
             user = usersService.create(name,name,name);
             usersService.register(user);

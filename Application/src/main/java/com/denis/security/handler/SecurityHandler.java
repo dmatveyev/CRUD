@@ -82,27 +82,6 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
         return "/login";
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorityByUser(String email) {
-        log.info("loadUserByEmail(" + email + ");");
-        RestTemplate restTemplate = new RestTemplate();
-        //Getting user
-
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_GET_USER)
-                .queryParam("name", email);
-        URI url = builder.build().encode().toUri();
-        User user = restTemplate.getForObject(url, User.class);
-        //Deleting user
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        HttpEntity<User> requestBody = new HttpEntity<>(user,headers);
-        Role[] arr = restTemplate.postForObject(URL_GET_ROLE,requestBody,Role[].class);
-        List<Role> r = Arrays.asList(arr);
-        return r;
-
-    }
-
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
     }
@@ -111,6 +90,4 @@ public class SecurityHandler implements AuthenticationSuccessHandler {
         return redirectStrategy;
     }
 
-    private static String URL_GET_USER = "http://localhost:8181/rest/user";
-    private static String URL_GET_ROLE = "http://localhost:8181/rest/role";
 }

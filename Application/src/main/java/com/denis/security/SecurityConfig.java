@@ -77,8 +77,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .permitAll()
                 .successHandler(securityHandler)
-                .passwordParameter("username")
-                .usernameParameter("pd");
+                .passwordParameter("password")
+                .usernameParameter("username");
 
 
         http.csrf().disable();
