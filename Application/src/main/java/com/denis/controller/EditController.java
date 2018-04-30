@@ -43,6 +43,7 @@ public class EditController {
     protected ModelAndView doPost(@RequestParam("userid") String userid,
                                   @RequestParam("username") String username,
                                   @RequestParam("pd") String pd,
+                                  @RequestParam("email") String email,
                                   @RequestParam("roles") String roles,
                                   HttpServletRequest reg,
                                   ModelMap model) {
@@ -55,6 +56,7 @@ public class EditController {
         user.setId(Long.parseLong(userid));
         user.setUsername(username);
         user.setPassword(pd);
+        user.setEmail(email);
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();

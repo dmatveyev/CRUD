@@ -26,11 +26,14 @@ public class CreateUserController {
 
     @RequestMapping(method = RequestMethod.POST)
     protected ModelAndView doPost(@RequestParam("login") String login,
-                                  @RequestParam("pd") String pd, ModelMap model) {
+                                  @RequestParam("pd") String pd,
+                                  @RequestParam("email") String email,
+                                  ModelMap model) {
         RestTemplate restTemplate = new RestTemplate();
         User user = new User();
         user.setUsername(login);
         user.setPassword(pd);
+        user.setEmail(email);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);

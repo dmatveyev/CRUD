@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-
+@Service
 public class FailureHandler implements AuthenticationFailureHandler {
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();

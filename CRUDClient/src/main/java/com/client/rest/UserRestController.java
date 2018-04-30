@@ -50,7 +50,7 @@ public class UserRestController {
     @RequestMapping(value = "/rest/user/create")
     public User create(@RequestBody User user) {
         log.info("Creating user by name and password.");
-        User newUser = usersService.create(user.getUsername(), user.getPassword());
+        User newUser = usersService.create(user.getUsername(), user.getPassword(), user.getEmail());
         log.info("Result: " + newUser.toString());
         return newUser;
     }

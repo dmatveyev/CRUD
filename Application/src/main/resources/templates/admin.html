@@ -69,6 +69,7 @@
                                     <td>ID</td>
                                     <td>login</td>
                                     <td>password</td>
+                                    <td>email</td>
                                     <td>role</td>
                                     <td></td>
                                     <td></td>
@@ -77,6 +78,7 @@
                                     <td th:text="${user.id}">1</td>
                                     <td th:text="${user.username}">""</td>
                                     <td th:text="${user.password}">""</td>
+                                    <td th:text="${user.email}">""</td>
                                     <td th:text="${user.role}"></td>
                                     <td><a class="btn btn-success" data-toggle="modal" th:data-target="'#'+${user.id}"
                                            role="button">Edit</a>
@@ -106,6 +108,10 @@
                                                                 <input class="form-control" type="text" size="25"
                                                                        maxlength="30"
                                                                        th:value="${user.password}" name="pd"/>
+                                                                Email: <br/>
+                                                                <input class="form-control" type="text" size="25"
+                                                                       maxlength="30"
+                                                                       th:value="${user.email}" name="email"/>
                                                                 Roles: <br/>
                                                                 <input class="form-control" type="text" size="25"
                                                                        maxlength="30"
@@ -145,6 +151,9 @@
                                            value=""/> <br/>
                                     Password: <br/>
                                     <input class="form-control" name="pd" type="password" size="25" maxlength="30"
+                                           value=""/> <br/>
+                                    Email: <br/>
+                                    <input class="form-control" name="email" type="text" size="25" maxlength="30"
                                            value=""/> <br/>
                                 </div>
                                 <button class="btn btn-lg btn-primary" type="submit">Create</button>
