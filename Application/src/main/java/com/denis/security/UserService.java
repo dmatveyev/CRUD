@@ -40,12 +40,6 @@ public class UserService {
     public Role getUserRoles(String email) {
         RestTemplate restTemplate = new RestTemplate();
         User user = getUser(email, restTemplate);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        HttpEntity<User> requestBody = new HttpEntity<>(user, headers);
-        Role role = restTemplate.postForObject(URL_GET_ROLE, requestBody, Role.class);
-        return role;
+        return user.getRole();
     }
 }
