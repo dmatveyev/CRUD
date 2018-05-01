@@ -1,7 +1,5 @@
 package com.denis.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-/*import org.springframework.security.core.userdetails.UserDetails;*/
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +12,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET)
     protected String doGet(ModelMap modelMap) {
-/*        UserDetails userDetails = (UserDetails) org.springframework.security.core.context.SecurityContextHolder
+/*        UserDetails userDetails = (UserDetails) org.springframework.service.core.context.SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         modelMap.addAttribute("userName", userDetails.getUsername());*/
         return "user";

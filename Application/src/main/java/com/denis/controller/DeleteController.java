@@ -1,6 +1,8 @@
 package com.denis.controller;
 
 import com.denis.model.User;
+import com.denis.service.RequestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +19,10 @@ import java.util.logging.Logger;
 @RequestMapping("/admin/delete-user")
 public class DeleteController {
 
-    private static final String URL_DELETE = "http://localhost:8181/rest/user/delete";
-    private static String URL_GET_USER = "http://localhost:8181/rest/user/getbyid";
+    @Autowired
+    private RequestService requestService;
+
+;
     private static final Logger log = Logger
             .getLogger("DeleteController");
 
@@ -27,18 +31,16 @@ public class DeleteController {
         log.info("Deleting user with id = " + id);
         RestTemplate restTemplate = new RestTemplate();
         //Getting user
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_GET_USER)
-                .queryParam("id", id);
-        URI url = builder.build().encode().toUri();
-        User user = restTemplate.getForObject(url, User.class);
+        User user = requestService.getUserById(id, restTemplate);
 
         //Deleting user
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        HttpEntity<User> requestBody = new HttpEntity<>(user,headers);
-        restTemplate.postForObject(URL_DELETE,requestBody,User.class);
+
+        requestService.deleteUser(restTemplate, user);
         log.info("User was deleted");
         return new RedirectView("/admin");
     }
+
+
+
+
 }

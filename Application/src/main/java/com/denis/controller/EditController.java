@@ -1,6 +1,8 @@
 package com.denis.controller;
 
 import com.denis.model.User;
+import com.denis.service.RequestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -21,8 +23,12 @@ import java.util.logging.Logger;
 @RequestMapping("/admin/edit-user")
 public class EditController {
 
-    private static final String URL_UPDATE ="http://localhost:8181/rest/user/update";
-    private static final String URL_GET_USER ="http://localhost:8181/rest/user/getbyid";
+
+    @Autowired
+    private RequestService requestService;
+
+
+
 
     private static final Logger log = Logger
             .getLogger("EditController");
@@ -31,10 +37,8 @@ public class EditController {
     protected String doGet(@RequestParam("user") Long userid, @ModelAttribute("message") String message, ModelMap modelMap) {
         RestTemplate restTemplate = new RestTemplate();
         //Getting user
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_GET_USER)
-                .queryParam("id", userid);
-        URI url = builder.build().encode().toUri();
-        User user = restTemplate.getForObject(url, User.class);
+
+        User user = requestService.getUserById(userid,restTemplate);
         modelMap.addAttribute("user", user);
         return "edit";
     }
@@ -60,11 +64,12 @@ public class EditController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        HttpEntity<User> requestBody = new HttpEntity<>(user,headers);
-        restTemplate.postForObject(URL_UPDATE,requestBody,String.class);
+        requestService.updateUser(user, restTemplate);
         log.info("User was updated");
 
         return new ModelAndView("redirect:/admin", model);
 
     }
+
+
 }
