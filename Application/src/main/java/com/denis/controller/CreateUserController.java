@@ -1,6 +1,8 @@
 package com.denis.controller;
 
 import com.denis.model.User;
+import com.denis.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,6 +21,10 @@ public class CreateUserController {
 
     static final String URL_CREATE = "http://localhost:8181/rest/user/create";
 
+
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(method = RequestMethod.GET)
     protected String doGet(@ModelAttribute("message") String message) {
         return "createUser";
@@ -34,11 +40,7 @@ public class CreateUserController {
         user.setUsername(login);
         user.setPassword(pd);
         user.setEmail(email);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        HttpEntity<User> requestBody = new HttpEntity<>(user,headers);
-        User us = restTemplate.postForObject(URL_CREATE,requestBody,User.class);
+        User us = userService.create(user);
         System.out.println(us.toString());
         return new ModelAndView("redirect:/admin", model);
     }

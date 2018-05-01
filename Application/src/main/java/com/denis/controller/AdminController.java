@@ -2,6 +2,8 @@ package com.denis.controller;
 
 import com.denis.model.User;
 /*import org.springframework.security.core.userdetails.UserDetails;*/
+import com.denis.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,17 +19,17 @@ import java.util.logging.Logger;
 public class AdminController {
     private static final Logger log = Logger
             .getLogger("AdminController");
-    static final String URL_USERS = "http://localhost:8181/rest/user/getAll";
+
+    @Autowired
+    private UserService userService;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String doGet(ModelMap mapModel) {
         RestTemplate restTemplate = new RestTemplate();
-/*        UserDetails userDetails = (UserDetails) org.springframework.security.core.context.SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal();*/
-        /*String userName = userDetails.getUsername();*/
         log.info("In admin rest");
         List<User> users;
-        User[] u = restTemplate.getForObject(URL_USERS, User[].class);
+        User[] u = userService.getUsers(restTemplate);
         users= Arrays.asList(u);
         for (User user : users) {
             log.info(user.toString());
