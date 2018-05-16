@@ -4,6 +4,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -33,9 +34,10 @@ public class ApplicationTest {
     }
 
     @Test
-    public void firstTest() {
+    public void firstTest() throws InterruptedException {
         WebElement loginButton =  driver.findElement(By.id("google"));
         loginButton.click();
+
         //login by Google OAuth
         //Click GMail login
         driver.findElement(By.id("identifierId")).sendKeys("denismatveyevaleksandrovich@gmail.com");
@@ -45,9 +47,11 @@ public class ApplicationTest {
         driver.findElement(By.name("password")).sendKeys("123qwe!@#QWE)");
 
 
-        WebDriverWait wait2 = new WebDriverWait(driver, 10);
-        wait2.until(ExpectedConditions.elementToBeClickable(By.id("passwordNext"))).click();
-
+        /*WebDriverWait wait2 = new WebDriverWait(driver, 10);
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("passwordNext"))).click();*/
+        WebElement myelement = driver.findElement(By.id("passwordNext"));
+        JavascriptExecutor jse2 = (JavascriptExecutor)driver;
+        jse2.executeScript("arguments[0].click();", myelement);
 
         WebElement header = driver.findElement(By.linkText("CRUD"));
 
