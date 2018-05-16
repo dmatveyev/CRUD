@@ -27,7 +27,7 @@ public class ApplicationTest {
         driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
         driver.get("http://localhost:8080/login");
     }
-    
+    @AfterClass
     public static void tearDown() {
         driver.quit();
     }
@@ -43,12 +43,16 @@ public class ApplicationTest {
 
 
         driver.findElement(By.name("password")).sendKeys("123qwe!@#QWE)");
-        WebElement element = driver.findElement(By.id("passwordNext"));
+
 
         WebDriverWait wait2 = new WebDriverWait(driver, 10);
-        wait2.until(ExpectedConditions.elementToBeClickable(element));
-        
-        element.click();
+        wait2.until(ExpectedConditions.elementToBeClickable(By.id("passwordNext"))).click();
+
+
+        WebElement header = driver.findElement(By.linkText("CRUD"));
+
+        String adminUrl = driver.getCurrentUrl();
+        assertEquals(adminUrl, "http://localhost:8080/admin#");
     }
 
 }
