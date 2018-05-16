@@ -52,7 +52,7 @@ public class UsersServiceImpl implements UsersService {
         user.setPassword(params[1]);
         user.setEmail(params[2]);
         Role role = new Role(UserRole.ROLE_USER.name());
-        role.setRole_id(1);
+        role.setRole_id(roleService.getByName(UserRole.ROLE_USER.name()).getRole_id());
         user.setRole(role);
         register(user);
         return user;

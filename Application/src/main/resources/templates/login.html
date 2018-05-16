@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>User Form</title>
     <!-- Bootstrap core CSS -->
-    <link href="pages/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <!-- Custom styles for this template -->
 </head>
 <body>
@@ -21,12 +21,12 @@
     </form>-->
     <h3>Login with:</h3>
     <p th:each="url : ${urls}">
-        <a class="btn btn-success"role="button" th:text="${url.key}" th:href="${url.value}">Client</a>
+        <a class="btn btn-success"role="button" th:text="${url.key}" th:href="${url.value}" id="google">Client</a>
     </p>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="pages/js/bootstrap.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>
