@@ -75,11 +75,11 @@
                                     <td></td>
                                 </tr>
                                 <tr th:each="user : ${users}">
-                                    <td th:text="${user.id}">1</td>
-                                    <td th:text="${user.username}">""</td>
-                                    <td th:text="${user.password}">""</td>
-                                    <td th:text="${user.email}">""</td>
-                                    <td th:text="${user.role}"></td>
+                                    <td name = "userid" th:text="${user.id}">1</td>
+                                    <td name = "username" th:text="${user.username}">""</td>
+                                    <td name = "userpassword" th:text="${user.password}">""</td>
+                                    <td name = "useremail" th:text="${user.email}">""</td>
+                                    <td name = "userrole" th:text="${user.role}"></td>
                                     <td><a class="btn btn-success" data-toggle="modal" th:data-target="'#'+${user.id}"
                                            role="button">Edit</a>
                                         <div class="modal" th:id="${user.id}">

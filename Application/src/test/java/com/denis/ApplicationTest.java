@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
@@ -74,17 +75,13 @@ public class ApplicationTest {
 
     @Test
     public void creataUser() throws InterruptedException {
-/*        WebElement createTab = driver.findElement(By.id("tab-2"));
-        createTab.click();*/
         WebDriverWait wait = new WebDriverWait(driver, 15);
-        wait.until(ExpectedConditions.
-                        visibilityOfElementLocated(By.linkText("Create new User")));
-
-        //f1
+        /*wait.until(ExpectedConditions.
+                        visibilityOfElementLocated(By.linkText("Create new User")));*/
         WebElement createNewUser = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.linkText("Create new User")));
         createNewUser.click();
-        WebElement el =  wait.until(ExpectedConditions.
+        WebElement el = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.name("f1")));
         el.findElement(By.name("login")).sendKeys("dentest");
 
@@ -96,5 +93,31 @@ public class ApplicationTest {
                 visibilityOfElementLocated(By.name("submit")));
         submit.click();
 
+        WebElement usersList = wait.until(ExpectedConditions.
+                visibilityOfElementLocated(By.linkText("Users list")));
+        /*List<WebElement> us = usersList.findElements(By.name("username"));
+        for (WebElement element: us) {
+            String text =  element.getText();
+            System.out.println(text);
+            if (text.equals("dentest")){
+                assertTrue(true);
+            }else {
+                assertTrue(false);
+            }
+        }
+        //цикл поиска по таблице.*/
+
+        List<WebElement> rows = driver.findElements(By.cssSelector("tr"));
+        boolean found = false;
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            String text =  cells.get(1).getText();
+            System.out.println(text);
+            if (text.equals("dentest")) {
+                // country found, check the document
+                found = true;
+            }
+        }
+        assertTrue(found);
     }
 }
