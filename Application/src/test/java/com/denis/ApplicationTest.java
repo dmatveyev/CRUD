@@ -69,44 +69,22 @@ public class ApplicationTest {
     }
 
     @Test
-    public void firstTest() throws InterruptedException {
-
-    }
-
-    @Test
     public void creataUser() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, 15);
-        /*wait.until(ExpectedConditions.
-                        visibilityOfElementLocated(By.linkText("Create new User")));*/
         WebElement createNewUser = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.linkText("Create new User")));
         createNewUser.click();
         WebElement el = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.name("f1")));
         el.findElement(By.name("login")).sendKeys("dentest");
-
         el.findElement(By.name("pd")).sendKeys("password");
-
         el.findElement(By.name("email")).sendKeys("d@d.com");
-
         WebElement submit = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.name("submit")));
         submit.click();
-
         WebElement usersList = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.linkText("Users list")));
-        /*List<WebElement> us = usersList.findElements(By.name("username"));
-        for (WebElement element: us) {
-            String text =  element.getText();
-            System.out.println(text);
-            if (text.equals("dentest")){
-                assertTrue(true);
-            }else {
-                assertTrue(false);
-            }
-        }
         //цикл поиска по таблице.*/
-
         List<WebElement> rows = driver.findElements(By.cssSelector("tr"));
         boolean found = false;
         for (WebElement row : rows) {
@@ -122,4 +100,37 @@ public class ApplicationTest {
         }
         assertTrue(found);
     }
+    @Test
+    public void deleteUser(){
+        WebDriverWait wait = new WebDriverWait(driver, 15);
+        WebElement usersList = wait.until(ExpectedConditions.
+                visibilityOfElementLocated(By.linkText("Users list")));
+        //цикл поиска по таблице.*/
+        List<WebElement> rows = driver.findElements(By.cssSelector("tr"));
+        boolean found = false;
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            String username =  cells.get(1).getText();
+            String password =  cells.get(2).getText();
+            String email =  cells.get(3).getText();
+            System.out.println(username);
+            if (username.equals("dentest") && password.equals("password") && email.equals("d@d.com")) {
+                WebElement deleteButton =   cells.get(6);
+                deleteButton.click();                
+            }
+        }
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            String username =  cells.get(1).getText();
+            String password =  cells.get(2).getText();
+            String email =  cells.get(3).getText();
+            System.out.println(username);
+            if (username.equals("dentest") && password.equals("password") && email.equals("d@d.com")) {
+                // country found, check the document
+                found = true;
+            }
+        }
+        assertFalse(found);
+    }
+
 }
