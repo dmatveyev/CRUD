@@ -60,7 +60,7 @@ public class ApplicationTest {
     @Before
     public void beforeTest() {
         driver.findElement(By.linkText("CRUD"));
-        assertEquals(driver.getCurrentUrl(), "http://localhost:8080/admin#");
+
     }
 
     @AfterClass
@@ -69,68 +69,56 @@ public class ApplicationTest {
     }
 
     @Test
-    public void creataUser() throws InterruptedException {
+    public void createUserTest() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, 15);
+        createUser(wait, "dentest", "password", "d@d.com");
+        WebElement usersList = wait.until(ExpectedConditions.
+                visibilityOfElementLocated(By.linkText("Users list")));
+        //цикл поиска по таблице.*/
+        WebElement targetRow = findUser(driver, "dentest", "password", "d@d.com");
+        assertNotNull(targetRow);
+    }
+
+    @Test
+    public void deleteUserTest() {
+        WebDriverWait wait = new WebDriverWait(driver, 15);
+        WebElement usersList = wait.until(ExpectedConditions.
+                visibilityOfElementLocated(By.linkText("Users list")));
+        //цикл поиска по таблице.*/
+        WebElement targetRow = findUser(driver, "dentest", "password", "d@d.com");
+        List<WebElement> cells = targetRow.findElements(By.tagName("td"));
+        cells.get(cells.size()-1).click();
+        assertNull(findUser(driver, "dentest", "password", "d@d.com"));
+    }
+
+    private void createUser(final WebDriverWait wait, final String username, final String password, final String email) {
         WebElement createNewUser = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.linkText("Create new User")));
         createNewUser.click();
         WebElement el = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.name("f1")));
-        el.findElement(By.name("login")).sendKeys("dentest");
-        el.findElement(By.name("pd")).sendKeys("password");
-        el.findElement(By.name("email")).sendKeys("d@d.com");
+        el.findElement(By.name("login")).sendKeys(username);
+        el.findElement(By.name("pd")).sendKeys(password);
+        el.findElement(By.name("email")).sendKeys(email);
         WebElement submit = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.name("submit")));
         submit.click();
-        WebElement usersList = wait.until(ExpectedConditions.
-                visibilityOfElementLocated(By.linkText("Users list")));
-        //цикл поиска по таблице.*/
-        List<WebElement> rows = driver.findElements(By.cssSelector("tr"));
-        boolean found = false;
-        for (WebElement row : rows) {
-            List<WebElement> cells = row.findElements(By.tagName("td"));
-            String username =  cells.get(1).getText();
-            String password =  cells.get(2).getText();
-            String email =  cells.get(3).getText();
-            System.out.println(username);
-            if (username.equals("dentest") && password.equals("password") && email.equals("d@d.com")) {
-                // country found, check the document
-                found = true;
-            }
-        }
-        assertTrue(found);
     }
-    @Test
-    public void deleteUser(){
-        WebDriverWait wait = new WebDriverWait(driver, 15);
-        WebElement usersList = wait.until(ExpectedConditions.
-                visibilityOfElementLocated(By.linkText("Users list")));
-        //цикл поиска по таблице.*/
+
+    private WebElement findUser(final WebDriver driver, final String ... args) {
         List<WebElement> rows = driver.findElements(By.cssSelector("tr"));
-        boolean found = false;
         for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
-            String username =  cells.get(1).getText();
-            String password =  cells.get(2).getText();
-            String email =  cells.get(3).getText();
+            String username = cells.get(1).getText();
+            String password = cells.get(2).getText();
+            String email = cells.get(3).getText();
             System.out.println(username);
-            if (username.equals("dentest") && password.equals("password") && email.equals("d@d.com")) {
-                WebElement deleteButton =   cells.get(6);
-                deleteButton.click();                
-            }
-        }
-        for (WebElement row : rows) {
-            List<WebElement> cells = row.findElements(By.tagName("td"));
-            String username =  cells.get(1).getText();
-            String password =  cells.get(2).getText();
-            String email =  cells.get(3).getText();
-            System.out.println(username);
-            if (username.equals("dentest") && password.equals("password") && email.equals("d@d.com")) {
+            if (username.equals(args[0]) && password.equals(args[1]) && email.equals(args[2])) {
                 // country found, check the document
-                found = true;
+                return row;
             }
         }
-        assertFalse(found);
+        return null;
     }
 
 }
