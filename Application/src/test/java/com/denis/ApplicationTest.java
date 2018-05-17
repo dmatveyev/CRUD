@@ -1,6 +1,7 @@
 package com.denis;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -8,10 +9,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +21,18 @@ import static org.junit.Assert.*;
 public class ApplicationTest {
 
     public static WebDriver driver;
+    private final By UserListTab;
+    //Create user tab
+    private By createTab;
+
+    private By submit;
+
+    public ApplicationTest() {
+        UserListTab = By.id("tab-1");
+        //Create user tab
+        createTab = By.id("tab-2");
+        submit = By.name("submit");
+    }
 
     @BeforeClass
     public static void setUp() {
@@ -28,15 +40,6 @@ public class ApplicationTest {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://localhost:8080/login");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        driver.quit();
-    }
-
-    @Test
-    public void firstTest() throws InterruptedException {
         WebElement loginButton = driver.findElement(By.id("google"));
         loginButton.click();
 
@@ -51,6 +54,47 @@ public class ApplicationTest {
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("arguments[0].click();", myelement);
         driver.findElement(By.linkText("CRUD"));
+    }
+
+    @Before
+    public void beforeTest() {
+        driver.findElement(By.linkText("CRUD"));
         assertEquals(driver.getCurrentUrl(), "http://localhost:8080/admin#");
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        //driver.quit();
+    }
+
+    @Test
+    public void firstTest() throws InterruptedException {
+
+    }
+
+    @Test
+    public void creataUser() throws InterruptedException {
+/*        WebElement createTab = driver.findElement(By.id("tab-2"));
+        createTab.click();*/
+        WebDriverWait wait = new WebDriverWait(driver, 15);
+        wait.until(ExpectedConditions.
+                        visibilityOfElementLocated(By.linkText("Create new User")));
+
+        //f1
+        WebElement createNewUser = wait.until(ExpectedConditions.
+                visibilityOfElementLocated(By.linkText("Create new User")));
+        createNewUser.click();
+        WebElement el =  wait.until(ExpectedConditions.
+                visibilityOfElementLocated(By.name("f1")));
+        el.findElement(By.name("login")).sendKeys("dentest");
+
+        el.findElement(By.name("pd")).sendKeys("password");
+
+        el.findElement(By.name("email")).sendKeys("d@d.com");
+
+        WebElement submit = wait.until(ExpectedConditions.
+                visibilityOfElementLocated(By.name("submit")));
+        submit.click();
+
     }
 }
