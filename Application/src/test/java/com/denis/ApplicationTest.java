@@ -41,8 +41,11 @@ public class ApplicationTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         Object[] [] data = {
-                {"dentest", "password", "email"},
-                {"dentest12", "password12", "email12"},
+               /* {"dentest", "password", "email"},
+                {"dentest12", "password12", "email12"},*/
+                {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "email12"}
         };
         return Arrays.asList(data);
     }
