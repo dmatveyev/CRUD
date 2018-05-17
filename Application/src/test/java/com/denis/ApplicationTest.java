@@ -4,6 +4,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -13,26 +15,36 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
-
+@RunWith(Parameterized.class)
 public class ApplicationTest {
 
-    public static WebDriver driver;
-    private final By UserListTab;
-    //Create user tab
-    private By createTab;
+    private static WebDriver driver;
 
-    private By submit;
+    private String username;
+    private String password;
+    private String email;
 
-    public ApplicationTest() {
-        UserListTab = By.id("tab-1");
-        //Create user tab
-        createTab = By.id("tab-2");
-        submit = By.name("submit");
+    public ApplicationTest(final String username, final String password, final String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+        Object[] [] data = {
+                {"dentest", "password", "email"},
+                {"dentest12", "password12", "email12"},
+        };
+        return Arrays.asList(data);
     }
 
     @BeforeClass
@@ -41,7 +53,7 @@ public class ApplicationTest {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://localhost:8080/login");
-        WebElement loginButton = driver.findElement(By.id("google"));
+        final WebElement loginButton = driver.findElement(By.id("google"));
         loginButton.click();
 
         //login by Google OAuth
@@ -51,8 +63,8 @@ public class ApplicationTest {
         driver.findElement(By.name("password")).sendKeys("123qwe!@#QWE)");
         /*WebDriverWait wait2 = new WebDriverWait(driver, 10);
         wait2.until(ExpectedConditions.elementToBeClickable(By.id("passwordNext"))).click();*/
-        WebElement myelement = driver.findElement(By.id("passwordNext"));
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        final WebElement myelement = driver.findElement(By.id("passwordNext"));
+        final JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("arguments[0].click();", myelement);
         driver.findElement(By.linkText("CRUD"));
     }
@@ -70,49 +82,48 @@ public class ApplicationTest {
 
     @Test
     public void createUserTest() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, 15);
-        createUser(wait, "dentest", "password", "d@d.com");
-        WebElement usersList = wait.until(ExpectedConditions.
+        final WebDriverWait wait = new WebDriverWait(driver, 15);
+        createUser(wait, username, password, email);
+        final WebElement usersList = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.linkText("Users list")));
         //цикл поиска по таблице.*/
-        WebElement targetRow = findUser(driver, "dentest", "password", "d@d.com");
+        final WebElement targetRow = findUser(driver, username, password, email);
         assertNotNull(targetRow);
     }
 
     @Test
     public void deleteUserTest() {
-        WebDriverWait wait = new WebDriverWait(driver, 15);
-        WebElement usersList = wait.until(ExpectedConditions.
+        final WebDriverWait wait = new WebDriverWait(driver, 15);
+        final WebElement usersList = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.linkText("Users list")));
         //цикл поиска по таблице.*/
-        WebElement targetRow = findUser(driver, "dentest", "password", "d@d.com");
-        List<WebElement> cells = targetRow.findElements(By.tagName("td"));
+        final WebElement targetRow = findUser(driver, username, password, email);
+        final List<WebElement> cells = targetRow.findElements(By.tagName("td"));
         cells.get(cells.size()-1).click();
-        assertNull(findUser(driver, "dentest", "password", "d@d.com"));
+        assertNull(findUser(driver, username, password, email));
     }
 
-    private void createUser(final WebDriverWait wait, final String username, final String password, final String email) {
-        WebElement createNewUser = wait.until(ExpectedConditions.
+    private static void createUser(final WebDriverWait wait, final String username, final String password, final String email) {
+        final WebElement createNewUser = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.linkText("Create new User")));
         createNewUser.click();
-        WebElement el = wait.until(ExpectedConditions.
+        final WebElement el = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.name("f1")));
         el.findElement(By.name("login")).sendKeys(username);
         el.findElement(By.name("pd")).sendKeys(password);
         el.findElement(By.name("email")).sendKeys(email);
-        WebElement submit = wait.until(ExpectedConditions.
+        final WebElement submitButton = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.name("submit")));
-        submit.click();
+        submitButton.click();
     }
 
-    private WebElement findUser(final WebDriver driver, final String ... args) {
-        List<WebElement> rows = driver.findElements(By.cssSelector("tr"));
-        for (WebElement row : rows) {
-            List<WebElement> cells = row.findElements(By.tagName("td"));
-            String username = cells.get(1).getText();
-            String password = cells.get(2).getText();
-            String email = cells.get(3).getText();
-            System.out.println(username);
+    private static WebElement findUser(final WebDriver webDriver, final String... args) {
+        final List<WebElement> rows = webDriver.findElements(By.cssSelector("tr"));
+        for (final WebElement row : rows) {
+            final List<WebElement> cells = row.findElements(By.tagName("td"));
+            final String username = cells.get(1).getText();
+            final String password = cells.get(2).getText();
+            final String email = cells.get(3).getText();
             if (username.equals(args[0]) && password.equals(args[1]) && email.equals(args[2])) {
                 // country found, check the document
                 return row;
