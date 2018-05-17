@@ -111,9 +111,11 @@ public class ApplicationTest {
         boolean found = false;
         for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
-            String text =  cells.get(1).getText();
-            System.out.println(text);
-            if (text.equals("dentest")) {
+            String username =  cells.get(1).getText();
+            String password =  cells.get(2).getText();
+            String email =  cells.get(3).getText();
+            System.out.println(username);
+            if (username.equals("dentest") && password.equals("password") && email.equals("d@d.com")) {
                 // country found, check the document
                 found = true;
             }
