@@ -93,6 +93,29 @@ public class ApplicationTest {
     }
 
     @Test
+    public void editUser() {
+        final WebDriverWait wait = new WebDriverWait(driver, 15);
+        final WebElement targetRow = findUser(driver, username, password, email);
+        final List<WebElement> cells = targetRow.findElements(By.tagName("td"));
+        cells.get(cells.size()-2).click();
+        final WebElement modal = targetRow.findElement(By.className("modal-dialog"));
+        final WebElement formGroup = modal.findElement(By.className("form-group"));
+        final List<WebElement> formControls = formGroup.findElements(By.className("form-control"));
+        for (final WebElement element:formControls) {
+            if (element.getAttribute("name").equals("roles")) {
+                element.clear();
+                element.sendKeys("ROLE_ADMIN");
+            }
+        }
+        final WebElement footer =  modal.findElement(By.className("modal-footer"));
+        final WebElement buttonSubmin = footer.findElement(By.id("submit"));
+        buttonSubmin.click();
+        final WebElement userRow = findUser(driver, username, password, email);
+        final WebElement roles = userRow.findElement(By.name("roles"));
+        assertEquals("ROLE_ADMIN", roles.getAttribute("value"));
+    }
+
+    @Test
     public void deleteUserTest() {
         final WebDriverWait wait = new WebDriverWait(driver, 15);
         final WebElement usersList = wait.until(ExpectedConditions.
