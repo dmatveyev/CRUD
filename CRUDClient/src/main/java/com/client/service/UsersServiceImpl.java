@@ -60,7 +60,7 @@ public class UsersServiceImpl implements UsersService {
 
 
     
-    /*asdfasdfsadfsdfsdfsadf*/
+    /*comment in master*/
     @Override
     @Transactional
     public void update(User user) {
