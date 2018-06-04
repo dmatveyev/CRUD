@@ -57,7 +57,7 @@ public class UsersServiceImpl implements UsersService {
         register(user);
         return user;
     }
-    /*ывапвыапывапвыап*/
+    /*comment in branch*/
     @Override
     @Transactional
     public void update(User user) {
