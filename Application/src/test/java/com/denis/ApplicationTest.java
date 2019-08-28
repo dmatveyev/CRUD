@@ -50,7 +50,7 @@ public class ApplicationTest {
 
     @BeforeClass
     public static void setUp() {
-        System.setProperty("webdriver.chrome.driver", "D:/Denis Matveev/chromedriver/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "D:/chromedriver/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://localhost:8080/login");
@@ -83,7 +83,7 @@ public class ApplicationTest {
 
     @Test
     public void createUserTest() throws InterruptedException {
-        final WebDriverWait wait = new WebDriverWait(driver, 15);
+        final WebDriverWait wait = new WebDriverWait(driver, TimeUnit.SECONDS.toSeconds(15));
         createUser(wait, username, password, email);
         final WebElement usersList = wait.until(ExpectedConditions.
                 visibilityOfElementLocated(By.linkText("Users list")));

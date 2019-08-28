@@ -25,4 +25,6 @@ public class UserController {
     protected String doPost() {
         return "user";
     }
+
+
 }

@@ -111,7 +111,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return (userRequest) -> {
             // Delegate to the default implementation for loading a user
             OidcUser oidcUser = delegate.loadUser(userRequest);
-            Map<String, Object> userAttr = oidcUser.getUserInfo().getClaims();
+            Map<String, Object> userAttr = oidcUser.getAttributes();
             OAuth2AccessToken accessToken = userRequest.getAccessToken();
             String email = (String) userAttr.get("email");
             Role role = userService.getUserRoles(email);
